@@ -1,8 +1,8 @@
-
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using  SmileProject.Databes.MainDbContext; 
+using SmileProject.Databes.MainDbContext;
 
 namespace DailySentencesProject.Controllers;
 
@@ -10,20 +10,18 @@ namespace DailySentencesProject.Controllers;
 [ApiController]
 public class MainController : ControllerBase
 {
-          public MainDbContext _dbContext ;
-          public MainController(MainDbContext dbContext)
-          {
-                    _dbContext = dbContext;
-          }
-          [HttpGet]
-          public IActionResult Test()
-          {
-                    var data = _dbContext.Sentences.Where(x => x.SentenceText != null).ToList();
-                    var result = new StringBuilder();
-                    foreach(var itheme in data)
-                    {
-                              result.Append($"{itheme} \n");
-                    }
-                    return Content(result.ToString());
-          }
+    public MainDbContext _dbContext;
+    public MainController(MainDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
+    [HttpGet]
+    public async Task<IActionResult> SendSentences()
+    {
+        var data = await _dbContext.Sentences.AsNoTracking().CountAsync(x => x.SentenceText != null);
+        var ranNumber = new Random();
+        var one = ranNumber.Next(1,data);
+        var text =  await _dbContext.Sentences.SingleOrDefaultAsync(x => x.Id == one);
+        return Content(text.SentenceText);
+    }
 }

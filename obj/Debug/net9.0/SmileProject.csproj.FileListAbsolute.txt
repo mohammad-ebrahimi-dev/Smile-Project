@@ -74,3 +74,4 @@ C:\Users\Mohammad\Desktop\Main Project\DailySentencesProject\SmileProject\obj\De
 C:\Users\Mohammad\Desktop\Main Project\DailySentencesProject\SmileProject\obj\Debug\net9.0\SmileProject.pdb
 C:\Users\Mohammad\Desktop\Main Project\DailySentencesProject\SmileProject\obj\Debug\net9.0\SmileProject.genruntimeconfig.cache
 C:\Users\Mohammad\Desktop\Main Project\DailySentencesProject\SmileProject\obj\Debug\net9.0\ref\SmileProject.dll
+C:\Users\Mohammad\Desktop\Main Project\DailySentencesProject\SmileProject\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
