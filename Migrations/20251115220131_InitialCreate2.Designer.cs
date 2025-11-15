@@ -12,8 +12,8 @@ using SmileProject.Databes.MainDbContext;
 namespace SmileProject.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20251114063219_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251115220131_InitialCreate2")]
+    partial class InitialCreate2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,31 @@ namespace SmileProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sentences");
+                });
+
+            modelBuilder.Entity("SmileProject.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

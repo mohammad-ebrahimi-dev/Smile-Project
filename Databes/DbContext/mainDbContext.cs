@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SmileProject.Databes.Entities;
+using SmileProject.Models;
 
 namespace SmileProject.Databes.MainDbContext
 {
@@ -10,5 +11,7 @@ namespace SmileProject.Databes.MainDbContext
 }
 
         public DbSet<Sentences> Sentences { get; set; }
+        public DbSet<User> Users { get; set; }
+
     }
 }

@@ -24,4 +24,5 @@ public class MainController : ControllerBase
         var text =  await _dbContext.Sentences.SingleOrDefaultAsync(x => x.Id == one);
         return Content(text.SentenceText);
     }
+    
 }
