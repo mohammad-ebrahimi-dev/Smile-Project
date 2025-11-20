@@ -12,8 +12,8 @@ using SmileProject.Databes.MainDbContext;
 namespace SmileProject.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20251115220131_InitialCreate2")]
-    partial class InitialCreate2
+    [Migration("20251120080834_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,61 @@ namespace SmileProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("UserSentence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("SendAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SentenceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SentenceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSentences");
+                });
+
+            modelBuilder.Entity("UserSentence", b =>
+                {
+                    b.HasOne("SmileProject.Databes.Entities.Sentences", "Sentence")
+                        .WithMany("UserSentences")
+                        .HasForeignKey("SentenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmileProject.Models.User", "User")
+                        .WithMany("UserSentences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sentence");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmileProject.Databes.Entities.Sentences", b =>
+                {
+                    b.Navigation("UserSentences");
+                });
+
+            modelBuilder.Entity("SmileProject.Models.User", b =>
+                {
+                    b.Navigation("UserSentences");
                 });
 #pragma warning restore 612, 618
         }

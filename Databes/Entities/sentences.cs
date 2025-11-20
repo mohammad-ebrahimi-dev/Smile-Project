@@ -6,4 +6,5 @@ public class Sentences
           public string SentenceText {get;set;}
           public DateTime CreatedDate {get;set;}
           public bool IsActive {get;set;}
+    public ICollection<UserSentence> UserSentences { get; set; }
 }
