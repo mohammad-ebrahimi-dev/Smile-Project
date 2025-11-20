@@ -11,38 +11,39 @@
   },
   {
     "ContainingType": "SmileProject.Controllers.UsersController",
-    "Method": "Post",
-    "RelativePath": "api/Users",
+    "Method": "Login",
+    "RelativePath": "api/Users/Login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
+        "Name": "dto",
+        "Type": "SmileProject.Models.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmileProject.Controllers.UsersController",
+    "Method": "Register",
+    "RelativePath": "api/Users/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Name": "FirstName",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "LastName",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Mobile",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "dto",
+        "Type": "SmileProject.Models.RegisterDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
     "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__1",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__3",
     "RelativePath": "weatherforecast",
     "HttpMethod": "GET",
     "IsController": false,
