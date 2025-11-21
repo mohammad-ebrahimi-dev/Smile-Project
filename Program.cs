@@ -52,7 +52,8 @@ var summaries = new[]
 {
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
-app.UseStaticFiles();
+app.UseDefaultFiles();
+app.UseStaticFiles(); 
 app.MapControllers();
 app.MapGet("/weatherforecast", () =>
 {

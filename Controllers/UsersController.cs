@@ -21,12 +21,12 @@ namespace SmileProject.Controllers
             _configuration = configuration;
         }
 
-        
+
         [HttpPost("Register")]
         public IActionResult Register([FromBody] RegisterDto dto)
         {
             if (_dbContext.Users.Any(u => u.Mobile == dto.Mobile))
-                return BadRequest("User already exists.");
+                return Ok("User already exists.");
 
             var user = new User
             {
@@ -39,33 +39,6 @@ namespace SmileProject.Controllers
             _dbContext.SaveChanges();
 
             return Ok(new { message = "User registered successfully!" });
-        }
-
-        [HttpPost("Login")]
-        public IActionResult Login([FromBody] LoginDto dto)
-        {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Mobile == dto.Mobile);
-            if (user == null)
-                return Unauthorized("Invalid mobile number.");
-
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("UserId", user.Id.ToString()),
-                    new Claim("Mobile", user.Mobile)
-                }),
-                Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new { Token = tokenString });
         }
     }
 }
