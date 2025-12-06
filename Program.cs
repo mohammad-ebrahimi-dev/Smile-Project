@@ -1,7 +1,9 @@
-using System.Text;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SmileProject.Services;
+using SmileProject.Services.DailyJobService;
+using System.Text;
 
 
 
@@ -14,7 +16,9 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<SentencesService>();
+builder.Services.AddSingleton<DailyJobService>();
+builder.Services.AddScoped<IResultService, ResultService>();
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
 builder.Services.AddAuthentication(options =>
@@ -36,6 +40,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 var app = builder.Build();
+var job = app.Services.GetRequiredService<DailyJobService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
