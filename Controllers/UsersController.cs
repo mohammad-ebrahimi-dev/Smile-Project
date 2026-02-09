@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmileProject.Databes.MainDbContext;
 using SmileProject.Models;
@@ -23,22 +24,32 @@ namespace SmileProject.Controllers
 
 
         [HttpPost("Register")]
-        public IActionResult Register([FromBody] RegisterDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            if (_dbContext.Users.Any(u => u.Mobile == dto.Mobile))
-                return Ok("User already exists.");
-
-            var user = new User
+            try
             {
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Mobile = dto.Mobile
-            };
+                //using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+                //await _dbContext.Database.CanConnectAsync(cts.Token);
 
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+                if (await _dbContext.Users.AsNoTracking().AnyAsync(u => u.Mobile == dto.Mobile))
+                    return Ok("User already exists.");
 
-            return Ok(new { message = "User registered successfully!" });
+                var user = new User
+                {
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    Mobile = dto.Mobile
+                };
+
+                _dbContext.Users.Add(user);
+                _dbContext.SaveChanges();
+
+                return Ok(new { message = "User registered successfully!" });
+            }
+            catch
+            {
+                return BadRequest(new { message = "Registeration proccess faild!" });
+            }
         }
     }
 }

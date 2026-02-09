@@ -59,6 +59,18 @@
           }
         }
       },
+      "IPE.SmsIr/1.2.7": {
+        "type": "package",
+        "dependencies": {
+          "System.Net.Http.Json": "6.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/IPE.SmsIrClient.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/IPE.SmsIrClient.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0": {
         "type": "package",
         "dependencies": {
@@ -866,6 +878,25 @@
           }
         }
       },
+      "System.Net.Http.Json/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.Net.Http.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.1/_._": {}
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "type": "package",
         "compile": {
@@ -1233,6 +1264,20 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "IPE.SmsIr/1.2.7": {
+      "sha512": "fOA9tnWuEU8V+4VmUgjHepLYByXlWT9R9gyZ4vmsKtGTqq0uzRMoipD3gkK3bvA8sJ8G8vivA+r8kUpwUBQQMg==",
+      "type": "package",
+      "path": "ipe.smsir/1.2.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "ipe.smsir.1.2.7.nupkg.sha512",
+        "ipe.smsir.nuspec",
+        "lib/netstandard2.0/IPE.SmsIrClient.dll",
+        "smsir-logo.png"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0": {
@@ -2540,6 +2585,31 @@
         "system.memory.data.nuspec"
       ]
     },
+    "System.Net.Http.Json/6.0.0": {
+      "sha512": "GbIV4y344kGOKjshAKCIDCMUTTW/hyUC42wV0Y5SXEdIbaKBIHBUxZ2MOe4/ZiV2svUAGfQ0c8LGtUExpOI8tg==",
+      "type": "package",
+      "path": "system.net.http.json/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.Net.Http.Json.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.Net.Http.Json.dll",
+        "lib/net461/System.Net.Http.Json.xml",
+        "lib/net5.0/System.Net.Http.Json.dll",
+        "lib/net5.0/System.Net.Http.Json.xml",
+        "lib/net6.0/System.Net.Http.Json.dll",
+        "lib/net6.0/System.Net.Http.Json.xml",
+        "lib/netstandard2.0/System.Net.Http.Json.dll",
+        "lib/netstandard2.0/System.Net.Http.Json.xml",
+        "system.net.http.json.6.0.0.nupkg.sha512",
+        "system.net.http.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "System.Numerics.Vectors/4.5.0": {
       "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
       "type": "package",
@@ -3513,6 +3583,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "IPE.SmsIr >= 1.2.7",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 9.0.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.10",
       "Microsoft.EntityFrameworkCore >= 7.0.10",
@@ -3522,23 +3593,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mohammad\\.nuget\\packages\\": {},
+    "D:\\Users\\ebrahimi.YAASIE.000\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohammad\\Desktop\\Main Project\\Smile\\Smile-Project\\SmileProject.csproj",
+      "projectUniqueName": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj",
       "projectName": "SmileProject",
-      "projectPath": "C:\\Users\\Mohammad\\Desktop\\Main Project\\Smile\\Smile-Project\\SmileProject.csproj",
-      "packagesPath": "C:\\Users\\Mohammad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohammad\\Desktop\\Main Project\\Smile\\Smile-Project\\obj\\",
+      "projectPath": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj",
+      "packagesPath": "D:\\Users\\ebrahimi.YAASIE.000\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Mohammad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "D:\\Users\\ebrahimi.YAASIE.000\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3547,7 +3618,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Users\\Mohammad\\source\\NuGet": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3566,12 +3637,16 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "IPE.SmsIr": {
+            "target": "Package",
+            "version": "[1.2.7, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[9.0.0, )"
@@ -3618,7 +3693,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
