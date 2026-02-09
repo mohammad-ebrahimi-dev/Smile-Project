@@ -88,7 +88,6 @@
             color: #888;
         }
 
-        /* پیام شیک و مودال */
         #message-box {
             position: fixed;
             top: 20px;
@@ -119,7 +118,7 @@
 
     <form id="signup-form">
         <h1>لبخند</h1>
-        <p>با لبخند هر روز پیام‌های امیدوارکننده برای شما ارسال می‌شود</p>
+        <p>با لبخند هر روز پیام‌های امیدوارکننده برای شما ارسال میشه</p>
 
         <input type="text" id="firstName" name="firstName" placeholder="نام" required />
         <input type="text" id="lastName" name="lastName" placeholder="نام خانوادگی" required />
@@ -129,7 +128,7 @@
     </form>
 
     <footer>
-        پروژه لبخند - CREATED BY Arta & Mohammad
+        CREATED BY Arta & Mohammad
     </footer>
 
     <div id="message-box"></div>
@@ -164,7 +163,7 @@
 
         form.addEventListener('submit', async e => {
             e.preventDefault();
-
+            showMessage('⏳ در حال ارسال اطلاعات...');
             const formData = {
                 firstName: form.firstName.value,
                 lastName: form.lastName.value,
@@ -193,6 +192,7 @@
                 console.error(error);
             }
         });
+
     </script>
 </body>
 </html>
