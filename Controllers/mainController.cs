@@ -1,9 +1,4 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using SmileProject.Databes.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmileProject.Databes.MainDbContext;
 
 namespace DailySentencesProject.Controllers;

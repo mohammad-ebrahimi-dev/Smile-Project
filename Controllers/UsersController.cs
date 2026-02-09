@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using SmileProject.Databes.MainDbContext;
 using SmileProject.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace SmileProject.Controllers
 {
@@ -28,11 +24,8 @@ namespace SmileProject.Controllers
         {
             try
             {
-                //using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-                //await _dbContext.Database.CanConnectAsync(cts.Token);
-
                 if (await _dbContext.Users.AsNoTracking().AnyAsync(u => u.Mobile == dto.Mobile))
-                    return Ok("User already exists.");
+                    return Ok("!کاربر مورد نظر از قبل وجود دارد");
 
                 var user = new User
                 {
@@ -44,11 +37,11 @@ namespace SmileProject.Controllers
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
 
-                return Ok(new { message = "User registered successfully!" });
+                return Ok(new { message = "ثبت نام با موفقیت انجام شد "});
             }
             catch
             {
-                return BadRequest(new { message = "Registeration proccess faild!" });
+                return BadRequest(new { message = "!ثبت نام با خطا مواجه شد " });
             }
         }
     }
