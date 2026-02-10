@@ -15,67 +15,36 @@ namespace SmileProject.Services
         }
         public async Task<ResultService> SendSentences()
         {
-            var users = await _dbContext.Users.Where(x => x.Id > 0).ToListAsync().ConfigureAwait(false);
-            var sentenceCount = await _dbContext.Sentences.AsNoTracking().CountAsync();
-            var random = new Random();
-
-            var usersWithoutNewSentence = new List<int>();
             try
             {
+                var users = _dbContext.Users.AsNoTracking().ToList();
+                var random = new Random();
                 foreach (var user in users)
                 {
-                    var sentCount = await _dbContext.UserSentences.AsNoTracking().CountAsync(us => us.UserId == user.Id);
+                    var number = random.Next(1, _dbContext.Sentences.Count());
+                    var sentence = await _dbContext.Sentences.AsNoTracking().FirstOrDefaultAsync(x => x.Id == number);
 
-                    if (sentCount >= sentenceCount)
-                    {
-                        usersWithoutNewSentence.Add(user.Id);
-                        Console.WriteLine($"User {user.Id} has received all sentences. Skipping.");
-                        continue;
-                    }
-
-                    int sentenceId;
-                    do
-                    {
-                        sentenceId = random.Next(1, sentenceCount + 1);
-                    }
-                    while (await _dbContext.UserSentences.AsNoTracking()
-                        .AnyAsync(us => us.UserId == user.Id && us.SentenceId == sentenceId));
-
-                    var chosenSentence = await _dbContext.Sentences.AsNoTracking()
-                        .FirstOrDefaultAsync(x => x.Id == sentenceId);
-
-                    if (chosenSentence == null || string.IsNullOrEmpty(user.Mobile))
-                    {
-                        Logs.LogToFile("Sending sentences failed: Null part detected.");
-                        return _result.Failed("Sending sentences failed (Null Part)");
-                    }
-
-                    SmsIr smsIr = new SmsIr("API_KEY_HERE");
-
-                    var bulkSendResult = await smsIr.BulkSendAsync(300000000000,
-                        chosenSentence.SentenceText,
-                        new string[] { user.Mobile });
-
+                    System.IO.File.AppendAllText(
+                        "Result.txt",
+                        $"{DateTime.Now} | {sentence.SentenceText} | {user.FirstName} {user.LastName} - {user.Id}{Environment.NewLine}"
+                    );
                     var saveInformationForUser = new UserSentence
                     {
                         SendAt = DateTime.Now,
-                        SentenceId = sentenceId,
+                        Sentence = sentence,
+                        SentenceId = number,
+                        User = user,
                         UserId = user.Id
                     };
 
                     await _dbContext.UserSentences.AddAsync(saveInformationForUser);
                 }
-
-                await _dbContext.SaveChangesAsync();
+                return _result.Success("Sentencess Sent successfully");
             }
             catch (Exception ex)
             {
-                Logs.LogToFile($"Sending sentences operation failed: {ex.Message}");
-                return _result.Failed("Sending sentences operation failed");
+                return _result.Failed("Sentencess could not send");
             }
-
-            Logs.LogToFile("Sending sentences succeeded.");
-            return _result.Success("Sending sentences successful");
         }
 
     }

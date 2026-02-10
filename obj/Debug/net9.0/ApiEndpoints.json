@@ -10,16 +10,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "DailySentencesProject.Controllers.MainController",
-    "Method": "SendSentences",
-    "RelativePath": "api/Main/Send",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SmileProject.Controllers.UsersController",
     "Method": "Register",
     "RelativePath": "api/Users/Register",

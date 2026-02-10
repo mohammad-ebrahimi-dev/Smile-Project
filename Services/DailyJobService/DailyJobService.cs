@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SmileProject.Services;
-
-namespace SmileProject.Services.DailyJobService
+﻿namespace SmileProject.Services.DailyJobService
 {
     public class DailyJobService
     {
@@ -16,14 +13,14 @@ namespace SmileProject.Services.DailyJobService
             // اجرای تایمر هر ساعت
             _timer = new Timer(TimerElapsed, null,
                 TimeSpan.Zero,
-                TimeSpan.FromHours(1));
+                TimeSpan.FromSeconds(1));
         }
 
         private void TimerElapsed(object state)
         {
             var now = DateTime.Now;
 
-            if (now.Hour == 8 && !_hasRunToday) // مثلا هر روز ساعت 8 صبح
+            if (now.Hour == 13 && !_hasRunToday) // مثلا هر روز ساعت 8 صبح
             {
                 _ = RunJobAsync();
                 _hasRunToday = true;

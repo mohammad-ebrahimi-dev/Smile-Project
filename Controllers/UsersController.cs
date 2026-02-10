@@ -25,7 +25,7 @@ namespace SmileProject.Controllers
             try
             {
                 if (await _dbContext.Users.AsNoTracking().AnyAsync(u => u.Mobile == dto.Mobile))
-                    return Ok("!کاربر مورد نظر از قبل وجود دارد");
+                    return Ok(new { message = "!کاربر مورد نظر از قبل وجود دارد" });
 
                 var user = new User
                 {
@@ -36,11 +36,18 @@ namespace SmileProject.Controllers
 
                 _dbContext.Users.Add(user);
                 _dbContext.SaveChanges();
-
-                return Ok(new { message = "ثبت نام با موفقیت انجام شد "});
+                System.IO.File.AppendAllText(
+                "Result.txt",
+                $"{DateTime.Now} | {user.FirstName} {user.LastName} | {user.Id} | Successfull Login{Environment.NewLine}"
+                );
+                return Ok(new { message = "ثبت نام با موفقیت انجام شد " });
             }
-            catch
+            catch (Exception ex)
             {
+                System.IO.File.AppendAllText(
+                "Result.txt",
+                $"{DateTime.Now} | {ex.Message}| Login Faild{Environment.NewLine}"
+                );
                 return BadRequest(new { message = "!ثبت نام با خطا مواجه شد " });
             }
         }
