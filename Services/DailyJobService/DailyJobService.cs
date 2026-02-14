@@ -10,7 +10,6 @@
         {
             _scopeFactory = scopeFactory;
 
-            // اجرای تایمر هر ساعت
             _timer = new Timer(TimerElapsed, null,
                 TimeSpan.Zero,
                 TimeSpan.FromSeconds(1));
@@ -20,7 +19,7 @@
         {
             var now = DateTime.Now;
 
-            if (now.Hour == 13 && !_hasRunToday) // مثلا هر روز ساعت 8 صبح
+            if (now.Hour == 16 && !_hasRunToday)
             {
                 _ = RunJobAsync();
                 _hasRunToday = true;

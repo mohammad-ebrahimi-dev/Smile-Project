@@ -34,20 +34,22 @@ namespace SmileProject.Controllers
                     Mobile = dto.Mobile
                 };
 
-                _dbContext.Users.Add(user);
-                _dbContext.SaveChanges();
-                System.IO.File.AppendAllText(
-                "Result.txt",
-                $"{DateTime.Now} | {user.FirstName} {user.LastName} | {user.Id} | Successfull Login{Environment.NewLine}"
-                );
+                await _dbContext.Users.AddAsync(user);
+                await _dbContext.SaveChangesAsync();
+                //var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Result.txt");
+                //await System.IO.File.AppendAllTextAsync(
+                //logPath,
+                //$"{DateTime.Now} | {user.FirstName} {user.LastName} | {user.Id} | Successfull Login{Environment.NewLine}"
+                //);
                 return Ok(new { message = "ثبت نام با موفقیت انجام شد " });
+
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText(
-                "Result.txt",
-                $"{DateTime.Now} | {ex.Message}| Login Faild{Environment.NewLine}"
-                );
+                //System.IO.File.AppendAllText(
+                //"Result.txt",
+                //$"{DateTime.Now} | {ex.Message}| Login Faild{Environment.NewLine}"
+                //);
                 return BadRequest(new { message = "!ثبت نام با خطا مواجه شد " });
             }
         }

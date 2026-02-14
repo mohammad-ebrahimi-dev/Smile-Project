@@ -24,10 +24,10 @@ namespace SmileProject.Services
                     var number = random.Next(1, _dbContext.Sentences.Count());
                     var sentence = await _dbContext.Sentences.AsNoTracking().FirstOrDefaultAsync(x => x.Id == number);
 
-                    System.IO.File.AppendAllText(
-                        "Result.txt",
-                        $"{DateTime.Now} | {sentence.SentenceText} | {user.FirstName} {user.LastName} - {user.Id}{Environment.NewLine}"
-                    );
+                    //System.IO.File.AppendAllText(
+                    //    "Result.txt",
+                    //    $"{DateTime.Now} | {sentence.SentenceText} | {user.FirstName} {user.LastName} - {user.Id}{Environment.NewLine}"
+                    //);
                     var saveInformationForUser = new UserSentence
                     {
                         SendAt = DateTime.Now,
@@ -36,7 +36,18 @@ namespace SmileProject.Services
                         User = user,
                         UserId = user.Id
                     };
+                    //NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d
+                    try
+                    {
+                        SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
+                        var bulkSendResult = await smsIr.BulkSendAsync(30002108015802,
+                        $"{sentence.SentenceText}",
+                        new string[] { $"{number}" });
+                    }
+                    catch
+                    {
 
+                    }
                     await _dbContext.UserSentences.AddAsync(saveInformationForUser);
                 }
                 return _result.Success("Sentencess Sent successfully");
