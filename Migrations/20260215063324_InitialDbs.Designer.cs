@@ -12,8 +12,8 @@ using SmileProject.Databes.MainDbContext;
 namespace SmileProject.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20251121043557_testDBs2")]
-    partial class testDBs2
+    [Migration("20260215063324_InitialDbs")]
+    partial class InitialDbs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,26 @@ namespace SmileProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SmileProject.Databes.Entities.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
 
             modelBuilder.Entity("SmileProject.Databes.Entities.Sentences", b =>
                 {

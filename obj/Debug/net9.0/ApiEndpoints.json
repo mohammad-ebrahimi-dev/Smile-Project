@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "SmileProject.Controllers.JobController",
+    "Method": "SendDaily",
+    "RelativePath": "api/jobs/send-daily-sentences",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DailySentencesProject.Controllers.MainController",
     "Method": "SendSentences",
     "RelativePath": "api/Main/Send",
@@ -24,24 +40,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__3",
-    "RelativePath": "weatherforecast",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "WeatherForecast[]",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]

@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmileProject.Services;
-using SmileProject.Services.DailyJobService;
 using System.Text;
 
 
@@ -17,7 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<SentencesService>();
-builder.Services.AddSingleton<DailyJobService>();
 builder.Services.AddScoped<IResultService, ResultService>();
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
@@ -40,7 +38,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 var app = builder.Build();
-var job = app.Services.GetRequiredService<DailyJobService>();
+//var job = app.Services.GetRequiredService<DailyJobService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -53,26 +51,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+
 app.UseDefaultFiles();
 app.UseStaticFiles(); 
 app.MapControllers();
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 app.Run();
 

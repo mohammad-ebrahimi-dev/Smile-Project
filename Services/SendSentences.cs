@@ -1,6 +1,9 @@
 ﻿using IPE.SmsIrClient;
 using Microsoft.EntityFrameworkCore;
+using SmileProject.Databes.Entities;
 using SmileProject.Databes.MainDbContext;
+using SmileProject.Models;
+using System.Text.Json;
 
 namespace SmileProject.Services
 {
@@ -42,14 +45,21 @@ namespace SmileProject.Services
                         SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
                         var bulkSendResult = await smsIr.BulkSendAsync(30002108015802,
                         $"{sentence.SentenceText}",
-                        new string[] { $"{number}" });
+                        new string[] { $"{user.Mobile}" });
+                        var log = new Log
+                        {
+                            Text = $"For user {user?.FirstName ?? ""} {user?.LastName ?? ""} with Id {user?.Id ?? 0} Message : {bulkSendResult?.Message ?? ""}"
+                        };
+                        await _dbContext.Logs.AddAsync(log);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        var logError = new Log { Text = $"Error sending SMS: {ex.Message}" };
+                        await _dbContext.Logs.AddAsync(logError);
                     }
                     await _dbContext.UserSentences.AddAsync(saveInformationForUser);
                 }
+                await _dbContext.SaveChangesAsync();
                 return _result.Success("Sentencess Sent successfully");
             }
             catch (Exception ex)
