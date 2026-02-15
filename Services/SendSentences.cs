@@ -20,7 +20,7 @@ namespace SmileProject.Services
         {
             try
             {
-                var users = _dbContext.Users.AsNoTracking().ToList();
+                var users = _dbContext.Users.AsNoTracking().Where(x => x.IsActive == true).ToList();
                 var random = new Random();
                 foreach (var user in users)
                 {
@@ -31,14 +31,6 @@ namespace SmileProject.Services
                     //    "Result.txt",
                     //    $"{DateTime.Now} | {sentence.SentenceText} | {user.FirstName} {user.LastName} - {user.Id}{Environment.NewLine}"
                     //);
-                    var saveInformationForUser = new UserSentence
-                    {
-                        SendAt = DateTime.Now,
-                        Sentence = sentence,
-                        SentenceId = number,
-                        User = user,
-                        UserId = user.Id
-                    };
                     //NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d
                     try
                     {
@@ -57,7 +49,7 @@ namespace SmileProject.Services
                         var logError = new Log { Text = $"Error sending SMS: {ex.Message}" };
                         await _dbContext.Logs.AddAsync(logError);
                     }
-                    await _dbContext.UserSentences.AddAsync(saveInformationForUser);
+                    await _dbContext.SaveChangesAsync();
                 }
                 await _dbContext.SaveChangesAsync();
                 return _result.Success("Sentencess Sent successfully");
