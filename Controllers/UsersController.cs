@@ -22,6 +22,15 @@ namespace SmileProject.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
+            if (dto.Mobile.Count() < 10 || dto.Mobile.Count() > 11)
+                return BadRequest(new { message = "!فرمت وارد شده درست نمیباشد" });
+
+            if (dto.Mobile[0] != '0')
+                dto.Mobile = '0' + dto.Mobile;
+
+            if (dto.Mobile[0] != '0' || dto.Mobile[1] != '9')
+                return BadRequest(new { message = "!فرمت وارد شده درست نمیباشد" });
+
             try
             {
                 if (await _dbContext.Users.AsNoTracking().AnyAsync(u => u.Mobile == dto.Mobile))

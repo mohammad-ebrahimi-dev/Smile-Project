@@ -122,7 +122,13 @@
 
         <input type="text" id="firstName" name="firstName" placeholder="نام" required />
         <input type="text" id="lastName" name="lastName" placeholder="نام خانوادگی" required />
-        <input type="tel" id="mobile" name="mobile" placeholder="شماره موبایل" pattern="[0-9]{10,15}" required />
+        <input type="tel"
+               id="mobile"
+               name="mobile"
+               placeholder="09120000000"
+               pattern="[0-9]{10,15}"
+               required />
+
 
         <button type="submit">ثبت نام</button>
     </form>
@@ -137,6 +143,8 @@
         const form = document.getElementById('signup-form');
         const inputs = form.querySelectorAll('input');
         const messageBox = document.getElementById('message-box');
+        const submitButton = form.querySelector('button'); // ← اینو اضافه کن
+
 
         // بارگذاری مقدارهای ذخیره شده در localStorage
         window.onload = () => {
@@ -163,7 +171,10 @@
 
         form.addEventListener('submit', async e => {
             e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'در حال ارسال...';
             showMessage('⏳ در حال ارسال اطلاعات...');
+
             const formData = {
                 firstName: form.firstName.value,
                 lastName: form.lastName.value,
@@ -173,9 +184,7 @@
             try {
                 const response = await fetch('/api/users/register', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
 
@@ -184,14 +193,16 @@
                 if (data.message) {
                     showMessage(data.message);
                 } else {
-                    showMessage(JSON.stringify(data));
+                    showMessage('پاسخ دریافت شد');
                 }
             } catch (error) {
-                //showMessage('خطا در ارسال اطلاعات');
-                showMessage(error);
+                showMessage('خطا در ارسال اطلاعات');
                 console.error(error);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'ثبت نام';
             }
-        });
+        }); // ← فقط این یک } و ) کافیه
 
     </script>
 </body>

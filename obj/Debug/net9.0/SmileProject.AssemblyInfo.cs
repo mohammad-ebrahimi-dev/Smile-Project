@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmileProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+303dd36a395de03375a58fdc75325b77ae2920ca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+649b22f0d2b1f3d786e9b8e708cb62708f0cc2a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmileProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmileProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
