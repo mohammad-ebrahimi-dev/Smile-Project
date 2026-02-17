@@ -1,6 +1,4 @@
-﻿using SmileProject.Models;
-
-namespace SmileProject.Services
+﻿namespace SmileProject.Services
 {
     public interface IResultService
     {
@@ -27,12 +25,12 @@ namespace SmileProject.Services
         public ResultService Failed(string content)
         {
             System.IO.File.AppendAllText("Result.txt",
-$"Result : {DateTime.Now} | Content = {content} | Failed Operation{Environment.NewLine}"
-);
+                $"Result : {DateTime.Now} | Content = {content} | Failed Operation{Environment.NewLine}"
+                );
             return new ResultService
             {
                 Content = content,
-                StatusCode = 500 
+                StatusCode = 500
             };
 
         }

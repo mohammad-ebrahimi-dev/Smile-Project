@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SmileProject.Databes.Entities;
 using SmileProject.Databes.MainDbContext;
-using SmileProject.Models;
-using System.Text.Json;
 
 namespace SmileProject.Services
 {

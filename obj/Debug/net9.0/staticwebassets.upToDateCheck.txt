@@ -1,2 +1,3 @@
+wwwroot\Smiling face icon on orange background.png
 wwwroot\index.html
 D:\Users\ebrahimi\Desktop\Project\Smile-Project\wwwroot\index.html

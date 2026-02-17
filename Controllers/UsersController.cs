@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using SmileProject.Databes.MainDbContext;
 using SmileProject.Models;
+using SmileProject.Databes.Entities;
+using SmileProject.Services;
 
 namespace SmileProject.Controllers
 {
@@ -50,6 +52,12 @@ namespace SmileProject.Controllers
                 //logPath,
                 //$"{DateTime.Now} | {user.FirstName} {user.LastName} | {user.Id} | Successfull Login{Environment.NewLine}"
                 //);
+                var log = new Log()
+                {
+                    Text = $"ثبت نام کاربر {user.FirstName} {user.LastName} با موبایل {user.Mobile}",
+                };
+                await _dbContext.Logs.AddAsync(log);
+                await _dbContext.SaveChangesAsync();
                 return Ok(new { message = "ثبت نام با موفقیت انجام شد " });
 
             }
@@ -59,6 +67,12 @@ namespace SmileProject.Controllers
                 //"Result.txt",
                 //$"{DateTime.Now} | {ex.Message}| Login Faild{Environment.NewLine}"
                 //);
+                var log = new Log()
+                {
+                    Text = ex.Message,
+                };
+                await _dbContext.Logs.AddAsync(log);
+                await _dbContext.SaveChangesAsync();
                 return BadRequest(new { message = "!ثبت نام با خطا مواجه شد " });
             }
         }

@@ -4,59 +4,57 @@ using Microsoft.IdentityModel.Tokens;
 using SmileProject.Services;
 using System.Text;
 
-
-
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddControllers();
-builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<SentencesService>();
-builder.Services.AddScoped<IResultService, ResultService>();
-var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
-
-builder.Services.AddAuthentication(options =>
+internal class Program
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+    private static void Main(string[] args)
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ClockSkew = TimeSpan.Zero
-    };
-});
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthorization();
-var app = builder.Build();
-//var job = app.Services.GetRequiredService<DailyJobService>();
+        // Add services to the container.
+        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+        builder.Services.AddOpenApi();
+        builder.Services.AddControllers();
+        //Database Configuration
+        builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
+        builder.Services.AddScoped<SentencesService>();
+        builder.Services.AddScoped<IResultService, ResultService>();
+        // Authentication
+        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.Zero
+            };
+        });
+
+        builder.Services.AddAuthorization();
+        var app = builder.Build();
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+        app.MapControllers();
+        app.Run();
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-
-
-
-app.UseDefaultFiles();
-app.UseStaticFiles(); 
-app.MapControllers();
-
-app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {

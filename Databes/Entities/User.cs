@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SmileProject.Databes.Entities;
-
-namespace SmileProject.Models
+﻿namespace SmileProject.Databes.Entities
 {
     public class User
     {
