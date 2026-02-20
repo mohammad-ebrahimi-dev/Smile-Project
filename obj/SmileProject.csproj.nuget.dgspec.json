@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj": {}
+    "C:\\Users\\Tara\\source\\repos\\Smile-Project\\SmileProject.csproj": {}
   },
   "projects": {
-    "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj": {
+    "C:\\Users\\Tara\\source\\repos\\Smile-Project\\SmileProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj",
+        "projectUniqueName": "C:\\Users\\Tara\\source\\repos\\Smile-Project\\SmileProject.csproj",
         "projectName": "SmileProject",
-        "projectPath": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\SmileProject.csproj",
-        "packagesPath": "D:\\Users\\ebrahimi.YAASIE.000\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\ebrahimi\\Desktop\\Project\\Smile-Project\\obj\\",
+        "projectPath": "C:\\Users\\Tara\\source\\repos\\Smile-Project\\SmileProject.csproj",
+        "packagesPath": "C:\\Users\\Tara\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tara\\source\\repos\\Smile-Project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "D:\\Users\\ebrahimi.YAASIE.000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tara\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -93,6 +93,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[9.0.11, 9.0.11]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[9.0.11, 9.0.11]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
