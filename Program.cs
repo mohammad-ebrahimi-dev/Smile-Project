@@ -17,7 +17,7 @@ internal class Program
         //Database Configuration
         builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+        //mN%5313do
         builder.Services.AddScoped<SentencesService>();
         builder.Services.AddScoped<IResultService, ResultService>();
         // Authentication
