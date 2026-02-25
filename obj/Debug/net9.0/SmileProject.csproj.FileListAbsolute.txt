@@ -317,3 +317,5 @@ D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\SmileProject.pd
 D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\SmileProject.genruntimeconfig.cache
 D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\ref\SmileProject.dll
 D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\compressed\p2t5pzswzz-{0}-v1c4ps7ork-v1c4ps7ork.gz
+D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\compressed\gz3vduj7zg-{0}-xn4ebiox63-xn4ebiox63.gz
+D:\Users\ebrahimi\Desktop\Project\Smile-Project\obj\Debug\net9.0\compressed\zrod2bai51-{0}-10xt7igd11-10xt7igd11.gz

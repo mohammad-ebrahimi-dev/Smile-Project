@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فرم ثبت نام لبخند</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            direction: rtl;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fdd6e0, #d0f0f5, #f8d6e0, #d0f7f5);
+            background-size: 400% 400%;
+            animation: gradientBG 25s ease infinite;
+        }
+
+        /* Animated Gradient */
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        /* SHAPES BACKGROUND */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            pointer-events: none;
+            transition: transform 0.2s ease;
+            z-index: 0
+        }
+
+        .shape1 {
+            width: 250px;
+            height: 250px;
+            background: #f78ca0;
+            left: 10%;
+            top: 10%
+        }
+
+        .shape2 {
+            width: 180px;
+            height: 180px;
+            background: #40c0c0;
+            left: 50%;
+            top: 20%
+        }
+
+        .shape3 {
+            width: 120px;
+            height: 120px;
+            background: #8a2be2;
+            left: 80%;
+            top: 15%
+        }
+
+        .shape4 {
+            width: 200px;
+            height: 200px;
+            background: #ffb6c1;
+            left: 30%;
+            top: 50%
+        }
+
+        .shape5 {
+            width: 150px;
+            height: 150px;
+            background: #20b2aa;
+            left: 65%;
+            top: 55%
+        }
+
+        /* PARTICLES CANVAS */
+        #particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* FORM STYLING */
+        form {
+            background: #fff;
+            padding: 45px 35px;
+            border-radius: 30px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+            form:hover {
+                transform: translateY(-3px);
+            }
+
+            form h1 {
+                font-family: 'Poppins', sans-serif;
+                font-size: 32px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 10px;
+                position: relative;
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+                form h1:hover {
+                    color: #f78ca0;
+                    transform: scale(1.05);
+                }
+
+                form h1::after {
+                    content: '';
+                    display: block;
+                    width: 70px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #f78ca0, #40c0c0);
+                    margin: 6px auto 15px;
+                    border-radius: 2px;
+                    transition: all 0.3s ease;
+                }
+
+                form h1:hover::after {
+                    width: 90px;
+                }
+
+            form p {
+                font-size: 15px;
+                color: #555;
+                margin-bottom: 30px;
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+                form p:hover {
+                    transform: translateY(-2px);
+                    color: #40c0c0;
+                }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .input-group input {
+                width: 100%;
+                padding: 14px 18px;
+                border-radius: 25px;
+                border: 1px solid #ccc;
+                background-color: #fafafa;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+
+                .input-group input:hover {
+                    border-color: #40c0c0;
+                    background-color: #f0fcfc;
+                }
+
+                .input-group input:focus {
+                    border-color: #f78ca0;
+                    background-color: #fff;
+                    outline: none;
+                    box-shadow: 0 0 6px rgba(247,140,160,0.2);
+                }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg,#f78ca0,#40c0c0);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+
+            button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+            }
+
+        footer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #8a2be2;
+            text-align: center;
+            cursor: default;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+            footer span.name:hover {
+                transform: scale(1.1);
+            }
+
+            footer span.tara {
+                color: #f78ca0;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            footer span.mohammad {
+                color: #40c0c0;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            footer span.rest {
+                color: #8a2be2;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            footer:hover span.tara {
+                color: #ffb6c1;
+                transform: scale(1.1);
+            }
+
+            footer:hover span.mohammad {
+                color: #20b2aa;
+                transform: scale(1.1);
+            }
+
+            footer:hover span.rest {
+                color: #a17be0;
+                transform: scale(1.05);
+            }
+
+        #message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 10;
+            max-width: 80%;
+            text-align: center;
+        }
+
+            #message-box.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+        @media (max-width: 400px) {
+            form {
+                width: 90%;
+                padding: 35px 25px;
+            }
+
+            input, button {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND SHAPES -->
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+    <div class="shape shape4"></div>
+    <div class="shape shape5"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- FORM اصلی -->
+    <form id="signup-form">
+        <h1>لبخند</h1>
+        <p>هر روز پیام‌های امیدبخش برای شما ارسال می‌شود</p>
+
+        <div class="input-group">
+            <input type="text" id="firstName" name="firstName" placeholder="نام" required />
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="lastName" name="lastName" placeholder="نام خانوادگی" required />
+        </div>
+
+        <div class="input-group">
+            <input type="tel" id="mobile" name="mobile" placeholder="09120000000" pattern="[0-9]{10,15}" required />
+        </div>
+
+        <button type="submit">ثبت نام</button>
+    </form>
+
+    <footer>
+        <span class="rest">CREATED BY </span>
+        <span class="name tara">Tara</span> &
+        <span class="name mohammad">Mohammad</span>
+    </footer>
+
+    <div id="message-box"></div>
+
+    <script>
+const parallax=document.querySelector('.parallax');
+const shapes=document.querySelectorAll('.shape');
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const particles=[];
+for(let i=0;i<100;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*3+1,
+    dx:(Math.random()-0.5)*0.5,
+    dy:(Math.random()-0.5)*0.5,
+    color:`rgba(255,255,255,${Math.random()})`
+  });
+}
+
+function animateParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.dx; p.y+=p.dy;
+    if(p.x>canvas.width)p.x=0;
+    if(p.x<0)p.x=canvas.width;
+    if(p.y>canvas.height)p.y=0;
+    if(p.y<0)p.y=canvas.height;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.color;
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// Parallax shapes on mouse
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-0.5)*30;
+  const y=(e.clientY/window.innerHeight-0.5)*30;
+  shapes.forEach((shape,i)=>{shape.style.transform=`translate(${x*(i+1)/10}px, ${y*(i+1)/10}px)`;});
+  document.body.style.backgroundPosition=`${50 + x/4}% ${50 + y/4}%`;
+});
+
+// ذخیره و بارگذاری input ها
+const form=document.getElementById('signup-form');
+const inputs=form.querySelectorAll('input');
+const messageBox=document.getElementById('message-box');
+const submitButton=form.querySelector('button');
+
+window.onload=()=>{inputs.forEach(input=>{const savedValue=localStorage.getItem(input.id); if(savedValue) input.value=savedValue})};
+inputs.forEach(input=>{input.addEventListener('input',()=>{localStorage.setItem(input.id,input.value)})});
+
+function showMessage(text,duration=3000){
+  messageBox.textContent=text;
+  messageBox.classList.add('show');
+  setTimeout(()=>{messageBox.classList.remove('show')},duration);
+}
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  submitButton.disabled=true;
+  submitButton.textContent='در حال ارسال...';
+  showMessage('⏳ در حال ارسال اطلاعات...');
+  const formData={firstName:form.firstName.value,lastName:form.lastName.value,mobile:form.mobile.value};
+  try{
+    const response=await fetch('/api/users/register',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(formData)
+    });
+    const data=await response.json();
+    showMessage(data.message || 'پاسخ دریافت شد');
+  }catch(error){
+    showMessage('خطا در ارسال اطلاعات');
+    console.error(error);
+  }finally{
+    submitButton.disabled=false;
+    submitButton.textContent='ثبت نام';
+  }
+});
+    </script>
+
+</body>
+</html>
