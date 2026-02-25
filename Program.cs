@@ -19,6 +19,7 @@ internal class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         //mN%5313do
         builder.Services.AddScoped<SentencesService>();
+        builder.Services.AddScoped<Authentication>();
         builder.Services.AddScoped<IResultService, ResultService>();
         // Authentication
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
