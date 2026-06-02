@@ -1,7 +1,0 @@
-wwwroot\index.html
-wwwroot\Smiling face icon on orange background.png
-wwwroot\index2.html
-wwwroot\index3.html
-D:\Users\ebrahimi\Desktop\Project\Smile-Project\wwwroot\index.html
-D:\Users\ebrahimi\Desktop\Project\Smile-Project\wwwroot\index2.html
-D:\Users\ebrahimi\Desktop\Project\Smile-Project\wwwroot\index3.html
