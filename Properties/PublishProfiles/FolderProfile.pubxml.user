@@ -2,7 +2,8 @@
 <!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
 <Project>
   <PropertyGroup>
-    <History>False|2026-02-14T08:44:05.9167715Z||;</History>
+    <History>True|2026-05-29T17:37:21.0650820Z||;True|2026-05-29T10:32:50.4256796-07:00||;True|2026-05-29T08:52:10.5453554-07:00||;True|2026-05-29T08:46:30.3319137-07:00||;True|2026-05-29T08:22:12.8955560-07:00||;True|2026-05-29T07:39:49.5204237-07:00||;True|2026-05-29T07:01:31.6600810-07:00||;True|2026-05-29T06:56:29.3389979-07:00||;True|2026-05-29T06:49:53.8941813-07:00||;True|2026-05-29T06:40:52.3597278-07:00||;True|2026-05-29T06:24:44.9105951-07:00||;True|2026-05-29T06:22:53.9251546-07:00||;True|2026-05-29T05:55:33.3943429-07:00||;True|2026-05-29T05:54:28.7452766-07:00||;False|2026-02-14T00:44:05.9167715-08:00||;</History>
     <LastFailureDetails />
+    <_PublishTargetUrl>C:\Users\A\Desktop\Project\Smile-Project-master\bin\Release\net9.0\publish\Host</_PublishTargetUrl>
   </PropertyGroup>
 </Project>

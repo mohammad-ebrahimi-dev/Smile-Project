@@ -12,9 +12,9 @@
         public int StatusCode { get; set; }
         public ResultService Success(string content)
         {
-            System.IO.File.AppendAllText("Result.txt",
-                $"Result : {DateTime.Now} | Content = {content} | Successfull Login{Environment.NewLine}"
-                );
+            //System.IO.File.AppendAllText("Result.txt",
+            //    $"Result : {DateTime.Now} | Content = {content} | Successfull Login{Environment.NewLine}"
+            //    );
             return new ResultService
             {
                 Content = content,
@@ -24,9 +24,9 @@
         }
         public ResultService Failed(string content)
         {
-            System.IO.File.AppendAllText("Result.txt",
+            /*System.IO.File.AppendAllText("Result.txt",
                 $"Result : {DateTime.Now} | Content = {content} | Failed Operation{Environment.NewLine}"
-                );
+                );*/
             return new ResultService
             {
                 Content = content,
@@ -37,9 +37,9 @@
 
         public ResultService NotFound(string content)
         {
-            ; System.IO.File.AppendAllText("Result.txt",
-                $"Result : {DateTime.Now} | Content = {content} | NotFound Operation{Environment.NewLine}"
-                );
+            //; System.IO.File.AppendAllText("Result.txt",
+            //    $"Result : {DateTime.Now} | Content = {content} | NotFound Operation{Environment.NewLine}"
+            //    );
             return new ResultService
             {
                 Content = content,

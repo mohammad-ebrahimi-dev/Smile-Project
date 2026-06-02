@@ -1,214 +1,508 @@
-﻿<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="فرم ثبت نام لبخند سایت Smiile، برای دریافت پیام‌های امیدبخش روزانه.">
-    <meta name="keywords" content="Smiile, لبخند, ثبت نام, پیام امیدبخش">
-    <meta name="author" content="Tara & Mohammad">
-    <meta name="robots" content="index, follow">
-    <title>فرم ثبت نام لبخند</title>
-    <link rel="icon" href="Smiling face icon on orange background.png" type="image/png">
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>لبخند | سکوی آرامش | نئومورفیک یشمی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            background: #f6f5f7;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: #cfebdd;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: default;
+        }
+
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(70, 130, 100, 0.25), rgba(46, 90, 67, 0.05));
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float linear infinite;
+            z-index: 0;
+            filter: blur(1px);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.3);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-20vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 1100px;
+            text-align: center;
+            perspective: 1200px;
+            padding: 1rem 0;
+        }
+
+        .neumorph-card {
+            background: #cfebdd;
+            border-radius: 80px;
+            padding: 3rem 2rem;
+            box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
+            transition: transform 0.2s ease-out, box-shadow 0.3s;
+            transform-style: preserve-3d;
+            border: none;
+        }
+
+        .floating-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #2c5a44, #1f784c, #e8a87c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            animation: textFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes textFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .wave-line {
+            width: 180px;
+            height: 4px;
+            background: linear-gradient(90deg, #2c5a44, #e8a87c, #5fbb9b);
+            margin: 0 auto 1.5rem;
+            border-radius: 4px;
+            animation: waveWidth 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveWidth {
+            0% {
+                width: 120px;
+                opacity: 0.6;
+            }
+
+            100% {
+                width: 220px;
+                opacity: 1;
+            }
+        }
+
+        .inspire-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2c5a44;
+            background: #cfebdd;
+            display: inline-block;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            margin: 1rem 0 2rem;
+            border-left: 2px solid #e8a87c;
+            border-right: 2px solid #e8a87c;
+            direction: ltr;
+            font-family: monospace;
+            box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
+        }
+
+        .typed-cursor {
+            color: #e8a87c;
+            font-weight: 300;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .icon-grid {
             display: flex;
             justify-content: center;
+            gap: 2rem;
+            margin: 2.5rem 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .icon-item {
+            background: #cfebdd;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            flex-direction: column;
-            font-family: 'Montserrat', sans-serif;
-            height: 100vh;
-            margin: 0;
-            position: relative;
-        }
-
-        form {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-            padding: 40px 50px;
-            width: 350px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        h1 {
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: #FF4B2B;
-        }
-
-        p {
-            font-size: 14px;
-            font-weight: 100;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        input {
-            background-color: #eee;
-            border: none;
-            border-radius: 20px;
-            padding: 12px 20px;
-            margin: 8px 0;
-            width: 100%;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-            input:focus {
-                outline: none;
-                border: 2px solid #FF4B2B;
-                background-color: #fff;
-            }
-
-        button {
-            border-radius: 20px;
-            border: 1px solid #FF4B2B;
-            background-color: #FF4B2B;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 12px 45px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            justify-content: center;
+            font-size: 2rem;
+            color: #2c5a44;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            animation: floatIcon 3s infinite alternate;
+            position: relative;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            text-decoration: none;
         }
 
-            button:hover {
-                background-color: #e03e1f;
+        .icon-item, .btn-aura {
+            cursor: pointer;
+        }
+
+        .icon-item {
+            pointer-events: auto;
+        }
+
+            .icon-item:hover {
+                transform: scale(1.08) translateY(-8px);
+                color: #e8a87c;
+                box-shadow: 12px 12px 20px #b0c7b9, -12px -12px 20px #eefff1;
             }
 
-        footer {
-            margin-top: 30px;
-            font-size: 13px;
-            color: #888;
+            .icon-item:active {
+                transform: scale(0.96);
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                color: #c97e5a;
+            }
+
+            .icon-item[data-label]:hover::after {
+                content: attr(data-label);
+                position: absolute;
+                bottom: -45px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #cfebdd;
+                box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
+                color: #2c5a44;
+                font-size: 0.8rem;
+                font-weight: 600;
+                padding: 5px 14px;
+                border-radius: 40px;
+                white-space: nowrap;
+                z-index: 20;
+                pointer-events: none;
+                backdrop-filter: blur(4px);
+            }
+
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(-6px);
+            }
         }
 
-        #message-box {
+        .btn-aura {
+            background: #cfebdd;
+            border: none;
+            padding: 14px 38px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f4d38;
+            transition: all 0.2s ease;
+            margin-top: 2rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+            .btn-aura:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+                gap: 16px;
+            }
+
+            .btn-aura:active {
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                transform: scale(0.97);
+            }
+
+        .toast-message {
             position: fixed;
-            top: 20px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 30px;
+            background: #cfebdd;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            color: #1f4d38;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            z-index: 1000;
             font-weight: 600;
-            font-size: 16px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            z-index: 10;
-            max-width: 80%;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            animation: fadeInUp 0.3s ease-out;
+            direction: rtl;
         }
 
-            #message-box.show {
-                opacity: 1;
-                pointer-events: auto;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
             }
+
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .sig {
+            position: fixed;
+            bottom: 18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #4b6e5b;
+            z-index: 20;
+            font-weight: 500;
+            letter-spacing: 1px;
+            background: rgba(207, 235, 221, 0.5);
+            backdrop-filter: blur(4px);
+            width: fit-content;
+            margin: 0 auto;
+            padding: 4px 16px;
+            border-radius: 60px;
+        }
+
+        @media (max-width: 640px) {
+            .neumorph-card {
+                padding: 2rem 1.2rem;
+            }
+
+            .icon-item {
+                width: 65px;
+                height: 65px;
+                font-size: 1.8rem;
+            }
+
+            .inspire-text {
+                font-size: 0.9rem;
+                padding: 0.4rem 1.2rem;
+            }
+
+            .btn-aura {
+                padding: 10px 24px;
+                font-size: 0.9rem;
+            }
+
+            .icon-item[data-label]:hover::after {
+                font-size: 0.7rem;
+                bottom: -38px;
+            }
+        }
+
+        .neumorph-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .icon-grid, .btn-aura {
+            position: relative;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
 
-    <form id="signup-form">
-        <h1>لبخند</h1>
-        <p>با لبخند هر روز پیام‌های امیدوارکننده برای شما ارسال میشه</p>
+    <div id="bubbleContainer"></div>
 
-        <input type="text" id="firstName" name="firstName" placeholder="نام" required />
-        <input type="text" id="lastName" name="lastName" placeholder="نام خانوادگی" required />
-        <input type="tel"
-               id="mobile"
-               name="mobile"
-               placeholder="09120000000"
-               pattern="[0-9]{10,15}"
-               required />
-
-
-        <button type="submit">ثبت نام</button>
-    </form>
-
-    <footer>
-        CREATED BY Tara & Mohammad
-    </footer>
-
-    <div id="message-box"></div>
+    <div class="hero">
+        <div class="neumorph-card" id="neumorphCard">
+            <h1 class="floating-title">لبخند</h1>
+            <div class="wave-line"></div>
+            <div class="inspire-text" id="dynamicMessage"></div>
+            <div class="icon-grid">
+                <a href="/Login.html" class="icon-item" data-label="ثبت نام" id="btnRegister"><i class="fas fa-user-plus"></i></a>
+                <a href="/AboutUs.html" class="icon-item" data-label="درباره ما" id="btnAbout"><i class="fas fa-info-circle"></i></a>
+                <a href="https://example.com/contact" class="icon-item" data-label="تماس با ما" id="btnContact"><i class="fas fa-envelope"></i></a>
+                <a href="https://example.com/dashboard" class="icon-item" data-label="داشبورد" id="btnDashboard"><i class="fas fa-chalkboard-user"></i></a>
+            </div>
+            <a href="javascript:void(0)" class="btn-aura" id="magicBtn">
+                <i class="fas fa-spa"></i> رها کن
+            </a>
+        </div>
+    </div>
+    <div class="sig">
+        ✦ Created by Tara & Mohammad ✦
+    </div>
 
     <script>
-        const form = document.getElementById('signup-form');
-        const inputs = form.querySelectorAll('input');
-        const messageBox = document.getElementById('message-box');
-        const submitButton = form.querySelector('button'); // ← اینو اضافه کن
+        // حباب‌های پویا
+        const bubbleContainer = document.getElementById('bubbleContainer');
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            const size = Math.random() * 90 + 25;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDuration = `${Math.random() * 10 + 7}s`;
+            bubble.style.animationDelay = `${Math.random() * 5}s`;
+            bubbleContainer.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 16000);
+        }
+        setInterval(createBubble, 700);
 
+        // تایپ‌رایتر
+        const messages = [
+            "زندگی همان لحظه‌ای است که در آن نفس می‌کشی.",
+            "سکوت را دوست بدار، حرف‌های روشن را از دل آن بشنو.",
+            "تو یک هنری، تکرار نشدنی.",
+            "آرامش را به مهمانی خود دعوت کن.",
+            "گاه تنها بودن بهتر از بودن با نابجاهاست.",
+            "لبخندت را قرض نده، مال خودت است.",
+            "هر روز یک شروع تازه است.",
+            "Let your soul breathe.",
+            "Stillness is where creativity lives.",
+            "مهربانی با خود، آغاز همه زیبایی‌هاست."
+        ];
+        let msgIndex = 0;
+        const typedEl = document.getElementById('dynamicMessage');
+        let currentText = "";
+        let isDeleting = false;
 
-        // بارگذاری مقدارهای ذخیره شده در localStorage
-        window.onload = () => {
-            inputs.forEach(input => {
-                const savedValue = localStorage.getItem(input.id);
-                if (savedValue) input.value = savedValue;
-            });
-        };
+        function typeEffect() {
+            const fullText = messages[msgIndex];
+            if (isDeleting) {
+                currentText = fullText.substring(0, currentText.length - 1);
+            } else {
+                currentText = fullText.substring(0, currentText.length + 1);
+            }
+            typedEl.innerHTML = `${currentText}<span class="typed-cursor">|</span>`;
+            if (!isDeleting && currentText === fullText) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2200);
+            } else if (isDeleting && currentText === "") {
+                isDeleting = false;
+                msgIndex = (msgIndex + 1) % messages.length;
+                setTimeout(typeEffect, 280);
+            } else {
+                let speed = isDeleting ? 45 : 85;
+                setTimeout(typeEffect, speed);
+            }
+        }
+        typeEffect();
 
-        // ذخیره هر بار تغییر مقدار inputs در localStorage
-        inputs.forEach(input => {
-            input.addEventListener('input', () => {
-                localStorage.setItem(input.id, input.value);
-            });
+        // جلوه سه‌بعدی
+        const card = document.getElementById('neumorphCard');
+        let ticking = false;
+
+        document.addEventListener('mousemove', (e) => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+                    card.style.transform = `rotateY(${xAxis}deg) rotateX(${-yAxis}deg) translateZ(5px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
-        function showMessage(text, duration = 3000) {
-            messageBox.textContent = text;
-            messageBox.classList.add('show');
+        document.body.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        });
+
+        // نمایش پیام برای لینک‌های نمونه
+        const sampleLinks = ['btnContact', 'btnDashboard'];
+        sampleLinks.forEach(linkId => {
+            const link = document.getElementById(linkId);
+            if (link && link.href.includes('example.com')) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showToast('🔗 این لینک نمایشی است. در نسخه نهایی مسیر واقعی قرار خواهد گرفت.');
+                });
+            }
+        });
+
+        // تابع نمایش پیام موقت
+        function showToast(message) {
+            const existingToast = document.querySelector('.toast-message');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
             setTimeout(() => {
-                messageBox.classList.remove('show');
-            }, duration);
+                toast.style.animation = 'fadeInUp 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
-            submitButton.disabled = true;
-            submitButton.textContent = 'در حال ارسال...';
-            showMessage('⏳ در حال ارسال اطلاعات...');
+        // دکمه رها کن - نمایش پیام خوش‌آمدگویی
+        const magicBtn = document.getElementById('magicBtn');
+        if (magicBtn) {
+            magicBtn.addEventListener('click', (e) => {
+                e.preventDefault();
 
-            const formData = {
-                firstName: form.firstName.value,
-                lastName: form.lastName.value,
-                mobile: form.mobile.value
-            };
+                const happyMessages = [
+                    "✨ خوشحالم که اینجایی! آرامش با تو معنا پیدا می‌کنه ✨",
+                    "🍃 نفس عمیق بکش... همه چی درست میشه، لبخند بزن 🌸",
+                    "💫 به جمع لبخندها خوش اومدی! امروز روز خوبیه برای شروع 💫",
+                    "🌼 با آرامش آشتی کن... سزاوار بهترین‌ها هستی 🌼",
+                    "😊 لبخندت رو به دیگران هدیه بده، دنیا بهش نیاز داره 😊",
+                    "🌟 تو نور خودت هستی، بدرخش... خوشحالم که اینجایی 🌟",
+                    "💚 آرامش یک انتخاب است، امروز آن را انتخاب کن 💚",
+                    "🕊️ رها کن... بگذار آرامش قلبت را پر کند 🕊️"
+                ];
 
-            try {
-                const response = await fetch('/api/users/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
+                const randomMessage = happyMessages[Math.floor(Math.random() * happyMessages.length)];
+                showToast(randomMessage);
+            });
+        }
+
+        // اطمینان از کلیک‌پذیری لینک‌های واقعی
+        const realLinks = ['btnRegister', 'btnAbout'];
+        realLinks.forEach(linkId => {
+            const link = document.getElementById(linkId);
+            if (link && !link.href.includes('example.com')) {
+                link.addEventListener('click', (e) => {
+                    console.log(`Navigating to: ${link.href}`);
                 });
-
-                const data = await response.json();
-
-                if (data.message) {
-                    showMessage(data.message);
-                } else {
-                    showMessage('پاسخ دریافت شد');
-                }
-            } catch (error) {
-                showMessage('خطا در ارسال اطلاعات');
-                console.error(error);
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = 'ثبت نام';
             }
-        }); // ← فقط این یک } و ) کافیه
-
+        });
     </script>
 </body>
 </html>

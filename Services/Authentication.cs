@@ -35,18 +35,11 @@ namespace SmileProject.Services
 
                 var user = new User
                 {
-                    FirstName = dto.FirstName,
-                    LastName = dto.LastName,
+                    Fullname = dto.Fullname,
                     Mobile = dto.Mobile
                 };
 
                 await _dbContext.Users.AddAsync(user);
-                await _dbContext.SaveChangesAsync();
-                var log = new Log()
-                {
-                    Text = $"ثبت نام کاربر {user.FirstName} {user.LastName} با موبایل {user.Mobile}",
-                };
-                await _dbContext.Logs.AddAsync(log);
                 await _dbContext.SaveChangesAsync();
                 return _resultService.Success("ثبت نام با موفقیت انجام شد ");
 

@@ -5,8 +5,9 @@ namespace SmileProject.Databes.MainDbContext
 {
     public class MainDbContext : DbContext
     {
-        public MainDbContext(DbContextOptions<MainDbContext> options)
-            : base(options) { }
+        public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Sentences> Sentences { get; set; }

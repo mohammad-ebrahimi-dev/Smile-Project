@@ -33,14 +33,10 @@ namespace SmileProject.Services
                     try
                     {
                         SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
-                        var bulkSendResult = await smsIr.BulkSendAsync(50003181890144,
+                        var bulkSendResult = await smsIr.BulkSendAsync(30008828888384,
                         $"{sentence.SentenceText}",
                         new string[] { $"{user.Mobile}" });
-                        var log = new Log
-                        {
-                            Text = $"For user {user?.FirstName ?? ""} {user?.LastName ?? ""} with Id {user?.Id ?? 0} Message : {bulkSendResult?.Message ?? ""}"
-                        };
-                        await _dbContext.Logs.AddAsync(log);
+
                     }
                     catch (Exception ex)
                     {

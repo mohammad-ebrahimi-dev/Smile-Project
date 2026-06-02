@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmileProject.Services;
 using System.Text;
-
+using Swashbuckle;
 internal class Program
 {
     private static void Main(string[] args)
@@ -14,12 +14,14 @@ internal class Program
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
         builder.Services.AddControllers();
+        builder.Services.AddSwaggerGen();
         //Database Configuration
         builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         //mN%5313do
         builder.Services.AddScoped<SentencesService>();
         builder.Services.AddScoped<Authentication>();
+        builder.Services.AddScoped<ShowUsers>();
         builder.Services.AddScoped<IResultService, ResultService>();
         // Authentication
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
@@ -44,9 +46,10 @@ internal class Program
         var app = builder.Build();
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
-        }
 
+        }
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
@@ -57,7 +60,4 @@ internal class Program
     }
 }
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

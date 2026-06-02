@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="فرم ثبت نام لبخند سایت Smiile، برای دریافت پیام‌های امیدبخش روزانه.">
+    <meta name="keywords" content="Smiile, لبخند, ثبت نام, پیام امیدبخش">
+    <meta name="author" content="Tara & Mohammad">
+    <meta name="robots" content="index, follow">
+    <title>فرم ثبت نام لبخند</title>
+    <link rel="icon" href="Smiling face icon on orange background.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f6f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            padding: 40px 50px;
+            width: 350px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #FF4B2B;
+        }
+
+        p {
+            font-size: 14px;
+            font-weight: 100;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        input {
+            background-color: #eee;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            width: 100%;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+            input:focus {
+                outline: none;
+                border: 2px solid #FF4B2B;
+                background-color: #fff;
+            }
+
+        button {
+            border-radius: 20px;
+            border: 1px solid #FF4B2B;
+            background-color: #FF4B2B;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 12px 45px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #e03e1f;
+            }
+
+        footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        #message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+            max-width: 80%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+            #message-box.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+    </style>
+</head>
+<body>
+
+    <form id="signup-form">
+        <h1>لبخند</h1>
+        <p>با لبخند هر روز پیام‌های امیدوارکننده برای شما ارسال میشه</p>
+
+        <input type="text" id="firstName" name="firstName" placeholder="نام" required />
+        <input type="text" id="lastName" name="lastName" placeholder="نام خانوادگی" required />
+        <input type="tel"
+               id="mobile"
+               name="mobile"
+               placeholder="09120000000"
+               pattern="[0-9]{10,15}"
+               required />
+
+
+        <button type="submit">ثبت نام</button>
+    </form>
+
+    <footer>
+        CREATED BY Tara & Mohammad
+    </footer>
+
+    <div id="message-box"></div>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const inputs = form.querySelectorAll('input');
+        const messageBox = document.getElementById('message-box');
+        const submitButton = form.querySelector('button'); // ← اینو اضافه کن
+
+
+        // بارگذاری مقدارهای ذخیره شده در localStorage
+        window.onload = () => {
+            inputs.forEach(input => {
+                const savedValue = localStorage.getItem(input.id);
+                if (savedValue) input.value = savedValue;
+            });
+        };
+
+        // ذخیره هر بار تغییر مقدار inputs در localStorage
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                localStorage.setItem(input.id, input.value);
+            });
+        });
+
+        function showMessage(text, duration = 3000) {
+            messageBox.textContent = text;
+            messageBox.classList.add('show');
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, duration);
+        }
+
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'در حال ارسال...';
+            showMessage('⏳ در حال ارسال اطلاعات...');
+
+            const formData = {
+                firstName: form.firstName.value,
+                lastName: form.lastName.value,
+                mobile: form.mobile.value
+            };
+
+            try {
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.message) {
+                    showMessage(data.message);
+                } else {
+                    showMessage('پاسخ دریافت شد');
+                }
+            } catch (error) {
+                showMessage('خطا در ارسال اطلاعات');
+                console.error(error);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'ثبت نام';
+            }
+        }); // ← فقط این یک } و ) کافیه
+
+    </script>
+</body>
+</html>
