@@ -95,7 +95,7 @@ namespace SmileProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = ex.ToString() });
+                return StatusCode(500, "ثبت نام با خطا مواجه شد ");
             }
         }
 
