@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>داشبورد | مدیریت لبخندهای روزانه</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            background: #cfebdd;
+            min-height: 100vh;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+            background: rgba(70, 130, 100, 0.1);
+            bottom: 20px;
+            left: 20px;
+            filter: blur(60px);
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
+            background: rgba(40, 100, 70, 0.08);
+            top: -80px;
+            right: -80px;
+            filter: blur(70px);
+            z-index: 0;
+        }
+
+        .smile-header {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            left: 25px;
+            background: #cfebdd;
+            border-radius: 80px;
+            padding: 12px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
+            z-index: 100;
+            transition: all 0.2s ease;
+        }
+
+        .logo-smile {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2c5a44;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-smile i {
+            color: #e8a87c;
+            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c5a44;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 50px;
+            transition: all 0.25s;
+            background: transparent;
+        }
+
+        .nav-links a:hover {
+            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+            color: #1d3e2f;
+        }
+
+        .nav-links a.active {
+            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+            color: #1d3e2f;
+            background: rgba(232, 168, 124, 0.08);
+        }
+
+        .dashboard-container {
+            max-width: 1300px;
+            margin: 120px auto 60px;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .dash-card {
+            background: #cfebdd;
+            border-radius: 64px;
+            padding: 48px 38px;
+            box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
+            animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            margin-bottom: 30px;
+        }
+
+        @keyframes softRise {
+            0% {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-greeting {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(46, 90, 67, 0.2);
+        }
+
+        .user-avatar {
+            background: linear-gradient(135deg, #2c5a44, #e8a87c);
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+        }
+
+        .user-avatar i {
+            font-size: 3rem;
+            color: #cfebdd;
+        }
+
+        .user-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1f4d38;
+        }
+
+        .user-phone {
+            color: #e8a87c;
+            font-weight: 600;
+            margin-top: 6px;
+            font-size: 0.95rem;
+            background: rgba(232, 168, 124, 0.15);
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1f4d38;
+            margin: 30px 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #e8a87c;
+            font-size: 1.7rem;
+        }
+
+        .wave-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #2c5a44, #e8a87c, #5fbb9b);
+            margin: 0 auto 30px;
+            border-radius: 4px;
+        }
+
+        .prefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            margin: 40px 0 30px;
+        }
+
+        .pref-card {
+            background: #cfebdd;
+            border-radius: 40px;
+            padding: 20px 24px;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .pref-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+        }
+
+        .pref-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .pref-icon {
+            background: rgba(44, 90, 68, 0.1);
+            width: 52px;
+            height: 52px;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #2c5a44;
+            box-shadow: inset 2px 2px 5px #b0c7b9, inset -2px -2px 5px #eefff1;
+        }
+
+        .pref-text h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f4d38;
+            margin-bottom: 4px;
+        }
+
+        .pref-text p {
+            font-size: 0.8rem;
+            color: #4b6e5b;
+            font-weight: 400;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 58px;
+            height: 30px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cfebdd;
+            box-shadow: inset 3px 3px 6px #b0c7b9, inset -3px -3px 6px #eefff1;
+            transition: 0.25s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            right: 3px;
+            bottom: 3px;
+            background-color: #e8a87c;
+            border-radius: 50%;
+            transition: 0.25s;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        input:checked+.slider {
+            background-color: #cfebdd;
+            box-shadow: inset 1px 1px 3px #b0c7b9, inset -1px -1px 3px #eefff1;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(-28px);
+            background-color: #2c5a44;
+        }
+
+        .save-btn {
+            background: #cfebdd;
+            border: none;
+            padding: 16px 38px;
+            border-radius: 60px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1f4d38;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px auto 10px;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            transition: all 0.2s;
+            width: fit-content;
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+            color: #e8a87c;
+            gap: 16px;
+        }
+
+        .save-btn:active {
+            transform: scale(0.97);
+            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+        }
+
+        .save-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f4d38;
+            color: #cfebdd;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            animation: fadeInUp 0.3s ease-out;
+            direction: rtl;
+            box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.1);
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .warning-box {
+            text-align: center;
+            background: rgba(232, 168, 124, 0.2);
+            border-radius: 60px;
+            padding: 24px;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+
+        .warning-box a {
+            color: #e8a87c;
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 2px solid #e8a87c;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #799b89;
+            margin-top: 30px;
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .smile-header {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+                padding: 10px 20px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .nav-links a span {
+                display: none;
+            }
+            .nav-links a i {
+                font-size: 1.3rem;
+            }
+            .dash-card {
+                padding: 32px 20px;
+            }
+            .prefs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .user-name {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="smile-header">
+        <div class="logo-smile">
+            <i class="fas fa-smile-beam"></i>
+            <span>Smile</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
+             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
+             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
+            <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
+            
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dash-card">
+            <div id="userInfoArea" class="user-greeting">
+                <div class="user-avatar">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <div class="user-name" id="greetingName">...</div>
+                <div class="user-phone" id="greetingPhone"></div>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-sliders-h"></i>
+                <span>نوع پیامک‌هایی که دوست داری دریافت کنی</span>
+            </div>
+            <div class="wave-line"></div>
+            <p style="text-align: center; color: #2c5a44; margin-bottom: 20px; font-weight: 500;">
+                🌸 هر روز صبح، متناسب با علایق‌ات یک پیام پرانرژی و آرامش‌بخش برات می‌فرستیم.<br>
+                گزینه‌های زیر رو فعال کن تا تجربه‌ی شخصی‌سازی‌شده داشته باشی.
+            </p>
+
+            <div class="prefs-grid" id="preferencesGrid"></div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="save-btn" id="savePreferencesBtn">
+                    <i class="fas fa-save"></i> ذخیره تنظیمات اس ام اس
+                </button>
+                <p style="font-size: 0.75rem; color: #799b89; margin-top: 20px; font-weight: 400;">
+                    <i class="fas fa-shield-alt"></i> تنظیمات شما در دستگاه ذخیره می‌شه و هر روز بر اساس سلیقه‌ات پیامک دریافت می‌کنی.
+                </p>
+            </div>
+        </div>
+        <div class="footer-note">
+            <i class="fas fa-copyright"></i> ۲۰۲۵ | لبخند روزانه، بر اساس انتخاب‌های تو
+        </div>
+    </div>
+
+    <script>
+        const PREFERENCES_LIST = [
+            { id: "motivation", title: "🔥 انگیزش و هدف", desc: "پیام‌های قدرتمند برای شروع پرانرژی", icon: "fas fa-rocket" },
+            { id: "calmness", title: "🍃 آرامش و ذهن", desc: "تکنیک‌های کوتاه برای کاهش استرس", icon: "fas fa-dove" },
+            { id: "smile", title: "😊 لبخند روزانه", desc: "جمله‌های شاد و لبخندساز", icon: "fas fa-smile-wink" },
+            { id: "selfcare", title: "💚 خودمراقبتی", desc: "یادآوری مهربانی با خودت", icon: "fas fa-hand-holding-heart" },
+            { id: "quotes", title: "📜 جملات ماندگار", desc: "نقل قول از بزرگان و اندیشمندان", icon: "fas fa-feather-alt" },
+            { id: "meditation", title: "🧘 مدیتیشن و تنفس", desc: "دعوت به سکوت و تمرکز", icon: "fas fa-spa" }
+        ];
+
+        const STORAGE_USER_KEY = "smile_user";
+
+        function getPrefKey(phoneNumber) {
+            return `smile_sms_prefs_${phoneNumber}`;
+        }
+
+        function showToast(message, isError = false) {
+            const existing = document.querySelector('.toast-message');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
+            toast.textContent = message;
+            if (isError) toast.style.backgroundColor = "#8b5a2b";
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'fadeInUp 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+
+        function getCurrentUser() {
+            const userRaw = localStorage.getItem(STORAGE_USER_KEY);
+            if (!userRaw) return null;
+            try {
+                return JSON.parse(userRaw);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function renderUserInfo() {
+            const user = getCurrentUser();
+            const nameEl = document.getElementById('greetingName');
+            const phoneEl = document.getElementById('greetingPhone');
+            if (!user || !user.fullname || !user.phone) {
+                nameEl.innerHTML = '✨ لبخندی عزیز✨';
+                phoneEl.innerHTML = 'لطفا ابتدا ثبت‌نام کنید';
+                const container = document.getElementById('userInfoArea');
+                const warningDiv = document.createElement('div');
+                warningDiv.className = 'warning-box';
+                warningDiv.innerHTML =
+                    `<i class="fas fa-heart-broken"></i> برای شخصی‌سازی پیامک‌ها، لطفاً <a href="Login.html">وارد حساب کاربری</a> شوید.
+            <br><small>بعد از ثبت‌نام، می‌توانی ۶ سلیقه‌ی دلخواه رو فعال کنی.</small>`;
+                const oldWarning = document.querySelector('.warning-box');
+                if (oldWarning) oldWarning.remove();
+                if (!document.querySelector('.warning-box')) {
+                    container.parentNode.insertBefore(warningDiv, container.nextSibling);
+                }
+                const saveBtn = document.getElementById('savePreferencesBtn');
+                if (saveBtn) saveBtn.disabled = true;
+                const allSwitches = document.querySelectorAll('.pref-switch');
+                allSwitches.forEach(sw => sw.disabled = true);
+                return false;
+            } else {
+                nameEl.innerHTML = `${user.fullname} عزیز 🌸`;
+                phoneEl.innerHTML = `<i class="fas fa-mobile-alt"></i> ${user.phone}`;
+                const oldWarning = document.querySelector('.warning-box');
+                if (oldWarning) oldWarning.remove();
+                const saveBtn = document.getElementById('savePreferencesBtn');
+                if (saveBtn) saveBtn.disabled = false;
+                return true;
+            }
+        }
+
+        function loadUserPreferences() {
+            const user = getCurrentUser();
+            if (!user || !user.phone) {
+                return null;
+            }
+            const savedPrefsRaw = localStorage.getItem(getPrefKey(user.phone));
+            if (!savedPrefsRaw) {
+                const defaultPrefs = {};
+                PREFERENCES_LIST.forEach(pref => {
+                    defaultPrefs[pref.id] = true;
+                });
+                return defaultPrefs;
+            }
+            try {
+                return JSON.parse(savedPrefsRaw);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function buildPreferencesUI() {
+            const grid = document.getElementById('preferencesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const currentPrefs = loadUserPreferences();
+            const userExists = getCurrentUser() !== null && getCurrentUser()?.phone;
+
+            PREFERENCES_LIST.forEach((pref, idx) => {
+                const isChecked = (currentPrefs && currentPrefs[pref.id] === true) ? true : (currentPrefs ? false :
+                    true);
+                const card = document.createElement('div');
+                card.className = 'pref-card';
+                card.innerHTML = `
+                <div class="pref-info">
+                    <div class="pref-icon"><i class="${pref.icon}"></i></div>
+                    <div class="pref-text">
+                        <h4>${pref.title}</h4>
+                        <p>${pref.desc}</p>
+                    </div>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" class="pref-switch" data-pref-id="${pref.id}" ${isChecked ? 'checked' : ''} ${!userExists ? 'disabled' : ''}>
+                    <span class="slider"></span>
+                </label>
+            `;
+                grid.appendChild(card);
+            });
+        }
+
+        function savePreferences() {
+            const user = getCurrentUser();
+            if (!user || !user.phone) {
+                showToast('❌ لطفاً ابتدا وارد حساب کاربری شوید', true);
+                return false;
+            }
+
+            const switches = document.querySelectorAll('.pref-switch');
+            const newPreferences = {};
+            switches.forEach(sw => {
+                const prefId = sw.getAttribute('data-pref-id');
+                newPreferences[prefId] = sw.checked;
+            });
+
+            const storageKey = getPrefKey(user.phone);
+            localStorage.setItem(storageKey, JSON.stringify(newPreferences));
+            showToast('✅ تنظیمات پیامک با موفقیت ذخیره شد! از فردا پیام‌های مورد علاقت رو دریافت می‌کنی 🌸');
+            return true;
+        }
+
+        function setActiveNavItem() {
+            const currentPath = window.location.pathname;
+            const navHome = document.getElementById('navHome');
+            const navAbout = document.getElementById('navAbout');
+            const navLogin = document.getElementById('navLogin');
+            const navDashboard = document.getElementById('navDashboard');
+            const allNav = [navHome, navAbout, navLogin, navDashboard];
+            allNav.forEach(item => item && item.classList.remove('active'));
+            if (currentPath.includes('Dashboard')) {
+                if (navDashboard) navDashboard.classList.add('active');
+            } else if (currentPath.includes('AboutUs')) {
+                if (navAbout) navAbout.classList.add('active');
+            } else if (currentPath.includes('Login')) {
+                if (navLogin) navLogin.classList.add('active');
+            } else {
+                if (navHome) navHome.classList.add('active');
+            }
+        }
+
+        function syncDashboard() {
+            const userExists = renderUserInfo();
+            buildPreferencesUI();
+            const saveBtn = document.getElementById('savePreferencesBtn');
+            if (saveBtn) {
+                if (!getCurrentUser() || !getCurrentUser().phone) {
+                    saveBtn.disabled = true;
+                } else {
+                    saveBtn.disabled = false;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveNavItem();
+            syncDashboard();
+
+            const saveBtn = document.getElementById('savePreferencesBtn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const user = getCurrentUser();
+                    if (!user || !user.phone) {
+                        showToast('⚠️ لطفاً ابتدا ثبت‌نام کنید تا تنظیمات ذخیره شود', true);
+                        setTimeout(() => {
+                            window.location.href = 'Login.html';
+                        }, 1500);
+                        return;
+                    }
+                    savePreferences();
+                });
+            }
+
+            window.addEventListener('storage', (e) => {
+                if (e.key === STORAGE_USER_KEY) {
+                    syncDashboard();
+                }
+            });
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+                syncDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
