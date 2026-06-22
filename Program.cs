@@ -22,6 +22,7 @@ internal class Program
         builder.Services.AddScoped<SentencesService>();
         builder.Services.AddScoped<Authentication>();
         builder.Services.AddScoped<ShowUsers>();
+        builder.Services.AddScoped<BoardService>();
         builder.Services.AddScoped<IResultService, ResultService>();
         // Authentication
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
