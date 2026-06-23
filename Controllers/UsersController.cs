@@ -17,13 +17,15 @@ namespace SmileProject.Controllers
         private readonly IConfiguration _configuration;
         private readonly Authentication _authentication;
         private readonly ShowUsers _showUsers;
+        private readonly RateLimitation _rateLimiter;
 
-        public UsersController(MainDbContext dbContext, IConfiguration configuration, Authentication authentication, ShowUsers showUsers)
+        public UsersController(MainDbContext dbContext, IConfiguration configuration, Authentication authentication, ShowUsers showUsers, RateLimitation rateLimiter)
         {
             _dbContext = dbContext;
             _configuration = configuration;
             _authentication = authentication;
             _showUsers = showUsers;
+            _rateLimiter = rateLimiter;
         }
 
 
@@ -51,6 +53,21 @@ namespace SmileProject.Controllers
         [HttpPost("Sign")]
         public async Task<IActionResult> Sign([FromBody] RegisterDto dto)
         {
+            //limitation 
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var key = $"{ip}:{dto.Mobile}";
+
+            var result = _rateLimiter.Check(key);
+
+            if (!result.allowed)
+            {
+                return StatusCode(429, new
+                {
+                    message = "⛔ خیلی سریع درخواست دادی",
+                    retryAfter = result.retryAfterSeconds
+                });
+            }
+            //end limitation 
             // 1. اعتبارسنجی خودکار مدل به جای دستی
             if (!ModelState.IsValid)
             {
@@ -95,7 +112,10 @@ namespace SmileProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "ثبت نام با خطا مواجه شد ");
+                return StatusCode(500, new
+                {
+                    message = "ثبت نام با خطا مواجه شد"
+                });
             }
         }
 
