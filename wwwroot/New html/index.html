@@ -1,11 +1,14 @@
+
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>لبخند | سکوی آرامش | نئومورفیک یشمی</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/avif" href="/images/s-letter-doodle-typography-vector_53876-174713.avif">
     <style>
         * {
             margin: 0;
@@ -14,7 +17,7 @@
         }
 
         body {
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             background: #cfebdd;
             overflow-x: hidden;
@@ -40,9 +43,11 @@
                 transform: translateY(100vh) scale(0.3);
                 opacity: 0;
             }
+
             20% {
                 opacity: 0.4;
             }
+
             100% {
                 transform: translateY(-20vh) scale(1.2);
                 opacity: 0;
@@ -71,21 +76,21 @@
 
         .floating-title {
             font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
+            font-weight: 800;
             background: linear-gradient(135deg, #2c5a44, #1f784c, #e8a87c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
             animation: textFloat 4s ease-in-out infinite;
         }
 
         @keyframes textFloat {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -105,6 +110,7 @@
                 width: 120px;
                 opacity: 0.6;
             }
+
             100% {
                 width: 220px;
                 opacity: 1;
@@ -123,7 +129,7 @@
             border-left: 2px solid #e8a87c;
             border-right: 2px solid #e8a87c;
             direction: ltr;
-            font-family: 'Vazirmatn', 'Inter', monospace;
+            font-family: monospace;
             box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
         }
 
@@ -134,10 +140,10 @@
         }
 
         @keyframes blink {
-            from,
-            to {
+            from, to {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0;
             }
@@ -169,8 +175,7 @@
             text-decoration: none;
         }
 
-        .icon-item,
-        .btn-aura {
+        .icon-item, .btn-aura {
             cursor: pointer;
         }
 
@@ -178,42 +183,42 @@
             pointer-events: auto;
         }
 
-        .icon-item:hover {
-            transform: scale(1.08) translateY(-8px);
-            color: #e8a87c;
-            box-shadow: 12px 12px 20px #b0c7b9, -12px -12px 20px #eefff1;
-        }
+            .icon-item:hover {
+                transform: scale(1.08) translateY(-8px);
+                color: #e8a87c;
+                box-shadow: 12px 12px 20px #b0c7b9, -12px -12px 20px #eefff1;
+            }
 
-        .icon-item:active {
-            transform: scale(0.96);
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            color: #c97e5a;
-        }
+            .icon-item:active {
+                transform: scale(0.96);
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                color: #c97e5a;
+            }
 
-        .icon-item[data-label]:hover::after {
-            content: attr(data-label);
-            position: absolute;
-            bottom: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #cfebdd;
-            box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
-            color: #2c5a44;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 5px 14px;
-            border-radius: 40px;
-            white-space: nowrap;
-            z-index: 20;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
-        }
+            .icon-item[data-label]:hover::after {
+                content: attr(data-label);
+                position: absolute;
+                bottom: -45px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #cfebdd;
+                box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
+                color: #2c5a44;
+                font-size: 0.8rem;
+                font-weight: 600;
+                padding: 5px 14px;
+                border-radius: 40px;
+                white-space: nowrap;
+                z-index: 20;
+                pointer-events: none;
+                backdrop-filter: blur(4px);
+            }
 
         @keyframes floatIcon {
             0% {
                 transform: translateY(0px);
             }
+
             100% {
                 transform: translateY(-6px);
             }
@@ -234,22 +239,21 @@
             align-items: center;
             gap: 12px;
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-decoration: none;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
-        .btn-aura:hover {
-            transform: translateY(-3px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-            gap: 16px;
-        }
+            .btn-aura:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+                gap: 16px;
+            }
 
-        .btn-aura:active {
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            transform: scale(0.97);
-        }
+            .btn-aura:active {
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                transform: scale(0.97);
+            }
 
         .toast-message {
             position: fixed;
@@ -268,7 +272,6 @@
             backdrop-filter: blur(4px);
             animation: fadeInUp 0.3s ease-out;
             direction: rtl;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
         @keyframes fadeInUp {
@@ -276,6 +279,7 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
@@ -299,26 +303,29 @@
             margin: 0 auto;
             padding: 4px 16px;
             border-radius: 60px;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
         @media (max-width: 640px) {
             .neumorph-card {
                 padding: 2rem 1.2rem;
             }
+
             .icon-item {
                 width: 65px;
                 height: 65px;
                 font-size: 1.8rem;
             }
+
             .inspire-text {
                 font-size: 0.9rem;
                 padding: 0.4rem 1.2rem;
             }
+
             .btn-aura {
                 padding: 10px 24px;
                 font-size: 0.9rem;
             }
+
             .icon-item[data-label]:hover::after {
                 font-size: 0.7rem;
                 bottom: -38px;
@@ -330,8 +337,7 @@
             will-change: transform;
         }
 
-        .icon-grid,
-        .btn-aura {
+        .icon-grid, .btn-aura {
             position: relative;
             z-index: 2;
         }
@@ -358,12 +364,12 @@
         </div>
     </div>
     <div class="sig">
-        ✦ Created by Tara &amp; Mohammad ✦
+        ✦ Created by Tara & Mohammad ✦
     </div>
 
     <script>
+        // حباب‌های پویا
         const bubbleContainer = document.getElementById('bubbleContainer');
-
         function createBubble() {
             const bubble = document.createElement('div');
             bubble.classList.add('bubble');
@@ -378,6 +384,7 @@
         }
         setInterval(createBubble, 700);
 
+        // تایپ‌رایتر
         const messages = [
             "لازم نیست همه چیز رو امروز حل کنی",
             "کافیه فقط یه قدم کوچیک برداری",
@@ -417,6 +424,7 @@
         }
         typeEffect();
 
+        // جلوه سه‌بعدی
         const card = document.getElementById('neumorphCard');
         let ticking = false;
 
@@ -436,6 +444,7 @@
             card.style.transform = 'rotateY(0deg) rotateX(0deg)';
         });
 
+        // نمایش پیام برای لینک‌های نمونه
         const sampleLinks = ['btnContact', 'btnDashboard'];
         sampleLinks.forEach(linkId => {
             const link = document.getElementById(linkId);
@@ -447,6 +456,7 @@
             }
         });
 
+        // تابع نمایش پیام موقت
         function showToast(message) {
             const existingToast = document.querySelector('.toast-message');
             if (existingToast) existingToast.remove();
@@ -462,6 +472,7 @@
             }, 3000);
         }
 
+        // دکمه رها کن - نمایش پیام خوش‌آمدگویی
         const magicBtn = document.getElementById('magicBtn');
         if (magicBtn) {
             magicBtn.addEventListener('click', (e) => {
@@ -485,6 +496,7 @@
             });
         }
 
+        // اطمینان از کلیک‌پذیری لینک‌های واقعی
         const realLinks = ['btnRegister', 'btnAbout'];
         realLinks.forEach(linkId => {
             const link = document.getElementById(linkId);
@@ -494,6 +506,51 @@
                 });
             }
         });
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const res = await fetch("/api/Board");
+                if (!res.ok) return;
+
+                const data = await res.text(); // چون داری Content ساده برمی‌گردونی
+
+                // اگر null یا empty بود هیچی نشون نده
+                if (!data || data.trim() === "") return;
+
+                showBanner(data);
+
+            } catch (err) {
+                console.log("Board API error:", err);
+            }
+        });
+
+        function showBanner(message) {
+            // اگر قبلاً بنر وجود داشت حذفش کن
+            const old = document.getElementById("boardBanner");
+            if (old) old.remove();
+
+            const banner = document.createElement("div");
+            banner.id = "boardBanner";
+            banner.textContent = message;
+
+            banner.style.position = "fixed";
+            banner.style.top = "20px";
+            banner.style.left = "50%";
+            banner.style.transform = "translateX(-50%)";
+            banner.style.background = "#2c5a44";
+            banner.style.color = "#fff";
+            banner.style.padding = "12px 24px";
+            banner.style.borderRadius = "40px";
+            banner.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+            banner.style.zIndex = "9999";
+            banner.style.fontWeight = "600";
+
+            document.body.appendChild(banner);
+
+            // اتومات حذف بعد چند ثانیه
+            setTimeout(() => {
+                banner.remove();
+            }, 5000);
+        }
     </script>
 </body>
 </html>

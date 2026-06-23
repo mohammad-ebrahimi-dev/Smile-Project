@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>درباره ما | Smile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/avif" href="/images/s-letter-doodle-typography-vector_53876-174713.avif">
     <style>
-       
         * {
             margin: 0;
             padding: 0;
@@ -15,38 +15,38 @@
         }
 
         body {
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: #cfebdd;
             min-height: 100vh;
             position: relative;
             padding: 20px;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
-            background: rgba(70, 130, 100, 0.1);
-            bottom: 20px;
-            left: 20px;
-            filter: blur(60px);
-            z-index: 0;
-        }
+            body::before {
+                content: '';
+                position: absolute;
+                width: 320px;
+                height: 320px;
+                border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+                background: rgba(70, 130, 100, 0.1);
+                bottom: 20px;
+                left: 20px;
+                filter: blur(60px);
+                z-index: 0;
+            }
 
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
-            background: rgba(40, 100, 70, 0.08);
-            top: -80px;
-            right: -80px;
-            filter: blur(70px);
-            z-index: 0;
-        }
+            body::after {
+                content: '';
+                position: absolute;
+                width: 400px;
+                height: 400px;
+                border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
+                background: rgba(40, 100, 70, 0.08);
+                top: -80px;
+                right: -80px;
+                filter: blur(70px);
+                z-index: 0;
+            }
 
         .smile-header {
             position: fixed;
@@ -74,40 +74,34 @@
             gap: 8px;
         }
 
-        .logo-smile i {
-            color: #e8a87c;
-            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
-        }
+            .logo-smile i {
+                color: #e8a87c;
+                text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
+            }
 
         .nav-links {
             display: flex;
             gap: 36px;
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #2c5a44;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: transparent;
-        }
+            .nav-links a {
+                text-decoration: none;
+                color: #2c5a44;
+                font-weight: 600;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 14px;
+                border-radius: 50px;
+                transition: all 0.25s;
+                background: transparent;
+            }
 
-        .nav-links a:hover {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-        }
-
-        .nav-links a.active {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-            background: rgba(232, 168, 124, 0.08);
-        }
+                .nav-links a:hover {
+                    box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+                    color: #1d3e2f;
+                }
 
         .container {
             max-width: 1200px;
@@ -117,6 +111,7 @@
             padding: 0 20px;
         }
 
+        /* کارت اصلی */
         .about-card {
             background: #cfebdd;
             border-radius: 64px;
@@ -131,18 +126,18 @@
             margin-bottom: 20px;
         }
 
-        .title-icon i {
-            font-size: 3rem;
-            color: #e8a87c;
-            filter: drop-shadow(2px 2px 4px #b8cfc3);
-            animation: bounce 2s ease-in-out infinite;
-        }
+            .title-icon i {
+                font-size: 3rem;
+                color: #e8a87c;
+                filter: drop-shadow(2px 2px 4px #b8cfc3);
+                animation: bounce 2s ease-in-out infinite;
+            }
 
         @keyframes bounce {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -154,7 +149,6 @@
             text-align: center;
             color: #1f4d38;
             margin-bottom: 16px;
-            letter-spacing: -0.5px;
         }
 
         .subtitle {
@@ -179,6 +173,7 @@
                 width: 100px;
                 opacity: 0.6;
             }
+
             100% {
                 width: 160px;
                 opacity: 1;
@@ -190,11 +185,11 @@
             max-width: 800px;
             margin: 0 auto 50px;
             color: #2c5a44;
-            line-height: 2;
-            font-size: 1.05rem;
-            font-weight: 400;
+            line-height: 1.8;
+            font-size: 1rem;
         }
 
+        /* تیم ما */
         .team-title {
             text-align: center;
             font-size: 1.8rem;
@@ -220,10 +215,10 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-        }
+            .team-member:hover {
+                transform: translateY(-10px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+            }
 
         .avatar {
             width: 150px;
@@ -237,11 +232,11 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .avatar i {
-            font-size: 5rem;
-            color: #cfebdd;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-        }
+            .avatar i {
+                font-size: 5rem;
+                color: #cfebdd;
+                filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+            }
 
         .avatar-img {
             width: 150px;
@@ -267,8 +262,8 @@
 
         .member-bio {
             color: #4b6e5b;
-            font-size: 0.9rem;
-            line-height: 1.7;
+            font-size: 0.85rem;
+            line-height: 1.6;
             margin-top: 16px;
         }
 
@@ -279,17 +274,18 @@
             margin-top: 20px;
         }
 
-        .social-links a {
-            color: #2c5a44;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-        }
+            .social-links a {
+                color: #2c5a44;
+                font-size: 1.2rem;
+                transition: all 0.2s;
+            }
 
-        .social-links a:hover {
-            color: #e8a87c;
-            transform: translateY(-3px);
-        }
+                .social-links a:hover {
+                    color: #e8a87c;
+                    transform: translateY(-3px);
+                }
 
+        /* ارزش‌های ما */
         .values-section {
             margin-top: 50px;
             padding-top: 30px;
@@ -312,25 +308,24 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .value-item i {
-            font-size: 2.5rem;
-            color: #e8a87c;
-            margin-bottom: 15px;
-        }
+            .value-item i {
+                font-size: 2.5rem;
+                color: #e8a87c;
+                margin-bottom: 15px;
+            }
 
-        .value-item h4 {
-            color: #1f4d38;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
+            .value-item h4 {
+                color: #1f4d38;
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
 
-        .value-item p {
-            color: #4b6e5b;
-            font-size: 0.85rem;
-            font-weight: 400;
-        }
+            .value-item p {
+                color: #4b6e5b;
+                font-size: 0.8rem;
+            }
 
+        /* دکمه بازگشت */
         .back-home {
             text-align: center;
             margin-top: 40px;
@@ -351,26 +346,24 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
             text-decoration: none;
             transition: all 0.2s;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-        }
+            .back-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+            }
 
-        .back-btn:active {
-            transform: scale(0.97);
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-        }
+            .back-btn:active {
+                transform: scale(0.97);
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+            }
 
         .footer-note {
             text-align: center;
             margin-top: 40px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #799b89;
-            font-weight: 400;
         }
 
         @keyframes softRise {
@@ -378,6 +371,7 @@
                 opacity: 0;
                 transform: translateY(35px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -391,21 +385,27 @@
                 left: 15px;
                 padding: 10px 20px;
             }
+
             .nav-links {
                 gap: 15px;
             }
-            .nav-links a span {
-                display: none;
-            }
-            .nav-links a i {
-                font-size: 1.3rem;
-            }
+
+                .nav-links a span {
+                    display: none;
+                }
+
+                .nav-links a i {
+                    font-size: 1.3rem;
+                }
+
             .about-card {
                 padding: 32px 24px;
             }
+
             .title {
                 font-size: 1.8rem;
             }
+
             .team-member {
                 width: 260px;
             }
@@ -420,11 +420,8 @@
             <span>Smile</span>
         </div>
         <div class="nav-links">
-            <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
-             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
-             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
-            <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
-            
+            <a href="index.html" id="navHome"><i class="fas fa-home"></i> <span>خانه</span></a>
+            <a href="/AboutUs.html" id="navAbout"><i class="fas fa-info-circle"></i> <span>درباره ما</span></a>            <a href="/Login.html" id="navLogin"><i class="fas fa-envelope-open-text"></i> <span>ثبت نام</span></a>
         </div>
     </div>
 
@@ -444,47 +441,50 @@
                 <p style="margin-top: 15px;">ماموریت ما اینه که یادآوری کنیم: تو تنها نیستی و همیشه دلی هست که برای تو می‌تپه. 🌸</p>
             </div>
 
+
             <div class="team-title">
-                <i class="fas fa-laptop-code"></i> سازندگان لبخند
+                <i class="fas fa-users"></i> سازندگان لبخند
             </div>
 
             <div class="team-grid">
+                <!-- عضو اول: تارا -->
                 <div class="team-member">
-                    <div class="avatar" style="background: linear-gradient(135deg, #2c5a44, #e8a87c); position: relative;">
-                        <i class="fas fa-user-astronaut"></i>
-                        <span style="position: absolute; top: 5px; right: 22px; font-size: 1.5rem;">🎀</span>
+                    <div class="avatar">
+                        <img src="images/tara.jpg" alt="تارا شفیعیان" class="avatar-img">
                     </div>
                     <div class="member-name">تارا شفیعیان</div>
-                    <div class="member-role">✨ برنامه نویس &amp; دعانویس کد</div>
+                    <div class="member-role">✨ برنامه نویس & دعانویس کد</div>
                     <div class="member-bio">
                         همون کسی که الان داره این صفحه رو طراحی کرده .
-                        کارم؟ بک و فرانت می‌زنم، دیتابیس چک می‌کنم و سعی میکنم لبخند رو لبت بیارم .
+                        کارم؟ بک و فرانت می‌زنم، دیتابیس چک می‌کنم ، ضربان قلبت رو تخمین میزنم .
                     </div>
                     <div class="social-links">
                         <a href="https://github.com/tarashafieyan"><i class="fab fa-github"></i></a>
-                        <a href="mailto:tarashafieyan33@gmail.com"><i class="fab fa-google"></i></a>
+                        <!--<a href="#"><i class="fab fa-linkedin-in"></i></a>-->
                         <a href="https://t.me/taaraa_sh"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
 
+                <!-- عضو دوم: محمد -->
                 <div class="team-member">
                     <div class="avatar">
-                        <i class="fas fa-user-astronaut"></i>
+                        <img src="images/mohammad.jpg" alt="محمد امین ابراهیمی" class="avatar-img">
                     </div>
                     <div class="member-name">محمد امین ابراهیمی</div>
-                    <div class="member-role">🚀 برنامه نویس &amp; جادوگر کد</div>
+                    <div class="member-role">🚀 برنامه نویس & جادوگر کد</div>
                     <div class="member-bio">
                         عاشق کدنویسی تمیز و حل مسئله. باور دارم تکنولوژی باید در خدمت آرامش انسان باشه.
                         وقتی کد نمی‌زنم، یا کتاب می‌خونم یا پیاده‌روی می‌کنم.
                     </div>
                     <div class="social-links">
                         <a href="https://github.com/mohammad-ebrahimi-dev"><i class="fab fa-github"></i></a>
-                        <a href="me7445950@gmail.com"><i class="fab fa-google"></i></a>
+                        <!--<a href="#"><i class="fab fa-linkedin-in"></i></a>-->
                         <a href="https://t.me/me7445950"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
             </div>
 
+            <!-- ارزش‌های ما -->
             <div class="values-section">
                 <div class="team-title" style="font-size: 1.5rem;">
                     <i class="fas fa-gem"></i> ارزش‌های ما
@@ -501,12 +501,12 @@
                         <p>حتی توی روزهای شلوغ</p>
                     </div>
                     <div class="value-item">
-                        <i class="fas fa-rainbow"></i>
+                        <i class="fas fa-sun"></i>
                         <h4>امید</h4>
                         <p>برای روشن ترین فردا</p>
                     </div>
                     <div class="value-item">
-                        <i class="far fa-smile"></i>
+                        <i class="fas fa-smile"></i>
                         <h4>لبخند</h4>
                         <p>ساده ولی ماندگار</p>
                     </div>
@@ -526,30 +526,27 @@
     </div>
 
     <script>
+        // جلوه شناور برای کارت‌ها
         const cards = document.querySelectorAll('.team-member');
         cards.forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.style.transition = 'all 0.3s ease';
             });
         });
-
         function setActiveNavItem() {
             const currentPath = window.location.pathname;
             const navHome = document.getElementById('navHome');
             const navAbout = document.getElementById('navAbout');
             const navLogin = document.getElementById('navLogin');
-            const navDashboard = document.getElementById('navDashboard');
 
-            [navHome, navAbout, navLogin, navDashboard].forEach(item => {
+            [navHome, navAbout, navLogin].forEach(item => {
                 if (item) item.classList.remove('active');
             });
 
-            if (currentPath.includes('AboutUs')) {
+            if (currentPath.includes('/AboutUs.html')) {
                 if (navAbout) navAbout.classList.add('active');
-            } else if (currentPath.includes('Login')) {
+            } else if (currentPath.includes('/Login.html')) {
                 if (navLogin) navLogin.classList.add('active');
-            } else if (currentPath.includes('Dashboard')) {
-                if (navDashboard) navDashboard.classList.add('active');
             } else {
                 if (navHome) navHome.classList.add('active');
             }
