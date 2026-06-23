@@ -494,6 +494,50 @@
                 });
             }
         });
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const res = await fetch("/api/Board");
+                if (!res.ok) return;
+
+                const data = await res.text();
+
+                if (!data || data.trim() === "") return;
+
+                showBanner(data);
+
+            } catch (err) {
+                console.log("Board API error:", err);
+            }
+        });
+        function showBanner(message) {
+            // اگر قبلاً بنر وجود داشت حذفش کن
+            const old = document.getElementById("boardBanner");
+            if (old) old.remove();
+
+            const banner = document.createElement("div");
+            banner.id = "boardBanner";
+            banner.textContent = message;
+
+            banner.style.position = "fixed";
+            banner.style.top = "20px";
+            banner.style.left = "50%";
+            banner.style.transform = "translateX(-50%)";
+            banner.style.background = "#2c5a44";
+            banner.style.color = "#fff";
+            banner.style.padding = "12px 24px";
+            banner.style.borderRadius = "40px";
+            banner.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+            banner.style.zIndex = "9999";
+            banner.style.fontWeight = "600";
+
+            document.body.appendChild(banner);
+
+            // اتومات حذف بعد چند ثانیه
+            setTimeout(() => {
+                banner.remove();
+            }, 5000);
+        }
+
     </script>
 </body>
 </html>
