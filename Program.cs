@@ -24,7 +24,9 @@ internal class Program
         builder.Services.AddScoped<ShowUsers>();
         builder.Services.AddSingleton<RateLimitation>();
         builder.Services.AddScoped<BoardService>();
+        builder.Services.AddScoped<OTP>();
         builder.Services.AddScoped<IResultService, ResultService>();
+        builder.Services.AddHttpContextAccessor();
         // Authentication
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
         builder.Services.AddAuthentication(options =>
