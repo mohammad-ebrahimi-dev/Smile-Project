@@ -39,7 +39,7 @@ namespace SmileProject.Services
                 //    new string[] { mobileNumber });
                 //if (bulkSendResult.Status == 1)
                 //{
-                    var newOtp = new Otp
+                /*    var newOtp = new Otp
                     {
                         Code = code.ToString(),
                         CreateDate = DateTime.Now,
@@ -47,6 +47,7 @@ namespace SmileProject.Services
                         IsUsed = false,
                         PhoneNumber = mobileNumber
                     };
+                */
                     await _dbContext.Otps.AddAsync(newOtp);
                     await _dbContext.SaveChangesAsync();
                     return _resultService.Success("SMS sent successfully");
