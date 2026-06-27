@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmileProject.Services;
+using System.Threading.Tasks;
 
 namespace SmileProject.Controllers
 {
@@ -8,22 +9,18 @@ namespace SmileProject.Controllers
     [ApiController]
     public class DashboardController : ControllerBase
     {
-        private readonly OTP _opt;
-        public DashboardController(OTP opt)
+        private readonly GetCategoryService _getCategoryService;
+
+        public DashboardController(GetCategoryService getCategoryService)
         {
-            _opt = opt;
-        }
-        [HttpGet("send")]
-        public async Task<IActionResult> SendOTP(string mobile)
-        {
-            var result = await _opt.Send(mobile);
-            return Ok(result.Content); 
+            _getCategoryService = getCategoryService;
         }
 
-        public async Task<IActionResult> CheckOTP(string mobile , string code)
+        [HttpGet]
+        public async Task<IActionResult> GetCategory()
         {
-            var result = await _opt.SignInUserAsync(code , mobile);
-            return Ok(result.Content);
+            var result = await _getCategoryService.Get();
+            return Ok(result);
         }
     }
 }

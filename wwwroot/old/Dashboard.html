@@ -457,7 +457,7 @@
 
             <div class="section-title">
                 <i class="fas fa-sliders-h"></i>
-                <span>نوع پیامک‌هایی که دوست داری دریافت کنی رو انتخاب کن</span>
+                <span>نوع پیامک‌هایی که دوست داری دریافت کنی</span>
             </div>
             <div class="wave-line"></div>
             <p style="text-align: center; color: #2c5a44; margin-bottom: 20px; font-weight: 500;">
@@ -482,10 +482,14 @@
     </div>
 
     <script>
-
-        const API_BASE_URL = "";
-
-        let PREFERENCES_LIST = [];
+        const PREFERENCES_LIST = [
+            { id: "motivation", title: "🔥 انگیزش و هدف", desc: "پیام‌های قدرتمند برای شروع پرانرژی", icon: "fas fa-rocket" },
+            { id: "calmness", title: "🍃 آرامش و ذهن", desc: "تکنیک‌های کوتاه برای کاهش استرس", icon: "fas fa-dove" },
+            { id: "smile", title: "😊 لبخند روزانه", desc: "جمله‌های شاد و لبخندساز", icon: "fas fa-smile-wink" },
+            { id: "selfcare", title: "💚 خودمراقبتی", desc: "یادآوری مهربانی با خودت", icon: "fas fa-hand-holding-heart" },
+            { id: "quotes", title: "📜 جملات ماندگار", desc: "نقل قول از بزرگان و اندیشمندان", icon: "fas fa-feather-alt" },
+            { id: "meditation", title: "🧘 مدیتیشن و تنفس", desc: "دعوت به سکوت و تمرکز", icon: "fas fa-spa" }
+        ];
 
         const STORAGE_USER_KEY = "smile_user";
 
@@ -494,190 +498,196 @@
         }
 
         function showToast(message, isError = false) {
-
-            const existing = document.querySelector(".toast-message");
+            const existing = document.querySelector('.toast-message');
             if (existing) existing.remove();
-
-            const toast = document.createElement("div");
-            toast.className = "toast-message";
+            const toast = document.createElement('div');
+            toast.className = 'toast-message';
             toast.textContent = message;
-
-            if (isError)
-                toast.style.background = "#b94a48";
-
+            if (isError) toast.style.backgroundColor = "#8b5a2b";
             document.body.appendChild(toast);
-
-            setTimeout(() => toast.remove(), 3000);
+            setTimeout(() => {
+                toast.style.animation = 'fadeInUp 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
         }
 
         function getCurrentUser() {
-
-            const data = localStorage.getItem(STORAGE_USER_KEY);
-
-            if (!data)
+            const userRaw = localStorage.getItem(STORAGE_USER_KEY);
+            if (!userRaw) return null;
+            try {
+                return JSON.parse(userRaw);
+            } catch (e) {
                 return null;
-
-            return JSON.parse(data);
+            }
         }
 
         function renderUserInfo() {
-
             const user = getCurrentUser();
-
-            const name = document.getElementById("greetingName");
-            const phone = document.getElementById("greetingPhone");
-
-            if (!user) {
-
-                name.innerHTML = "کاربر";
-                phone.innerHTML = "";
-
-                return;
+            const nameEl = document.getElementById('greetingName');
+            const phoneEl = document.getElementById('greetingPhone');
+            if (!user || !user.fullname || !user.phone) {
+                nameEl.innerHTML = '✨ لبخندی عزیز✨';
+                phoneEl.innerHTML = 'لطفا ابتدا ثبت‌نام کنید';
+                const container = document.getElementById('userInfoArea');
+                const warningDiv = document.createElement('div');
+                warningDiv.className = 'warning-box';
+                warningDiv.innerHTML =
+                    `<i class="fas fa-heart-broken"></i> برای شخصی‌سازی پیامک‌ها، لطفاً <a href="Login.html">وارد حساب کاربری</a> شوید.
+            <br><small>بعد از ثبت‌نام، می‌توانی ۶ سلیقه‌ی دلخواه رو فعال کنی.</small>`;
+                const oldWarning = document.querySelector('.warning-box');
+                if (oldWarning) oldWarning.remove();
+                if (!document.querySelector('.warning-box')) {
+                    container.parentNode.insertBefore(warningDiv, container.nextSibling);
+                }
+                const saveBtn = document.getElementById('savePreferencesBtn');
+                if (saveBtn) saveBtn.disabled = true;
+                const allSwitches = document.querySelectorAll('.pref-switch');
+                allSwitches.forEach(sw => sw.disabled = true);
+                return false;
+            } else {
+                nameEl.innerHTML = `${user.fullname} عزیز 🌸`;
+                phoneEl.innerHTML = `<i class="fas fa-mobile-alt"></i> ${user.phone}`;
+                const oldWarning = document.querySelector('.warning-box');
+                if (oldWarning) oldWarning.remove();
+                const saveBtn = document.getElementById('savePreferencesBtn');
+                if (saveBtn) saveBtn.disabled = false;
+                return true;
             }
-
-            name.innerHTML = user.fullname ?? "";
-            phone.innerHTML = user.phone ?? "";
-        }
-
-        async function loadCategories() {
-
-            try {
-
-                const response = await fetch(`${API_BASE_URL}/api/Dashboard`);
-
-                if (!response.ok)
-                    throw new Error();
-
-                const result = await response.json();
-                PREFERENCES_LIST = result.object;
-
-                buildPreferencesUI();
-            }
-            catch {
-
-                showToast("خطا در دریافت دسته بندی ها", true);
-
-            }
-
         }
 
         function loadUserPreferences() {
-
             const user = getCurrentUser();
-
-            if (!user)
-                return {};
-
-            const prefs = localStorage.getItem(getPrefKey(user.phone));
-
-            if (!prefs)
-                return {};
-
-            return JSON.parse(prefs);
+            if (!user || !user.phone) {
+                return null;
+            }
+            const savedPrefsRaw = localStorage.getItem(getPrefKey(user.phone));
+            if (!savedPrefsRaw) {
+                const defaultPrefs = {};
+                PREFERENCES_LIST.forEach(pref => {
+                    defaultPrefs[pref.id] = true;
+                });
+                return defaultPrefs;
+            }
+            try {
+                return JSON.parse(savedPrefsRaw);
+            } catch (e) {
+                return null;
+            }
         }
 
         function buildPreferencesUI() {
+            const grid = document.getElementById('preferencesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const currentPrefs = loadUserPreferences();
+            const userExists = getCurrentUser() !== null && getCurrentUser()?.phone;
 
-            const grid = document.getElementById("preferencesGrid");
-
-            grid.innerHTML = "";
-
-            PREFERENCES_LIST.forEach(category => {
-
-                grid.innerHTML += `
-        <div class="pref-card">
-
-            <div class="pref-info">
-
-                <div class="pref-icon">
-                    <i class="fas fa-tag"></i>
+            PREFERENCES_LIST.forEach((pref, idx) => {
+                const isChecked = (currentPrefs && currentPrefs[pref.id] === true) ? true : (currentPrefs ? false :
+                    true);
+                const card = document.createElement('div');
+                card.className = 'pref-card';
+                card.innerHTML = `
+                <div class="pref-info">
+                    <div class="pref-icon"><i class="${pref.icon}"></i></div>
+                    <div class="pref-text">
+                        <h4>${pref.title}</h4>
+                        <p>${pref.desc}</p>
+                    </div>
                 </div>
-
-                <div class="pref-text">
-                    <h4>${category}</h4>
-                </div>
-
-            </div>
-
-            <label class="switch">
-
-                <input
-                    type="checkbox"
-                    class="pref-switch"
-                    data-pref-id="${category}"
-                    checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-        `;
-
+                <label class="switch">
+                    <input type="checkbox" class="pref-switch" data-pref-id="${pref.id}" ${isChecked ? 'checked' : ''} ${!userExists ? 'disabled' : ''}>
+                    <span class="slider"></span>
+                </label>
+            `;
+                grid.appendChild(card);
             });
-
         }
 
         function savePreferences() {
-
             const user = getCurrentUser();
-
-            if (!user) {
-
-                showToast("ابتدا وارد شوید", true);
-
-                return;
+            if (!user || !user.phone) {
+                showToast('❌ لطفاً ابتدا وارد حساب کاربری شوید', true);
+                return false;
             }
 
-            const switches = document.querySelectorAll(".pref-switch");
-
-            let prefs = {};
-
-            switches.forEach(x => {
-
-                prefs[x.dataset.prefId] = x.checked;
-
+            const switches = document.querySelectorAll('.pref-switch');
+            const newPreferences = {};
+            switches.forEach(sw => {
+                const prefId = sw.getAttribute('data-pref-id');
+                newPreferences[prefId] = sw.checked;
             });
 
-            localStorage.setItem(
-                getPrefKey(user.phone),
-                JSON.stringify(prefs)
-            );
-
-            showToast("تنظیمات ذخیره شد");
-
+            const storageKey = getPrefKey(user.phone);
+            localStorage.setItem(storageKey, JSON.stringify(newPreferences));
+            showToast('✅ تنظیمات پیامک با موفقیت ذخیره شد! از فردا پیام‌های مورد علاقت رو دریافت می‌کنی 🌸');
+            return true;
         }
 
         function setActiveNavItem() {
-
-            document.querySelectorAll(".nav-links a")
-                .forEach(x => x.classList.remove("active"));
-
-            document.getElementById("navDashboard")
-                .classList.add("active");
-
+            const currentPath = window.location.pathname;
+            const navHome = document.getElementById('navHome');
+            const navAbout = document.getElementById('navAbout');
+            const navLogin = document.getElementById('navLogin');
+            const navDashboard = document.getElementById('navDashboard');
+            const allNav = [navHome, navAbout, navLogin, navDashboard];
+            allNav.forEach(item => item && item.classList.remove('active'));
+            if (currentPath.includes('Dashboard')) {
+                if (navDashboard) navDashboard.classList.add('active');
+            } else if (currentPath.includes('AboutUs')) {
+                if (navAbout) navAbout.classList.add('active');
+            } else if (currentPath.includes('Login')) {
+                if (navLogin) navLogin.classList.add('active');
+            } else {
+                if (navHome) navHome.classList.add('active');
+            }
         }
 
-        document.addEventListener("DOMContentLoaded", async () => {
+        function syncDashboard() {
+            const userExists = renderUserInfo();
+            buildPreferencesUI();
+            const saveBtn = document.getElementById('savePreferencesBtn');
+            if (saveBtn) {
+                if (!getCurrentUser() || !getCurrentUser().phone) {
+                    saveBtn.disabled = true;
+                } else {
+                    saveBtn.disabled = false;
+                }
+            }
+        }
 
+        document.addEventListener('DOMContentLoaded', () => {
             setActiveNavItem();
+            syncDashboard();
 
-            renderUserInfo();
-
-            await loadCategories();
-
-            document
-                .getElementById("savePreferencesBtn")
-                .addEventListener("click", function (e) {
-
+            const saveBtn = document.getElementById('savePreferencesBtn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-
+                    const user = getCurrentUser();
+                    if (!user || !user.phone) {
+                        showToast('⚠️ لطفاً ابتدا ثبت‌نام کنید تا تنظیمات ذخیره شود', true);
+                        setTimeout(() => {
+                            window.location.href = 'Login.html';
+                        }, 1500);
+                        return;
+                    }
                     savePreferences();
-
                 });
+            }
 
+            window.addEventListener('storage', (e) => {
+                if (e.key === STORAGE_USER_KEY) {
+                    syncDashboard();
+                }
+            });
         });
 
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+                syncDashboard();
+            }
+        });
     </script>
 </body>
 </html>

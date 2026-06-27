@@ -1,68 +1,95 @@
 ﻿using IPE.SmsIrClient;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using StackExchange.Redis;
+using Microsoft.EntityFrameworkCore;
+using SmileProject.Databes.Entities;
+using SmileProject.Databes.MainDbContext;
 using System.Security.Claims;
 
 namespace SmileProject.Services
 {
-    public class OTP
+    public class OTPService
     {
         private readonly Random _random = new();
         private readonly IResultService _resultService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IDatabase _db;
+        public MainDbContext _dbContext;
 
-        public OTP(IResultService resultService,
-                   IHttpContextAccessor httpContextAccessor)
+        public OTPService(IResultService resultService,
+                   IHttpContextAccessor httpContextAccessor,
+                   MainDbContext dbContext)
         {
             _resultService = resultService;
             _httpContextAccessor = httpContextAccessor;
-
-            var redis = ConnectionMultiplexer.Connect("localhost:6379");
-            _db = redis.GetDatabase();
+            _dbContext = dbContext;
         }
 
         // SEND OTP
         public async Task<ResultService> Send(string mobileNumber)
         {
-            var code = _random.Next(1000, 9999);
-
+            var code = _random.Next(100000, 1000000);
             SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
+            try
+            {
+                //var bulkSendResult = await smsIr.BulkSendAsync(
+                //    30008828888384,
+                //    $@"به لبخند خوش آمدید
+                //کد تأیید شما: {code}
+                //این کد را در اختیار دیگران قرار ندهید.",
+                //    new string[] { mobileNumber });
+                //if (bulkSendResult.Status == 1)
+                //{
+                    var newOtp = new Otp
+                    {
+                        Code = code.ToString(),
+                        CreateDate = DateTime.Now,
+                        ExpiresAt = DateTime.Now.AddMinutes(2),
+                        IsUsed = false,
+                        PhoneNumber = mobileNumber
+                    };
+                    await _dbContext.Otps.AddAsync(newOtp);
+                    await _dbContext.SaveChangesAsync();
+                    return _resultService.Success("SMS sent successfully");
 
-            var bulkSendResult = await smsIr.BulkSendAsync(
-                30008828888384,
-                $"کد تایید شما : {code}",
-                new string[] { mobileNumber });
+                //}
+                //else
+                //{
+                //    return _resultService.Failed("SMS has an error");
 
+                //}
+            }
+            catch (Exception ex)
+            {
+                return _resultService.Failed("SMS has an error");
 
+            }
 
-            await _db.StringSetAsync(
-                $"otp:{mobileNumber}",
-                code.ToString(),
-                TimeSpan.FromMinutes(2)
-            );
-
-            return _resultService.Success("SMS sent successfully");
         }
 
         // VERIFY + LOGIN
         public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber)
         {
-            var savedCode = await _db.StringGetAsync($"otp:{mobileNumber}");
+            var otp = await _dbContext.Otps
+                .FirstOrDefaultAsync(x =>
+                    x.PhoneNumber == mobileNumber &&
+                    x.Code == otpCode &&
+                    !x.IsUsed);
 
-            if (savedCode.IsNullOrEmpty)
-                return _resultService.Failed("کد منقضی شده است");
+            if (otp == null)
+                return _resultService.Failed("کد تأیید صحیح نیست.");
 
-            if (savedCode != otpCode)
-                return _resultService.Failed("کد اشتباه است");
+            if (otp.ExpiresAt <= DateTime.Now)
+                return _resultService.Failed("کد تأیید منقضی شده است.");
+
+            otp.IsUsed = true;
+            await _dbContext.SaveChangesAsync();
 
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, mobileNumber),
-                new Claim(ClaimTypes.MobilePhone, mobileNumber),
-                new Claim(ClaimTypes.Role, Role.User.ToString())
-            };
+    {
+        new Claim(ClaimTypes.NameIdentifier, mobileNumber),
+        new Claim(ClaimTypes.MobilePhone, mobileNumber),
+        new Claim(ClaimTypes.Role, Role.User.ToString())
+    };
 
             var identity = new ClaimsIdentity(
                 claims,
@@ -79,11 +106,8 @@ namespace SmileProject.Services
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
                 });
 
-            await _db.KeyDeleteAsync($"otp:{mobileNumber}");
-
-            return _resultService.Success("Login successful");
+            return _resultService.Success("ورود با موفقیت انجام شد.");
         }
-
         public enum Role
         {
             User,

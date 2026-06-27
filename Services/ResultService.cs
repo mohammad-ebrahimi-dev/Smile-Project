@@ -1,8 +1,10 @@
-﻿namespace SmileProject.Services
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SmileProject.Services
 {
     public interface IResultService
     {
-        ResultService Success(string content);
+        ResultService Success(string content , object? obj = null);
         ResultService Failed(string content);
         ResultService NotFound(string content);
     }
@@ -10,7 +12,8 @@
     {
         public string Content { get; set; }
         public int StatusCode { get; set; }
-        public ResultService Success(string content)
+        public object? Object { get; set; }
+        public ResultService Success(string content , object? obj = null)
         {
             //System.IO.File.AppendAllText("Result.txt",
             //    $"Result : {DateTime.Now} | Content = {content} | Successfull Login{Environment.NewLine}"
@@ -18,7 +21,8 @@
             return new ResultService
             {
                 Content = content,
-                StatusCode = 200
+                StatusCode = 200,
+                Object = obj
             };
 
         }

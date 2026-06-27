@@ -2,507 +2,147 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Smile | ثبت نام</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile | تایید کد</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        /* استایل‌ها مثل قبل */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
             background: #cfebdd;
-            min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            position: relative;
-            padding: 20px;
+            align-items: center;
+            height: 100vh;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
-            background: rgba(70, 130, 100, 0.1);
-            bottom: 20px;
-            left: 20px;
-            filter: blur(60px);
-            z-index: 0;
-        }
-
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
-            background: rgba(40, 100, 70, 0.08);
-            top: -80px;
-            right: -80px;
-            filter: blur(70px);
-            z-index: 0;
-        }
-
-        .smile-header {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            left: 25px;
+        .card {
             background: #cfebdd;
-            border-radius: 80px;
-            padding: 12px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
-            z-index: 100;
-            transition: all 0.2s ease;
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 10px 10px 25px #b0c7b9, -10px -10px 25px #eefff1;
+            width: 350px;
+            text-align: center;
         }
 
-        .logo-smile {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #2c5a44;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-smile i {
-            color: #e8a87c;
-            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 36px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2c5a44;
-            font-weight: 600;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: transparent;
-        }
-
-        .nav-links a:hover {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-        }
-
-        .nav-links a.active {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-            background: rgba(232, 168, 124, 0.08);
-        }
-
-        .login-container {
+        .input {
             width: 100%;
-            max-width: 500px;
-            margin: 100px auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .smile-card {
-            background: #cfebdd;
-            border-radius: 64px;
-            padding: 48px 38px;
-            box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
-            transition: all 0.2s;
-            animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
-        .title-icon {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .title-icon i {
-            font-size: 3rem;
-            color: #e8a87c;
-            filter: drop-shadow(2px 2px 4px #b8cfc3);
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .title {
-            font-size: 2rem;
-            font-weight: 800;
-            text-align: center;
-            color: #1f4d38;
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #4b6e5b;
-            font-size: 0.85rem;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #2c5a44;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding-right: 10px;
-        }
-
-        .input-icon-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-icon-wrapper i {
-            position: absolute;
-            right: 20px;
-            color: #e8a87c;
-            font-size: 1.1rem;
-            pointer-events: none;
-        }
-
-        .smile-input {
-            background: #cfebdd;
-            box-shadow: inset 5px 5px 12px #b0c7b9, inset -5px -5px 12px #eefff1;
+            padding: 15px;
+            border-radius: 30px;
             border: none;
-            border-radius: 60px;
-            padding: 15px 48px 15px 22px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            box-shadow: inset 5px 5px 10px #b0c7b9, inset -5px -5px 10px #eefff1;
+        }
+
+        .btn {
+            margin-top: 20px;
             width: 100%;
-            font-size: 0.95rem;
-            color: #1d3e2f;
-            font-weight: 500;
-            transition: all 0.2s;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
-        }
-
-        .smile-input:focus {
-            outline: none;
-            box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
-            color: #0e2c1f;
-        }
-
-        .smile-input::placeholder {
-            color: #799b89;
-            font-weight: 400;
-        }
-
-        .login-btn-smile {
-            width: 100%;
-            background: #cfebdd;
+            padding: 15px;
             border: none;
-            padding: 16px;
-            border-radius: 60px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1f4d38;
+            border-radius: 30px;
+            background: #2c5a44;
+            color: white;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.15s;
-            margin-top: 18px;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .login-btn-smile:active {
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            transform: scale(0.98);
-        }
-
-        .users-stats {
-            margin-top: 32px;
-            text-align: center;
-            padding-top: 24px;
-            border-top: 2px solid rgba(46, 90, 67, 0.2);
-        }
-
-        .stats-badge-smile {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: #cfebdd;
-            padding: 10px 24px;
-            border-radius: 80px;
-            box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
-            font-weight: 500;
-        }
-
-        .user-count-number {
-            font-weight: 800;
-            font-size: 1.7rem;
-            color: #e8a87c;
-            letter-spacing: 1px;
-            margin: 0 6px;
-        }
-
-        .extra-links {
-            display: flex;
-            justify-content: center;
-            gap: 28px;
-            margin-top: 20px;
-        }
-
-        .extra-links a {
-            color: #3f6b56;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .extra-links a:hover {
-            color: #e8a87c;
-            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
-        }
-
-        .daily-tip {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #799b89;
-            font-weight: 400;
-        }
-
-        @media (max-width: 620px) {
-            .smile-header {
-                top: 15px;
-                right: 15px;
-                left: 15px;
-                padding: 10px 20px;
+            .btn:active {
+                transform: scale(0.98);
             }
-            .nav-links {
-                gap: 15px;
-            }
-            .nav-links a span {
-                display: none;
-            }
-            .nav-links a i {
-                font-size: 1.3rem;
-            }
-            .smile-card {
-                padding: 32px 24px;
-            }
-            .title {
-                font-size: 1.7rem;
-            }
-            .title-icon i {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-badge-smile span:not(.user-count-number) {
-                font-size: 0.75rem;
-            }
-            .user-count-number {
-                font-size: 1.3rem;
-            }
-        }
-
-        @keyframes softRise {
-            0% {
-                opacity: 0;
-                transform: translateY(35px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
     </style>
 </head>
+
 <body>
 
-    <div class="smile-header">
-        <div class="logo-smile">
-            <i class="fas fa-smile-beam"></i>
-            <span>Smile</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
-             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
-             <!--<a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>-->
-            <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
-            
-        </div>
-    </div>
+    <div class="card">
+        <h2>تایید کد پیامک</h2>
 
-    <div class="login-container">
-        <div class="smile-card">
+        <form id="otpForm">
+            <input type="text" id="otp" class="input" placeholder="کد ۶ رقمی" maxlength="6">
 
-            <div class="title">
-                <p>
-                    ثبت نام  <br>
-                </p>
-            </div>
-            <div class="subtitle"></div>
-            <form id="smileLoginForm">
-                <div class="input-group">
-                    <label><i class="far fa-id-card"></i> نام و نام خانوادگی</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="fullname" class="smile-input" placeholder="مثلاً تارا ابراهیمی">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label><i class="fas fa-mobile-alt"></i> شماره همراه</label>
-                    <div class="input-icon-wrapper">
-                        <i class="fas fa-phone"></i>
-                        <input type="tel" id="phone" class="smile-input" placeholder="0912 345 6789" dir="ltr">
-                    </div>
-                </div>
-                <button type="submit" class="login-btn-smile" id="submitBtn">
-                    <i ></i> ارسال کد تایید 
-                </button>
-            </form>
-
-
-
-        </div>
+            <button type="submit" class="btn" id="submitBtn">
+                تایید و ورود
+            </button>
+        </form>
     </div>
 
     <script>
-        const API_BASE_URL = '';
 
-        function setActiveNavItem() {
-            const currentPath = window.location.pathname;
-            const navHome = document.getElementById('navHome');
-            const navAbout = document.getElementById('navAbout');
-            const navLogin = document.getElementById('navLogin');
-            const navDashboard = document.getElementById('navDashboard');
+        const API_BASE_URL = "";
 
-            [navHome, navAbout, navLogin, navDashboard].forEach(item => {
-                if (item) item.classList.remove('active');
-            });
+        // گرفتن شماره از صفحه قبل
+        const phone = sessionStorage.getItem("phone");
 
-            if (currentPath.includes('Login')) {
-                navLogin.classList.add('active');
-            } else if (currentPath.includes('AboutUs')) {
-                navAbout.classList.add('active');
-            } else if (currentPath.includes('Dashboard')) {
-                navDashboard.classList.add('active');
-            } else {
-                navHome.classList.add('active');
-            }
+        if (!phone) {
+            alert("شماره یافت نشد، دوباره ثبت نام کنید");
+            window.location.href = "Login.html";
         }
 
-        async function fetchUserCount() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/Users/Count`);
-                if (!response.ok) {
-                    throw new Error('خطا در دریافت تعداد کاربران');
-                }
-                const result = await response.json();
-                const count = parseInt(result.message) || 0;
-                document.getElementById('smileCounter').innerText = count.toLocaleString('fa-IR');
-            } catch (error) {
-                console.error(error);
-                document.getElementById('smileCounter').innerText = '--';
+        document.getElementById("otpForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const otp = document.getElementById("otp").value.trim();
+
+            if (otp.length !== 6) {
+                alert("کد باید ۶ رقمی باشد");
+                return;
             }
-        }
 
-        async function registerUser(name, phone) {
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.innerHTML;
+            await verifyOtp(phone, otp);
+        });
+
+        async function verifyOtp(phone, otp) {
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = true;
+            btn.innerText = "در حال بررسی...";
 
             try {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ثبت نام...';
+                console.log("1. شروع درخواست به سرور...");
 
-                const response = await fetch(`${API_BASE_URL}/api/Users/Sign`, {
-                    method: 'POST',
+                const response = await fetch(`${API_BASE_URL}/api/Users/SignInOtp/`, {
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        fullname: name,
-                        mobile: phone
+                        mobileNumber: phone,
+                        otpCode: otp
                     })
                 });
 
-                const result = await response.json();
+                console.log("2. پاسخ دریافت شد:", response.status, response.statusText);
+                console.log("3. response.ok =", response.ok);
+
+                // مهم: ابتدا محتوای پاسخ را لاگ کنید
+                const text = await response.text();
+                console.log("4. محتوای خام پاسخ:", text);
+
+                // حالا تبدیل به JSON کنید
+                const result = JSON.parse(text);
+                console.log("5. نتیجه JSON:", result);
 
                 if (response.ok) {
-                    alert(result.message);
-                    document.getElementById('fullname').value = '';
-                    document.getElementById('phone').value = '';
-                    fetchUserCount();
-                } else {
-                    alert(result.message || 'ثبت نام ناموفق بود');
+                    console.log("6. ورود موفق!");
+                    sessionStorage.removeItem("phone"); 
+                    window.location.href = "Dashboard.html"; 
+                    return;
                 }
-            } catch (error) {
-                console.error(error);
-                alert('ارتباط با سرور برقرار نشد');
+
+            } catch (err) {
+                console.error("❌ خطا در catch:", err);
+                console.error("پیام خطا:", err.message);
+                alert("خطا در ارتباط با سرور");
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.innerText = "تایید و ورود";
             }
         }
 
-        document.getElementById('smileLoginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const fullname = document.getElementById('fullname').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-
-            if (!fullname || !phone) {
-                alert('لطفاً همه فیلدها را پر کن');
-                return;
-            }
-
-            const phoneRegex = /^09[0-9]{9}$/;
-            if (!phoneRegex.test(phone)) {
-                alert('شماره موبایل معتبر نیست');
-                return;
-            }
-
-            registerUser(fullname, phone);
-        });
-
-        fetchUserCount();
-        setActiveNavItem();
     </script>
+
 </body>
 </html>

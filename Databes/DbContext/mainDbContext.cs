@@ -15,5 +15,6 @@ namespace SmileProject.Databes.MainDbContext
         public DbSet<Log> Logs { get; set; }
         public DbSet<Board> Boards { get; set; }
         public DbSet<CategorySentence> CategorySentences { get; set; }
+        public DbSet<Otp> Otps { get; set; }
     }
 }

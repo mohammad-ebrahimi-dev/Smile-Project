@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SmileProject.Services;
@@ -24,10 +24,25 @@ internal class Program
         builder.Services.AddScoped<ShowUsers>();
         builder.Services.AddSingleton<RateLimitation>();
         builder.Services.AddScoped<BoardService>();
-        builder.Services.AddScoped<OTP>();
+        builder.Services.AddScoped<OTPService>();
+        builder.Services.AddScoped<GetCategoryService>();
         builder.Services.AddScoped<IResultService, ResultService>();
         builder.Services.AddHttpContextAccessor();
         // Authentication
+        // coockie
+        // اضافه کردن سرویس احراز هویت با استفاده از کوکی
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultSignInScheme = "Cookies"; // طرح پیش‌فرض برای ورود
+            options.DefaultAuthenticateScheme = "Cookies";
+            options.DefaultChallengeScheme = "Cookies";
+        })
+        .AddCookie("Cookies", options =>
+        {
+            options.LoginPath = "/Account/Login"; // آدرس صفحه لاگین (در صورت نیاز)
+            options.AccessDeniedPath = "/Account/AccessDenied";
+        });
+        //end coockie
         var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
         builder.Services.AddAuthentication(options =>
         {

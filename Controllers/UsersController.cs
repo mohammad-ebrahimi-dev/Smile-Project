@@ -18,14 +18,16 @@ namespace SmileProject.Controllers
         private readonly Authentication _authentication;
         private readonly ShowUsers _showUsers;
         private readonly RateLimitation _rateLimiter;
+        private readonly OTPService _otpService;
 
-        public UsersController(MainDbContext dbContext, IConfiguration configuration, Authentication authentication, ShowUsers showUsers, RateLimitation rateLimiter)
+        public UsersController(MainDbContext dbContext, IConfiguration configuration, Authentication authentication, ShowUsers showUsers, RateLimitation rateLimiter, OTPService otpService)
         {
             _dbContext = dbContext;
             _configuration = configuration;
             _authentication = authentication;
             _showUsers = showUsers;
             _rateLimiter = rateLimiter;
+            _otpService = otpService;
         }
 
 
@@ -95,19 +97,12 @@ namespace SmileProject.Controllers
 
             try
             {
-                var registration = await _authentication.Register(dto);
+                //var registration = await _authentication.Register(dto);
+                var SendOTP = _otpService.Send(dto.Mobile);
 
-                if (registration?.Content == null)
-                {
-                        MaskMobileNumber(normalizedMobile);
-                    return StatusCode(500, new { message = "خطا در ثبت نام" });
-                }
-
-                // 6. بازگرداندن اطلاعات حداقلی و بدون حساسیت
                 return Ok(new
                 {
-                    message = registration.Content,
-                    // هرگز userId توکن یا اطلاعات حساس در این مرحله برنگردانید
+                    message = "پیامک هویت سنجی ارسال شد",
                 });
             }
             catch (Exception ex)
@@ -117,6 +112,16 @@ namespace SmileProject.Controllers
                     message = "ثبت نام با خطا مواجه شد"
                 });
             }
+        }
+        
+        [HttpPost("SignInOtp")]
+        public async Task<IActionResult> SignInOtp(SignInOtpRequest dto)
+        {
+            var result = await _otpService.SignInUserAsync(dto.OtpCode, dto.MobileNumber);
+            return Ok(new
+            {
+                message = result.Content,
+            });
         }
 
         // متدهای کمکی
@@ -132,6 +137,11 @@ namespace SmileProject.Controllers
             if (string.IsNullOrEmpty(mobile) || mobile.Length < 7)
                 return "***";
             return mobile.Substring(0, 3) + "****" + mobile.Substring(mobile.Length - 4);
+        }
+        public class SignInOtpRequest
+        {
+            public string MobileNumber { get; set; }
+            public string OtpCode { get; set; }
         }
     }
 }

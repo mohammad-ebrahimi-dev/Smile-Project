@@ -475,16 +475,26 @@
                     })
                 });
 
+                if (response.status === 429) {
+                    const data = await response.json(); // فقط یک بار
+
+                    console.log("429 data:", data); // 👈 برای تست
+
+                    alert(`⛔ لطفاً ${data.retryAfter} ثانیه دیگر تلاش کن`);
+                    return;
+                }
+
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert(result.message);
-                    document.getElementById('fullname').value = '';
-                    document.getElementById('phone').value = '';
-                    fetchUserCount();
+                    sessionStorage.setItem("phone", phone);
+
+                    window.location.href = "SignInOTPSend.html";
+                    return;
                 } else {
                     alert(result.message || 'ثبت نام ناموفق بود');
                 }
+
             } catch (error) {
                 console.error(error);
                 alert('ارتباط با سرور برقرار نشد');
@@ -493,7 +503,6 @@
                 submitBtn.innerHTML = originalText;
             }
         }
-
         document.getElementById('smileLoginForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
