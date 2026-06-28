@@ -438,10 +438,10 @@
         </div>
         <div class="nav-links">
             <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
-             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
-             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
+            <a href="Dashboard.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>داشبورد</span></a>
+            <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
             <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
-            
+
         </div>
     </div>
 
@@ -469,7 +469,7 @@
 
             <div style="text-align: center; margin-top: 20px;">
                 <button class="save-btn" id="savePreferencesBtn">
-                    <i class="fas fa-save"></i> ذخیره تنظیمات اس ام اس
+                    <i class="fas fa-save"></i> ذخیره تنظیمات SMS
                 </button>
                 <p style="font-size: 0.75rem; color: #799b89; margin-top: 20px; font-weight: 400;">
                     <i class="fas fa-shield-alt"></i> تنظیمات شما در دستگاه ذخیره می‌شه و هر روز بر اساس سلیقه‌ات پیامک دریافت می‌کنی.
@@ -483,15 +483,10 @@
 
     <script>
 
+
         const API_BASE_URL = "";
 
         let PREFERENCES_LIST = [];
-
-        const STORAGE_USER_KEY = "smile_user";
-
-        function getPrefKey(phoneNumber) {
-            return `smile_sms_prefs_${phoneNumber}`;
-        }
 
         function showToast(message, isError = false) {
 
@@ -510,33 +505,29 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        function getCurrentUser() {
+        // 👤 گرفتن اطلاعات کاربر از API (نه session)
+        async function loadUserInfo() {
 
-            const data = localStorage.getItem(STORAGE_USER_KEY);
+            try {
+                const res = await fetch("/api/dashboard/me");
+                if (!res.ok) throw new Error();
 
-            if (!data)
-                return null;
+                const user = await res.json();
 
-            return JSON.parse(data);
+                document.getElementById("greetingName").textContent = user.name ?? "کاربر";
+                document.getElementById("greetingPhone").textContent = user.phone ?? "";
+
+            } catch {
+                showToast("خطا در دریافت اطلاعات کاربر", true);
+            }
         }
 
-        function renderUserInfo() {
-
-            const userName = sessionStorage.getItem("name");
-            const phoneNumber = sessionStorage.getItem("phone");
-
-            const nameElement = document.getElementById("greetingName");
-            const phoneElement = document.getElementById("greetingPhone");
-
-            nameElement.textContent = userName ?? "کاربر";
-            phoneElement.textContent = phoneNumber ?? "";
-        }
-
+        // 📦 گرفتن دسته‌بندی‌ها
         async function loadCategories() {
 
             try {
 
-                const response = await fetch(`${API_BASE_URL}/api/Dashboard`);
+                const response = await fetch("/api/dashboard/categories");
 
                 if (!response.ok)
                     throw new Error();
@@ -551,28 +542,11 @@
                 showToast("خطا در دریافت دسته بندی ها", true);
 
             }
-
         }
-
-        function loadUserPreferences() {
-
-            const user = getCurrentUser();
-
-            if (!user)
-                return {};
-
-            const prefs = localStorage.getItem(getPrefKey(user.phone));
-
-            if (!prefs)
-                return {};
-
-            return JSON.parse(prefs);
-        }
-
+        // 🎨 ساخت UI
         function buildPreferencesUI() {
 
             const grid = document.getElementById("preferencesGrid");
-
             grid.innerHTML = "";
 
             PREFERENCES_LIST.forEach(category => {
@@ -587,7 +561,7 @@
                 </div>
 
                 <div class="pref-text">
-                    <h4>${category}</h4>
+                    <h4>${category.categoryName ?? category}</h4>
                 </div>
 
             </div>
@@ -597,20 +571,18 @@
                 <input
                     type="checkbox"
                     class="pref-switch"
-                    data-pref-id="${category}"
+                    data-pref-id="${category.categoryName ?? category}"
                     checked>
 
                 <span class="slider"></span>
 
             </label>
 
-        </div>
-        `;
-
+        </div>`;
             });
-
         }
 
+        // 💾 ذخیره تنظیمات
         async function savePreferences() {
 
             const switches = document.querySelectorAll(".pref-switch");
@@ -618,28 +590,22 @@
             const categories = [];
 
             switches.forEach(x => {
-
                 categories.push({
                     name: x.dataset.prefId,
                     isSelected: x.checked
                 });
-
             });
 
             try {
 
-                const response = await fetch("/api/Dashboard", {
-
+                const response = await fetch("/api/dashboard/categories", {
                     method: "POST",
-
                     headers: {
                         "Content-Type": "application/json"
                     },
-
                     body: JSON.stringify({
                         categories: categories
                     })
-
                 });
 
                 if (!response.ok)
@@ -647,39 +613,34 @@
 
                 showToast("تنظیمات ذخیره شد");
 
-            }
-            catch {
-
+            } catch {
                 showToast("خطا در ذخیره تنظیمات", true);
-
             }
         }
+
+        // 🎯 active menu (fix شده)
         function setActiveNavItem() {
 
             document.querySelectorAll(".nav-links a")
                 .forEach(x => x.classList.remove("active"));
 
-            document.getElementById("navDashboard")
-                .classList.add("active");
-
+            const el = document.getElementById("navDashboard");
+            if (el) el.classList.add("active");
         }
 
+        // 🚀 init
         document.addEventListener("DOMContentLoaded", async () => {
 
             setActiveNavItem();
 
-            renderUserInfo();
-
+            await loadUserInfo();      // 👈 مهم: جای session
             await loadCategories();
 
             document
                 .getElementById("savePreferencesBtn")
                 .addEventListener("click", function (e) {
-
                     e.preventDefault();
-
                     savePreferences();
-
                 });
 
         });

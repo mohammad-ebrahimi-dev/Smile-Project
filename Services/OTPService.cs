@@ -31,14 +31,14 @@ namespace SmileProject.Services
             SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
             try
             {
-                //var bulkSendResult = await smsIr.BulkSendAsync(
-                //    30008828888384,
-                //    $@"به لبخند خوش آمدید
-                //کد تأیید شما: {code}
-                //این کد را در اختیار دیگران قرار ندهید.",
-                //    new string[] { mobileNumber });
-                //if (bulkSendResult.Status == 1)
-                //{
+                var bulkSendResult = await smsIr.BulkSendAsync(
+                    30008828888384,
+                    $@"به لبخند خوش آمدید
+                کد تأیید شما: {code}
+                این کد را در اختیار دیگران قرار ندهید.",
+                    new string[] { mobileNumber });
+                if (bulkSendResult.Status == 1)
+                {
                     var newOtp = new Otp
                     {
                         Code = code.ToString(),
@@ -51,12 +51,12 @@ namespace SmileProject.Services
                     await _dbContext.SaveChangesAsync();
                     return _resultService.Success("SMS sent successfully");
 
-                //}
-                //else
-                //{
-                //    return _resultService.Failed("SMS has an error");
+                }
+                else
+                {
+                    return _resultService.Failed("SMS has an error");
 
-                //}
+                }
             }
             catch (Exception ex)
             {
@@ -74,6 +74,10 @@ namespace SmileProject.Services
                     x.PhoneNumber == mobileNumber &&
                     x.Code == otpCode &&
                     !x.IsUsed);
+            var userId = await _dbContext.Users
+                .FirstOrDefaultAsync(x =>
+                    x.Mobile == mobileNumber &&
+                    x.IsActive);
 
             if (otp == null)
                 return _resultService.Failed("کد تأیید صحیح نیست.");
@@ -86,7 +90,7 @@ namespace SmileProject.Services
 
             var claims = new List<Claim>
     {
-        new Claim(ClaimTypes.NameIdentifier, mobileNumber),
+        new Claim(ClaimTypes.NameIdentifier, userId.Id.ToString()),
         new Claim(ClaimTypes.MobilePhone, mobileNumber),
         new Claim(ClaimTypes.Name, name),
         new Claim(ClaimTypes.Role, Role.User.ToString())

@@ -55,6 +55,9 @@ namespace SmileProject.Controllers
         [HttpPost("Sign")]
         public async Task<IActionResult> Sign([FromBody] RegisterDto dto)
         {
+            if (Request.Cookies.ContainsKey(".AspNetCore.Cookies"))
+                return BadRequest(new { message = "شما قبلاً وارد شده‌اید" });
+
             //limitation 
             var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
             var key = $"{ip}:{dto.Mobile}";
