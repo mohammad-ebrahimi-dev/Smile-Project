@@ -47,6 +47,7 @@ namespace SmileProject.Services
                         IsUsed = false,
                         PhoneNumber = mobileNumber
                     };
+                */
                     await _dbContext.Otps.AddAsync(newOtp);
                     await _dbContext.SaveChangesAsync();
                     return _resultService.Success("SMS sent successfully");
