@@ -22,6 +22,7 @@ namespace SmileProject.Services
         public  async Task<ResultService> Get()
         {
             var categories = _dbContext.CategorySentences.Where(x => x.IsActive == true).Select (x => x.CategoryName).ToList();
+            
             return _resultService.Success("موفقیت آمیز بود ",obj:categories);
         }
     }

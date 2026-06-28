@@ -22,6 +22,49 @@ namespace SmileProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SmileProject.Databes.Entities.Board", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Boards");
+                });
+
+            modelBuilder.Entity("SmileProject.Databes.Entities.CategorySentence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategorySentences");
+                });
+
             modelBuilder.Entity("SmileProject.Databes.Entities.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -42,6 +85,36 @@ namespace SmileProject.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("SmileProject.Databes.Entities.Otp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Otps");
+                });
+
             modelBuilder.Entity("SmileProject.Databes.Entities.Sentences", b =>
                 {
                     b.Property<int>("Id")
@@ -49,6 +122,9 @@ namespace SmileProject.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -89,6 +165,32 @@ namespace SmileProject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("SmileProject.Databes.Entities.UserCategorySentence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategorySentenceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategorySentenceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCategorySentences");
+                });
+
             modelBuilder.Entity("UserSentence", b =>
                 {
                     b.Property<int>("Id")
@@ -113,6 +215,25 @@ namespace SmileProject.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSentences");
+                });
+
+            modelBuilder.Entity("SmileProject.Databes.Entities.UserCategorySentence", b =>
+                {
+                    b.HasOne("SmileProject.Databes.Entities.CategorySentence", "CategorySentence")
+                        .WithMany()
+                        .HasForeignKey("CategorySentenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmileProject.Databes.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategorySentence");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UserSentence", b =>

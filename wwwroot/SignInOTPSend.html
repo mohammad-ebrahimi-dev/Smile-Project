@@ -76,6 +76,7 @@
 
         // گرفتن شماره از صفحه قبل
         const phone = sessionStorage.getItem("phone");
+        const name = sessionStorage.getItem("name");
 
         if (!phone) {
             alert("شماره یافت نشد، دوباره ثبت نام کنید");
@@ -92,10 +93,10 @@
                 return;
             }
 
-            await verifyOtp(phone, otp);
+            await verifyOtp(phone, otp , name);
         });
 
-        async function verifyOtp(phone, otp) {
+        async function verifyOtp(phone, otp , name) {
             const btn = document.getElementById("submitBtn");
             btn.disabled = true;
             btn.innerText = "در حال بررسی...";
@@ -110,7 +111,8 @@
                     },
                     body: JSON.stringify({
                         mobileNumber: phone,
-                        otpCode: otp
+                        otpCode: otp,
+                        name : name
                     })
                 });
 

@@ -1,82 +1,84 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using SmileProject.Services;
-using System.Text;
-using Swashbuckle;
+using SmileProject.Services.Dashboard;
+
 internal class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-        builder.Services.AddOpenApi();
+        // Services
         builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        //Database Configuration
+
+        // Database
         builder.Services.AddDbContext<SmileProject.Databes.MainDbContext.MainDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-        //mN%5313do
+            options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        // DI
         builder.Services.AddScoped<SentencesService>();
         builder.Services.AddScoped<Authentication>();
         builder.Services.AddScoped<ShowUsers>();
         builder.Services.AddSingleton<RateLimitation>();
         builder.Services.AddScoped<BoardService>();
         builder.Services.AddScoped<OTPService>();
+        builder.Services.AddScoped<SaveCategoryService>();
         builder.Services.AddScoped<GetCategoryService>();
         builder.Services.AddScoped<IResultService, ResultService>();
+
         builder.Services.AddHttpContextAccessor();
-        // Authentication
-        // coockie
-        // اضافه کردن سرویس احراز هویت با استفاده از کوکی
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultSignInScheme = "Cookies"; // طرح پیش‌فرض برای ورود
-            options.DefaultAuthenticateScheme = "Cookies";
-            options.DefaultChallengeScheme = "Cookies";
-        })
-        .AddCookie("Cookies", options =>
-        {
-            options.LoginPath = "/Account/Login"; // آدرس صفحه لاگین (در صورت نیاز)
-            options.AccessDeniedPath = "/Account/AccessDenied";
-        });
-        //end coockie
-        var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
-        builder.Services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
+
+        // Cookie Authentication
+        builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
             {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ClockSkew = TimeSpan.Zero
-            };
-        });
+                options.LoginPath = "/Login.html";
+                options.AccessDeniedPath = "/Login.html";
+            });
 
         builder.Services.AddAuthorization();
+
         var app = builder.Build();
+
         if (app.Environment.IsDevelopment())
         {
-
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
-        app.UseSwagger();
-        app.UseSwaggerUI();
+
         app.UseHttpsRedirection();
+
         app.UseAuthentication();
+
         app.UseAuthorization();
+
+        // Protect html pages
+        app.Use(async (context, next) =>
+        {
+            Console.WriteLine($"Path : {context.Request.Path}");
+            Console.WriteLine($"Auth : {context.User.Identity?.IsAuthenticated}");
+
+            if (context.Request.Path.Equals("/Dashboard.html", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!(context.User.Identity?.IsAuthenticated ?? false))
+                {
+                    context.Response.Redirect("/Login.html");
+                    return;
+                }
+            }
+
+            await next();
+        });
+
         app.UseDefaultFiles();
         app.UseStaticFiles();
+
         app.MapControllers();
+
         app.Run();
     }
 }
-
-

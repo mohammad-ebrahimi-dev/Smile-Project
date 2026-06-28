@@ -97,8 +97,8 @@ namespace SmileProject.Controllers
 
             try
             {
-                //var registration = await _authentication.Register(dto);
-                var SendOTP = _otpService.Send(dto.Mobile);
+                var registration = await _authentication.Register(dto);
+                var SendOTP = await _otpService.Send(dto.Mobile);
 
                 return Ok(new
                 {
@@ -117,7 +117,7 @@ namespace SmileProject.Controllers
         [HttpPost("SignInOtp")]
         public async Task<IActionResult> SignInOtp(SignInOtpRequest dto)
         {
-            var result = await _otpService.SignInUserAsync(dto.OtpCode, dto.MobileNumber);
+            var result = await _otpService.SignInUserAsync(dto.OtpCode, dto.MobileNumber , dto.Name);
             return Ok(new
             {
                 message = result.Content,
@@ -141,6 +141,7 @@ namespace SmileProject.Controllers
         public class SignInOtpRequest
         {
             public string MobileNumber { get; set; }
+            public string Name { get; set; }
             public string OtpCode { get; set; }
         }
     }

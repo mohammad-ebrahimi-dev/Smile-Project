@@ -522,21 +522,14 @@
 
         function renderUserInfo() {
 
-            const user = getCurrentUser();
+            const userName = sessionStorage.getItem("name");
+            const phoneNumber = sessionStorage.getItem("phone");
 
-            const name = document.getElementById("greetingName");
-            const phone = document.getElementById("greetingPhone");
+            const nameElement = document.getElementById("greetingName");
+            const phoneElement = document.getElementById("greetingPhone");
 
-            if (!user) {
-
-                name.innerHTML = "کاربر";
-                phone.innerHTML = "";
-
-                return;
-            }
-
-            name.innerHTML = user.fullname ?? "";
-            phone.innerHTML = user.phone ?? "";
+            nameElement.textContent = userName ?? "کاربر";
+            phoneElement.textContent = phoneNumber ?? "";
         }
 
         async function loadCategories() {
@@ -618,36 +611,49 @@
 
         }
 
-        function savePreferences() {
-
-            const user = getCurrentUser();
-
-            if (!user) {
-
-                showToast("ابتدا وارد شوید", true);
-
-                return;
-            }
+        async function savePreferences() {
 
             const switches = document.querySelectorAll(".pref-switch");
 
-            let prefs = {};
+            const categories = [];
 
             switches.forEach(x => {
 
-                prefs[x.dataset.prefId] = x.checked;
+                categories.push({
+                    name: x.dataset.prefId,
+                    isSelected: x.checked
+                });
 
             });
 
-            localStorage.setItem(
-                getPrefKey(user.phone),
-                JSON.stringify(prefs)
-            );
+            try {
 
-            showToast("تنظیمات ذخیره شد");
+                const response = await fetch("/api/Dashboard", {
 
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        categories: categories
+                    })
+
+                });
+
+                if (!response.ok)
+                    throw new Error();
+
+                showToast("تنظیمات ذخیره شد");
+
+            }
+            catch {
+
+                showToast("خطا در ذخیره تنظیمات", true);
+
+            }
         }
-
         function setActiveNavItem() {
 
             document.querySelectorAll(".nav-links a")

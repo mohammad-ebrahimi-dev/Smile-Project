@@ -67,7 +67,7 @@ namespace SmileProject.Services
         }
 
         // VERIFY + LOGIN
-        public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber)
+        public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber , string name)
         {
             var otp = await _dbContext.Otps
                 .FirstOrDefaultAsync(x =>
@@ -88,6 +88,7 @@ namespace SmileProject.Services
     {
         new Claim(ClaimTypes.NameIdentifier, mobileNumber),
         new Claim(ClaimTypes.MobilePhone, mobileNumber),
+        new Claim(ClaimTypes.Name, name),
         new Claim(ClaimTypes.Role, Role.User.ToString())
     };
 

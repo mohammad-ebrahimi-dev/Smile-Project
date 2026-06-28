@@ -1,5 +1,6 @@
 ﻿using IPE.SmsIrClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SmileProject.Databes.Entities;
 using SmileProject.Databes.MainDbContext;
 
@@ -9,6 +10,7 @@ namespace SmileProject.Services
     {
         public MainDbContext _dbContext;
         public IResultService _result;
+        private static Random _random = new Random();
         public SentencesService(MainDbContext dbContext, IResultService result)
         {
             _dbContext = dbContext;
@@ -18,40 +20,65 @@ namespace SmileProject.Services
         {
             try
             {
-                var users = _dbContext.Users.AsNoTracking().Where(x => x.IsActive == true).ToList();
-                var random = new Random();
+                var users = _dbContext.Users
+                .AsNoTracking()
+                .Where(x => x.IsActive)
+                .ToList();
+
+                // گرفتن همه دسته‌ها یک‌بار (برای جلوگیری از N+1)
+                var allCategoryIds = _dbContext.CategorySentences
+                    .AsNoTracking()
+                    .Select(x => x.Id)
+                    .ToList();
+
                 foreach (var user in users)
                 {
-                    var number = random.Next(1, _dbContext.Sentences.Count());
-                    var sentence = await _dbContext.Sentences.AsNoTracking().FirstOrDefaultAsync(x => x.Id == number);
+                    var userCategories = _dbContext.UserCategorySentences
+                        .AsNoTracking()
+                        .Where(x => x.UserId == user.Id)
+                        .Select(x => x.CategorySentenceId)
+                        .ToList();
 
-                    //System.IO.File.AppendAllText(
-                    //    "Result.txt",
-                    //    $"{DateTime.Now} | {sentence.SentenceText} | {user.FirstName} {user.LastName} - {user.Id}{Environment.NewLine}"
-                    //);
-                    //NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d
-                    try
-                    {
-                        SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
-                        var bulkSendResult = await smsIr.BulkSendAsync(30008828888384,
-                        $"{sentence.SentenceText}",
-                        new string[] { $"{user.Mobile}" });
+                    int categoryId;
 
-                    }
-                    catch (Exception ex)
+                    // اگر کاربر دسته داشت
+                    if (userCategories.Any())
                     {
-                        var logError = new Log { Text = $"Error sending SMS: {ex.Message}" };
-                        await _dbContext.Logs.AddAsync(logError);
+                        categoryId = userCategories[_random.Next(userCategories.Count)];
                     }
-                    await _dbContext.SaveChangesAsync();
+                    else
+                    {
+                        // اگر نداشت از کل دسته‌ها
+                        categoryId = allCategoryIds[_random.Next(allCategoryIds.Count)];
+                    }
+
+                    var sentences = _dbContext.Sentences
+                        .AsNoTracking()
+                        .Where(x => x.CategoryId == categoryId)
+                        .ToList();
+
+                    if (!sentences.Any())
+                        continue;
+
+                    var sentence = sentences[_random.Next(sentences.Count)];
+                    SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
+                    var bulkSendResult = await smsIr.BulkSendAsync(30008828888384,
+                    $"{sentence.SentenceText}",
+                    new string[] { $"{user.Mobile}" });
+
                 }
-                await _dbContext.SaveChangesAsync();
                 return _result.Success("Sentencess Sent successfully");
+
             }
             catch (Exception ex)
             {
-                return _result.Failed("Sentencess could not send");
+                var logError = new Log { Text = $"Error sending SMS: {ex.Message}" };
+                await _dbContext.Logs.AddAsync(logError);
+
             }
+            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
+            return _result.Success("Sentencess Sent successfully");
         }
 
     }

@@ -361,6 +361,7 @@
         </div>
         <div class="nav-links">
             <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
+            <a href="Dashboard.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>داشبورد</span></a>
              <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
              <!--<a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>-->
             <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
@@ -487,7 +488,9 @@
                 const result = await response.json();
 
                 if (response.ok) {
+                    const fullname = document.getElementById("fullname").value;
                     sessionStorage.setItem("phone", phone);
+                    sessionStorage.setItem("name", fullname);
 
                     window.location.href = "SignInOTPSend.html";
                     return;
