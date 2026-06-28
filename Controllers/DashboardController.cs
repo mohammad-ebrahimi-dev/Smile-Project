@@ -21,11 +21,29 @@ namespace SmileProject.Controllers
             _saveCategoryService = saveCategoryService;
         }
 
-        [HttpGet]
+        [HttpGet("categories")]
         public async Task<IActionResult> GetInfo()
         {
             var result = await _getCategoryService.Get();
             return Ok(result);
+        }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var name = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
+            var phone = User.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            var result = await _getCategoryService.Get();
+
+            return Ok(new
+            {
+                name,
+                phone,
+                userId,
+                result
+            });
         }
         [HttpPost]
         public async Task<IActionResult> SaveCategory([FromBody] SaveCategoryDto model)
