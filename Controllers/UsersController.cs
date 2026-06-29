@@ -100,7 +100,6 @@ namespace SmileProject.Controllers
 
             try
             {
-                var registration = await _authentication.Register(dto);
                 var SendOTP = await _otpService.Send(dto.Mobile);
 
                 return Ok(new

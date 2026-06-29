@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SmileProject.Databes.Entities;
 using SmileProject.Databes.MainDbContext;
+using SmileProject.Models;
 using System.Security.Claims;
 
 namespace SmileProject.Services
@@ -14,31 +15,34 @@ namespace SmileProject.Services
         private readonly IResultService _resultService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         public MainDbContext _dbContext;
+        private readonly Authentication _authentication;
+
 
         public OTPService(IResultService resultService,
                    IHttpContextAccessor httpContextAccessor,
-                   MainDbContext dbContext)
+                   MainDbContext dbContext,
+                   Authentication authentication)
         {
             _resultService = resultService;
             _httpContextAccessor = httpContextAccessor;
             _dbContext = dbContext;
+            _authentication = authentication;
         }
 
-        // SEND OTP
         public async Task<ResultService> Send(string mobileNumber)
         {
             var code = _random.Next(100000, 1000000);
             SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
             try
             {
-                var bulkSendResult = await smsIr.BulkSendAsync(
-                    30008828888384,
-                    $@"به لبخند خوش آمدید
-                کد تأیید شما: {code}
-                این کد را در اختیار دیگران قرار ندهید.",
-                    new string[] { mobileNumber });
-                if (bulkSendResult.Status == 1)
-                {
+                //var bulkSendResult = await smsIr.BulkSendAsync(
+                //    30008828888384,
+                //    $@"به لبخند خوش آمدید
+                //کد تأیید شما: {code}
+                //این کد را در اختیار دیگران قرار ندهید.",
+                //    new string[] { mobileNumber });
+                //if (bulkSendResult.Status == 1)
+                //{
                     var newOtp = new Otp
                     {
                         Code = code.ToString(),
@@ -47,17 +51,16 @@ namespace SmileProject.Services
                         IsUsed = false,
                         PhoneNumber = mobileNumber
                     };
-                */
                     await _dbContext.Otps.AddAsync(newOtp);
                     await _dbContext.SaveChangesAsync();
                     return _resultService.Success("SMS sent successfully");
 
-                }
-                else
-                {
-                    return _resultService.Failed("SMS has an error");
+                //}
+                //else
+                //{
+                //    return _resultService.Failed("SMS has an error");
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -67,7 +70,6 @@ namespace SmileProject.Services
 
         }
 
-        // VERIFY + LOGIN
         public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber , string name)
         {
             var otp = await _dbContext.Otps
@@ -75,16 +77,20 @@ namespace SmileProject.Services
                     x.PhoneNumber == mobileNumber &&
                     x.Code == otpCode &&
                     !x.IsUsed);
-            var userId = await _dbContext.Users
-                .FirstOrDefaultAsync(x =>
-                    x.Mobile == mobileNumber &&
-                    x.IsActive);
+
 
             if (otp == null)
                 return _resultService.Failed("کد تأیید صحیح نیست.");
 
             if (otp.ExpiresAt <= DateTime.Now)
                 return _resultService.Failed("کد تأیید منقضی شده است.");
+
+            var registration = await _authentication.Register(new RegisterDto { Fullname = name, Mobile = mobileNumber });
+
+            var userId = await _dbContext.Users
+            .FirstOrDefaultAsync(x =>
+            x.Mobile == mobileNumber &&
+            x.IsActive);
 
             otp.IsUsed = true;
             await _dbContext.SaveChangesAsync();

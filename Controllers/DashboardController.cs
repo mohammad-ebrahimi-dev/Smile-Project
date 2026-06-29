@@ -33,23 +33,20 @@ namespace SmileProject.Controllers
         {
             var name = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value;
             var phone = User.FindFirst(System.Security.Claims.ClaimTypes.MobilePhone)?.Value;
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
             var result = await _getCategoryService.Get();
 
             return Ok(new
             {
                 name,
                 phone,
-                userId,
                 result
             });
         }
-        [HttpPost]
+        [HttpPost("categories")]
         public async Task<IActionResult> SaveCategory([FromBody] SaveCategoryDto model)
         {
             var save = await _saveCategoryService.SaveAsync(model);
-            return Ok();
+            return Ok(save);
         }
     }
     public class SaveCategoryDto
