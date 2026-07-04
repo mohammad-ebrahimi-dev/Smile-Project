@@ -17,7 +17,6 @@ namespace SmileProject.Services
         public MainDbContext _dbContext;
         private readonly Authentication _authentication;
 
-
         public OTPService(IResultService resultService,
                    IHttpContextAccessor httpContextAccessor,
                    MainDbContext dbContext,
@@ -31,10 +30,17 @@ namespace SmileProject.Services
 
         public async Task<ResultService> Send(string mobileNumber)
         {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Mobile == mobileNumber);
+            if (user != null && !user.IsActive)
+            {
+                return _resultService.Failed("حساب شما غیرفعال است. برای دریافت پیامک، ابتدا حساب خود را فعال کنید.");
+            }
+
             var code = _random.Next(100000, 1000000);
             SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
             try
             {
+                // بخش ارسال SMS (کامنت شده)
                 //var bulkSendResult = await smsIr.BulkSendAsync(
                 //    30008828888384,
                 //    $@"به لبخند خوش آمدید
@@ -43,34 +49,30 @@ namespace SmileProject.Services
                 //    new string[] { mobileNumber });
                 //if (bulkSendResult.Status == 1)
                 //{
-                    var newOtp = new Otp
-                    {
-                        Code = code.ToString(),
-                        CreateDate = DateTime.Now,
-                        ExpiresAt = DateTime.Now.AddMinutes(2),
-                        IsUsed = false,
-                        PhoneNumber = mobileNumber
-                    };
-                    await _dbContext.Otps.AddAsync(newOtp);
-                    await _dbContext.SaveChangesAsync();
-                    return _resultService.Success("SMS sent successfully");
-
+                var newOtp = new Otp
+                {
+                    Code = code.ToString(),
+                    CreateDate = DateTime.Now,
+                    ExpiresAt = DateTime.Now.AddMinutes(2),
+                    IsUsed = false,
+                    PhoneNumber = mobileNumber
+                };
+                await _dbContext.Otps.AddAsync(newOtp);
+                await _dbContext.SaveChangesAsync();
+                return _resultService.Success("SMS sent successfully");
                 //}
                 //else
                 //{
                 //    return _resultService.Failed("SMS has an error");
-
                 //}
             }
             catch (Exception ex)
             {
                 return _resultService.Failed("SMS has an error");
-
             }
-
         }
 
-        public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber , string name)
+        public async Task<ResultService> SignInUserAsync(string otpCode, string mobileNumber, string name)
         {
             var otp = await _dbContext.Otps
                 .FirstOrDefaultAsync(x =>
@@ -78,35 +80,47 @@ namespace SmileProject.Services
                     x.Code == otpCode &&
                     !x.IsUsed);
 
-
             if (otp == null)
                 return _resultService.Failed("کد تأیید صحیح نیست.");
 
             if (otp.ExpiresAt <= DateTime.Now)
                 return _resultService.Failed("کد تأیید منقضی شده است.");
 
-            var registration = await _authentication.Register(new RegisterDto { Fullname = name, Mobile = mobileNumber });
+            // پیدا کردن کاربر
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Mobile == mobileNumber);
 
-            var userId = await _dbContext.Users
-            .FirstOrDefaultAsync(x =>
-            x.Mobile == mobileNumber &&
-            x.IsActive);
+            // اگر کاربر وجود نداشت، ثبت‌نام جدید
+            if (user == null)
+            {
+                var registerResult = await _authentication.Register(new RegisterDto { Fullname = name, Mobile = mobileNumber });
+
+                // بررسی موفقیت ثبت‌نام با استفاده از محتوای پیام
+                if (!registerResult.Content.Contains("موفق") && !registerResult.Content.Contains("Success"))
+                {
+                    return _resultService.Failed(registerResult.Content);
+                }
+
+                // دریافت کاربر جدید
+                user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Mobile == mobileNumber);
+                if (user == null)
+                    return _resultService.Failed("خطا در ایجاد کاربر");
+            }
+
+            // اگر کاربر غیرفعال است، اجازه ورود نمی‌دهیم (اختیاری)
+            // if (!user.IsActive) return _resultService.Failed("حساب شما غیرفعال است.");
 
             otp.IsUsed = true;
             await _dbContext.SaveChangesAsync();
 
             var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, userId.Id.ToString()),
-        new Claim(ClaimTypes.MobilePhone, mobileNumber),
-        new Claim(ClaimTypes.Name, name),
-        new Claim(ClaimTypes.Role, Role.User.ToString())
-    };
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.MobilePhone, mobileNumber),
+                new Claim(ClaimTypes.Name, user.Fullname ?? name),
+                new Claim(ClaimTypes.Role, Role.User.ToString())
+            };
 
-            var identity = new ClaimsIdentity(
-                claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
-
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
             await _httpContextAccessor.HttpContext!.SignInAsync(
@@ -120,6 +134,7 @@ namespace SmileProject.Services
 
             return _resultService.Success("ورود با موفقیت انجام شد.");
         }
+
         public enum Role
         {
             User,

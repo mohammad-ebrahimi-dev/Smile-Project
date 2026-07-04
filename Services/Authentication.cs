@@ -10,6 +10,7 @@ namespace SmileProject.Services
     {
         public MainDbContext _dbContext;
         public IResultService _resultService;
+
         public Authentication(MainDbContext dbContext, IResultService result)
         {
             _dbContext = dbContext;
@@ -20,7 +21,6 @@ namespace SmileProject.Services
         {
             if (dto.Mobile.Count() < 10 || dto.Mobile.Count() > 11)
                 return _resultService.Failed("!فرمت وارد شده درست نمیباشد");
-            ;
 
             if (dto.Mobile[0] != '0')
                 dto.Mobile = '0' + dto.Mobile;
@@ -36,13 +36,13 @@ namespace SmileProject.Services
                 var user = new User
                 {
                     Fullname = dto.Fullname,
-                    Mobile = dto.Mobile
+                    Mobile = dto.Mobile,
+                    IsActive = true   // کاربر جدید به‌صورت پیش‌فرض فعال است
                 };
 
                 await _dbContext.Users.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
                 return _resultService.Success("ثبت نام با موفقیت انجام شد ");
-
             }
             catch (Exception ex)
             {
@@ -52,7 +52,7 @@ namespace SmileProject.Services
                 };
                 await _dbContext.Logs.AddAsync(log);
                 await _dbContext.SaveChangesAsync();
-                return _resultService.Failed("!ثبت نام با خطا مواجه شد " );
+                return _resultService.Failed("!ثبت نام با خطا مواجه شد ");
             }
         }
     }
