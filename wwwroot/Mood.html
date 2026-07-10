@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>حال تو | Smile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        /* ===== ریست و پایه ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            background: #cfebdd;
+            min-height: 100vh;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+            background: rgba(70, 130, 100, 0.10);
+            bottom: 20px;
+            left: 20px;
+            filter: blur(60px);
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
+            background: rgba(40, 100, 70, 0.06);
+            top: -80px;
+            right: -80px;
+            filter: blur(70px);
+            z-index: 0;
+        }
+
+        /* ===== هدر ===== */
+        .smile-header {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            left: 25px;
+            background: #cfebdd;
+            border-radius: 80px;
+            padding: 12px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
+            z-index: 100;
+            transition: all 0.2s ease;
+        }
+
+        .logo-smile {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2c5a44;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-smile i {
+            color: #e8a87c;
+            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c5a44;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 50px;
+            transition: all 0.25s;
+            background: transparent;
+        }
+
+        .nav-links a:hover {
+            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+            color: #1d3e2f;
+        }
+
+        .nav-links a.active {
+            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+            color: #1d3e2f;
+            background: rgba(232, 168, 124, 0.08);
+        }
+
+        /* ===== کانتینر اصلی ===== */
+        .mood-container {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        /* ===== کارت اصلی ===== */
+        .mood-card {
+            background: #cfebdd;
+            border-radius: 64px;
+            padding: 48px 38px;
+            box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
+            animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        @keyframes softRise {
+            0% {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mood-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .mood-header .big-icon {
+            font-size: 3.8rem;
+            color: #e8a87c;
+            filter: drop-shadow(2px 2px 6px #b8cfc3);
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .mood-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1f4d38;
+            margin-top: 8px;
+        }
+
+        .mood-subtitle {
+            color: #4b6e5b;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .wave-line {
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #2c5a44, #e8a87c, #5fbb9b);
+            margin: 16px auto 30px;
+            border-radius: 4px;
+        }
+
+        /* ===== شبکه گزینه‌های حال ===== */
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 30px 0 40px;
+        }
+
+        .mood-item {
+            background: #cfebdd;
+            border-radius: 40px;
+            padding: 28px 18px 24px;
+            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+            border: none;
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .mood-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 14px 14px 24px #b0c7b9, -14px -14px 24px #eefff1;
+        }
+
+        .mood-item:active {
+            transform: scale(0.97);
+            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+        }
+
+        .mood-item.selected {
+            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+            background: rgba(232, 168, 124, 0.12);
+            border: 2px solid #e8a87c;
+            transform: scale(0.98);
+        }
+
+        .mood-item .mood-emoji {
+            font-size: 2.8rem;
+            line-height: 1;
+        }
+
+        .mood-item .mood-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f4d38;
+            line-height: 1.5;
+        }
+
+        .mood-item .mood-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #799b89;
+            background: rgba(44, 90, 68, 0.06);
+            padding: 2px 14px;
+            border-radius: 60px;
+            margin-top: 2px;
+        }
+
+        /* ===== بخش پیام ===== */
+        .message-area {
+            margin-top: 30px;
+            padding-top: 28px;
+            border-top: 2px solid rgba(46, 90, 67, 0.15);
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .message-area .empty-state {
+            text-align: center;
+            color: #799b89;
+            font-weight: 400;
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+
+        .message-area .empty-state i {
+            font-size: 2rem;
+            color: #e8a87c;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .response-message {
+            background: #cfebdd;
+            border-radius: 40px;
+            padding: 32px 34px;
+            box-shadow: inset 5px 5px 14px #b0c7b9, inset -5px -5px 14px #eefff1;
+            animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            text-align: center;
+        }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response-message .msg-emoji {
+            font-size: 2.6rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .response-message .msg-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1f4d38;
+            margin-bottom: 8px;
+        }
+
+        .response-message .msg-text {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #2c5a44;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== بخش شعر ===== */
+        .poem-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(46, 90, 67, 0.2);
+            text-align: center;
+        }
+
+        .poem-section .poem-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4b6e5b;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .poem-section .poem-label i {
+            color: #e8a87c;
+            margin-left: 6px;
+        }
+
+        .poem-section .poem-text {
+            font-size: 1rem;
+            line-height: 2.2;
+            color: #1f4d38;
+            font-weight: 400;
+            white-space: pre-line;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(232, 168, 124, 0.06);
+            padding: 16px 20px;
+            border-radius: 32px;
+            box-shadow: inset 2px 2px 6px #b0c7b9, inset -2px -2px 6px #eefff1;
+        }
+
+        .poem-section .poem-text i {
+            color: #e8a87c;
+            margin: 0 4px;
+        }
+
+        .response-message .msg-footer {
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: #799b89;
+            border-top: 1px solid rgba(46, 90, 67, 0.08);
+            padding-top: 14px;
+        }
+
+        /* ===== دکمه تغییر ===== */
+        .reset-btn {
+            background: #cfebdd;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f4d38;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+            box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
+            transition: all 0.2s;
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 10px 10px 18px #b0c7b9, -10px -10px 18px #eefff1;
+            color: #e8a87c;
+        }
+
+        .reset-btn:active {
+            transform: scale(0.97);
+            box-shadow: inset 4px 4px 8px #b0c7b9, inset -4px -4px 8px #eefff1;
+        }
+
+        .reset-btn i {
+            color: #e8a87c;
+        }
+
+        /* ===== فوتر ===== */
+        .footer-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #799b89;
+            margin-top: 30px;
+            font-weight: 400;
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media (max-width: 820px) {
+            .mood-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+
+            .smile-header {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+                padding: 10px 20px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a span {
+                display: none;
+            }
+
+            .nav-links a i {
+                font-size: 1.3rem;
+            }
+
+            .mood-card {
+                padding: 32px 20px;
+            }
+
+            .mood-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .mood-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+
+            .mood-item {
+                padding: 20px 12px 16px;
+            }
+
+            .mood-item .mood-emoji {
+                font-size: 2.2rem;
+            }
+
+            .mood-item .mood-label {
+                font-size: 0.85rem;
+            }
+
+            .response-message {
+                padding: 24px 18px;
+            }
+
+            .response-message .msg-title {
+                font-size: 1.2rem;
+            }
+
+            .poem-section .poem-text {
+                font-size: 0.9rem;
+                padding: 12px 14px;
+            }
+
+            .mood-title {
+                font-size: 1.5rem;
+            }
+
+            .mood-header .big-icon {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .mood-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== هدر ===== -->
+    <div class="smile-header">
+        <div class="logo-smile">
+            <i class="fas fa-smile-beam"></i>
+            <span>Smile</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
+            <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
+            <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
+            <a href="Mood.html" id="navMood" class="active"><i class="fas fa-heart"></i> <span>حال تو</span></a>
+            <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
+            <a href="ContactUs.html" id="navContact"><i class="fas fa-inbox"></i> <span>ارتباط با ما</span></a>
+        </div>
+    </div>
+
+    <!-- ===== محتوای اصلی ===== -->
+    <div class="mood-container">
+        <div class="mood-card">
+
+            <!-- هدر -->
+            <div class="mood-header">
+                <span class="big-icon">🌸</span>
+                <div class="mood-title">حالت امروز چطوره؟</div>
+                <div class="mood-subtitle">
+                    یکی از گزینه‌ها رو انتخاب کن تا یه پیام و شعر مخصوص خودت دریافت کنی
+                </div>
+                <div class="wave-line"></div>
+            </div>
+
+            <!-- شبکه حالات -->
+            <div class="mood-grid" id="moodGrid">
+                <!-- گزینه‌ها با جاوااسکریپت ساخته می‌شن -->
+            </div>
+
+            <!-- منطقه پیام و شعر -->
+            <div class="message-area" id="messageArea">
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-comment-dots"></i>
+                    هنوز گزینه‌ای انتخاب نکردی …<br />
+                    <span style="font-size:0.8rem; color:#9bb7a7;">روی یکی از کارت‌های بالا بزن تا پیام و شعرت رو ببینی</span>
+                </div>
+                <div id="responseContainer" style="display:none;"></div>
+            </div>
+
+            <!-- دکمه تغییر انتخاب -->
+            <div style="text-align:center; margin-top:10px;">
+                <button class="reset-btn" id="resetBtn" style="display:none;">
+                    <i class="fas fa-undo-alt"></i> انتخاب مجدد
+                </button>
+            </div>
+
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-heart" style="color:#e8a87c;"></i>
+            هر روز یه پیام و شعر تازه، متناسب با حالت امروز
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  داده‌های حالات با پیام‌ها و اشعار مخصوص هر حالت
+        // ============================================================
+        const MOODS = [{
+            id: 1,
+            emoji: '🌙',
+            label: 'کاش الان کنارم بود',
+            badge: 'دلتنگ',
+            messages: [{
+                title: 'دلتنگ نباش 🌷',
+                text: 'دوست عزیز، می‌دانم که دلت برای کسی تنگ شده. وجود تو ارزشمند است و کسانی که دوستت دارند، همیشه در قلب تو هستند. لبخند بزن، چون تو زیبایی و دوست‌داشتنی.'
+            }, {
+                title: 'تو تنها نیستی 🤗',
+                text: 'احساس دلتنگی نشانه‌ی عشق و محبت توست. بدان که کسی در دوردست‌ها به تو فکر می‌کند. امروز به خودت یه دلخوشی کوچک بده و صبور باش، روزهای قشنگ در راه‌اند.'
+            }, {
+                title: 'قلب تو جای امنی است 💖',
+                text: 'اگر کسی کنارت نیست، خودت کنار خودت باش. تو می‌توانی منبع آرامش خودت باشی. نفس عمیق بکش و به خاطرات خوب فکر کن. همه‌ی ما گاهی دلتنگ می‌شویم، این زیبایی انسان بودن است.'
+            }],
+            poems: [
+                'در دل شب، ماه تنهاست\n اما می‌داند که فردا\n خورشید با تمام وجودش\n به استقبالش می‌آید',
+                'ای دل غمگین، صبور باش\n که صبحی دوباره در راه است\n هر شب که می‌گذرد\n به روزی روشن‌تر می‌انجامد',
+                'دوری و دلتنگی\n پایانش دیدار است\n تو تنها نیستی\n این را از ماه بپرس'
+            ]
+        }, {
+            id: 2,
+            emoji: '🌧️',
+            label: 'حس میکنم کسی دوسم نداره',
+            badge: 'تنها',
+            messages: [{
+                title: 'تو دوست‌داشتنی‌ترینی 💛',
+                text: 'عزیز دلم، گاهی ذهن ما به ما دروغ می‌گوید. اما حقیقت این است که تو ارزشمند و دوست‌داشتنی هستی. امروز روزی است که خودت را بیشتر دوست بداری. به آینه نگاه کن و به خودت بگو: «من عاشق خودم هستم».'
+            }, {
+                title: 'خودت را بغل کن 🫂',
+                text: 'این احساس را جدی نگیر. تو موجودی بی‌نظیر و دوست‌داشتنی هستی. ممکن است امروز کسی نباشد، اما خودت همیشه هستی. قدر خودت را بدان و به کسانی که دوستت دارند، حتی اگر دور باشند، فکر کن.'
+            }, {
+                title: 'تو نوری در تاریکی ✨',
+                text: 'حتی زمانی که فکر می‌کنی کسی دوستت ندارد، بدان که تو نوری برای دنیا هستی. ارزش تو به عشق دیگران نیست، به وجود خودت است. امروز روز خودشناسی و عشق به خودت باشه.'
+            }],
+            poems: [
+                'من آن‌م که در آینه، خود را ندیدم\n اما در دل شب، روشنایم را یافتم\n اگر کسی مرا نبینند\n من برای خودم تماشایی‌ترینم',
+                'تو یک گل بی‌نظیری\n که بهارش را خودت می‌سازی\n اگر کسی نبوییدت\n خودت آبیار خویش باش',
+                'تنهایی یعنی\n بودن با خودم\n و فهمیدن این که\n من تمام دنیایم'
+            ]
+        }, {
+            id: 3,
+            emoji: '🌞',
+            label: 'خوشحالم و همه چی عالیه',
+            badge: 'شاد',
+            messages: [{
+                title: 'چه روز قشنگی! 🌟',
+                text: 'چه عالی! خوشحالی تو مسری است. این انرژی مثبت رو حفظ کن و به دیگران هم منتقل کن. امروز روز توست. از هر لحظه‌اش لذت ببر و یادت باشد که شادی تو می‌تواند دنیای اطرافت را هم روشن کند.'
+            }, {
+                title: 'بهترین حالت ممکن 😍',
+                text: 'این حس خوب رو دقیقاً به خاطر بسپار. وقتی خوشحالی، همه چی زیباتر میشه. امروز هر کاری دوست داری انجام بده، به آدمایی که دوستشون داری پیام بده و اجازه بده این شادی سرایت کنه.'
+            }, {
+                title: 'لبخندت رو قشنگ‌تر کن 😁',
+                text: 'حال خوب یعنی قدرتمند بودن. از این لحظه لذت ببر، چون لیاقت شادی رو داری. خوشحالی تو یعنی موفقیت تو. امروز رو با یه کار جدید یا یه کار خوش‌حال‌کننده پر کن.'
+            }],
+            poems: [
+                'خورشید از پنجره می‌تابد\n و من در میان نور می‌رقصم\n امروز روز من است\n روزی که همه چیز عالیست',
+                'لبخند من\n یک بذر شادی است\n که در دل هر کس\n گل می‌کند',
+                'خوشحالی من\n یعنی تمام دنیا\n خوشحال‌تر از همیشه'
+            ]
+        }, {
+            id: 4,
+            emoji: '🌱',
+            label: 'کاش بیشتر حواسش بهم بود',
+            badge: 'دلخور',
+            messages: [{
+                title: 'خودتو فراموش نکن 🌱',
+                text: 'می‌دانم که گاهی احساس می‌کنی نادیده گرفته می‌شوی. اما یادت باشد که ارزش تو به توجه دیگران نیست. تو خودت یک دنیایی. امروز به خودت توجه کن، به نیازهای قلبی‌ات گوش بده.'
+            }, {
+                title: 'نیازهای تو مهم هستند 💎',
+                text: 'دلخوری یعنی نیاز به توجه داری. این یه احساس کاملاً انسانی است. به جای اینکه منتظر دیگران باشی، خودت به خودت اهمیت بده. با خودت مهربان باش و به خودت ثابت کن که برای خودت ارزش قائلی.'
+            }, {
+                title: 'صبر کن، بهار می‌رسد 🌼',
+                text: 'گاهی آدم‌ها غرق روزمرگی می‌شن و نمی‌تونن توجه لازم رو داشته باشن. این به معنی کم‌ارزشی تو نیست. تو مثل یه باغچه‌ی قشنگ، نیاز به رسیدگی داری. امروز خودت باغبان خودت باش.'
+            }],
+            poems: [
+                'من یک باغچه‌ام\n که گاهی آبیاری نمی‌شود\n اما ریشه‌هایم\n به اعماق زمین وصل است\n و خودم باران خودم می‌شوم',
+                'اگر کسی نگاهم نکرد\n من برای خودم تماشاگرم\n اگر کسی نبوییدم\n من باغبان خویشم',
+                'دلخوری یعنی\n یادآوری ارزش‌ها\n پس ارزش خود را\n به خاطر بسپار'
+            ]
+        }, {
+            id: 5,
+            emoji: '🎈',
+            label: 'نیاز به خوشحالی و شادی دارم',
+            badge: 'مشتاق',
+            messages: [{
+                title: 'شادی در انتظار توست ✨',
+                text: 'حق داری که شاد باشی! امروز یه کار کوچک ولی خوب برای خودت انجام بده. یه فیلم ببین، به موسیقی گوش بده، یا با یه دوست قدیمی تماس بگیر. شادی در انتظار توست و تو لیاقت بهترین‌ها را داری.'
+            }, {
+                title: 'بیا یه جشن کوچک بگیریم 🎉',
+                text: 'نیاز به شادی یعنی نیاز به زندگی. امروز رو به یه روز خاص تبدیل کن. حتی شده با یه تکه کیک یا یه کارتون خنده‌دار. اجازه بله دلت باز بشه و انرژی مثبت وارد زندگیت کنی.'
+            }, {
+                title: 'خوشحالی تصمیم خودته 🌈',
+                text: 'شادی رو هیچکس نمیتونه بهت هدیه بده جز خودت. امروز از همون لحظه‌ی اول با یه لبخند شروع کن. دنیا پر از چیزهای قشنگه، فقط کافیه نگاهت رو عوض کنی.'
+            }],
+            poems: [
+                'من به دنبال شادی می‌گردم\n اما شادی درونم است\n فقط کافیست\n بال‌هایم را باز کنم',
+                'امروز تصمیم گرفتم\n خوشحال باشم\n حتی اگر بهانه‌ای نباشد\n خودم بهانه‌ام می‌شوم',
+                'شادی یک پروانه است\n اگر دنبالش بدوی، فرار می‌کند\n آرام بایست\n تا بر شانه‌ات بنشیند'
+            ]
+        }, {
+            id: 6,
+            emoji: '🌈',
+            label: 'حال خوب برای همه',
+            badge: 'مهربان',
+            messages: [{
+                title: 'چه نیت قشنگی! 🌈',
+                text: 'چه نیت زیبایی! با این نیت، نه تنها خودت شاد می‌شوی، بلکه دنیا را هم جای بهتری می‌کنی. امروز روز مهربانی با همه است. لبخندت را به دیگران هدیه کن و ببین که چگونه دنیا در برابر مهربانی‌ات سر تعظیم فرود می‌آورد.'
+            }, {
+                title: 'مهربانی بی‌نهایت ♾️',
+                text: 'حال خوب برای همه یعنی عشق بی‌نهایت. تو با این نیت داری دنیا رو متحول میکنی. امروز به هر کسی رسیدی، لبخند بزن و یه انرژی مثبت بهش هدیه کن. مطمئن باش این انرژی به خودت برمی‌گرده.'
+            }, {
+                title: 'همه با هم، کنار هم 🌍',
+                text: 'دنیا با مهربانی تو قشنگ‌تر میشه. وقتی برای دیگران آرزوی خوشبختی میکنی، خودت هم در اون شریک میشی. امروز یه کار خوب برای یه غریبه انجام بده و ببین چقدر دلت آروم می‌گیره.'
+            }],
+            poems: [
+                'اگر من برای همه آرزوی خوشبختی کنم\n آسمان هم برای من\n باران خوشبختی می‌بارد\n این قانون مهربانی است',
+                'حال خوب من\n وقتی زیبا می‌شود\n که آن را با دیگران تقسیم کنم\n پس بیایید همه با هم شاد باشیم',
+                'دنیا یک باغ است\n و ما همه باغبان‌هایش\n با مهربانی‌مان\n گل‌های شادی را می‌رویانیم'
+            ]
+        }];
+
+        // ============================================================
+        //  رفرنس‌ها
+        // ============================================================
+        const grid = document.getElementById('moodGrid');
+        const messageArea = document.getElementById('messageArea');
+        const emptyState = document.getElementById('emptyState');
+        const responseContainer = document.getElementById('responseContainer');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // ============================================================
+        //  نگهداری آخرین اندیس پیام و شعر برای هر حالت (چرخشی)
+        // ============================================================
+        const lastMsgIndexMap = {};
+        const lastPoemIndexMap = {};
+
+        // ============================================================
+        //  توابع کمکی برای انتخاب غیر تکراری
+        // ============================================================
+        function getNextIndex(lastMap, moodId, totalCount) {
+            if (totalCount === 1) return 0;
+            const lastIdx = lastMap[moodId] ?? -1;
+            const available = [];
+            for (let i = 0; i < totalCount; i++) {
+                if (i !== lastIdx) available.push(i);
+            }
+            if (available.length === 0) return 0;
+            const chosen = available[Math.floor(Math.random() * available.length)];
+            lastMap[moodId] = chosen;
+            return chosen;
+        }
+
+        // ============================================================
+        //  ساخت کارت‌های حال
+        // ============================================================
+        function buildMoodCards() {
+            grid.innerHTML = '';
+            MOODS.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'mood-item';
+                div.dataset.id = m.id;
+                div.innerHTML = `
+                        <span class="mood-emoji">${m.emoji}</span>
+                        <span class="mood-label">${m.label}</span>
+                        <span class="mood-badge">${m.badge}</span>
+                    `;
+                div.addEventListener('click', () => handleMoodSelect(m.id));
+                grid.appendChild(div);
+            });
+        }
+
+        // ============================================================
+        //  انتخاب حالت و نمایش پیام + شعر
+        // ============================================================
+        function handleMoodSelect(id) {
+            document.querySelectorAll('.mood-item').forEach(el => el.classList.remove('selected'));
+            const target = document.querySelector(`.mood-item[data-id="${id}"]`);
+            if (target) target.classList.add('selected');
+
+            const mood = MOODS.find(m => m.id === id);
+            if (!mood) return;
+
+            // انتخاب پیام غیر تکراری
+            const msgIndex = getNextIndex(lastMsgIndexMap, mood.id, mood.messages.length);
+            const message = mood.messages[msgIndex];
+
+            // انتخاب شعر غیر تکراری (با lastPoemIndexMap)
+            const poemIndex = getNextIndex(lastPoemIndexMap, mood.id, mood.poems.length);
+            const poem = mood.poems[poemIndex];
+
+            showMessageAndPoem(mood, message, poem);
+            resetBtn.style.display = 'inline-flex';
+
+            setTimeout(() => {
+                messageArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        }
+
+        // ============================================================
+        //  نمایش پیام و شعر در کنار هم
+        // ============================================================
+        function showMessageAndPoem(mood, message, poem) {
+            emptyState.style.display = 'none';
+            responseContainer.style.display = 'block';
+
+            responseContainer.innerHTML = `
+                    <div class="response-message">
+                        <span class="msg-emoji">${mood.emoji}</span>
+                        <div class="msg-title">${message.title}</div>
+                        <div class="msg-text">${message.text}</div>
+
+                        <!-- بخش شعر -->
+                        <div class="poem-section">
+                            <span class="poem-label"><i class="fas fa-feather-alt"></i> شعری برای حال تو</span>
+                            <div class="poem-text">${poem}</div>
+                        </div>
+
+                        <div class="msg-footer">
+                            <i class="fas fa-smile-beam" style="color:#e8a87c;"></i>
+                            این پیام و شعر مخصوص توست، امیدوارم حالت رو بهتر کنه
+                        </div>
+                    </div>
+                `;
+        }
+
+        // ============================================================
+        //  ریست / انتخاب مجدد
+        // ============================================================
+        function resetSelection() {
+            document.querySelectorAll('.mood-item').forEach(el => el.classList.remove('selected'));
+            responseContainer.style.display = 'none';
+            emptyState.style.display = 'block';
+            resetBtn.style.display = 'none';
+            grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============================================================
+        //  منوی فعال
+        // ============================================================
+        function setActiveNavItem() {
+            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+            const navMood = document.getElementById('navMood');
+            if (navMood) navMood.classList.add('active');
+        }
+
+        // ============================================================
+        //  راه‌اندازی
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveNavItem();
+            buildMoodCards();
+            resetBtn.addEventListener('click', resetSelection);
+        });
+    </script>
+
+</body>
+</html>
