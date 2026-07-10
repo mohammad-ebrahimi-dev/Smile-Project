@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>داشبورد</title>
+    <title>داشبورد | Smile</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ===== تمام استایل‌های قبلی ===== */
+        /* ===== تمام استایل‌های قبلی + اضافه کردن حالت تاریک و هدر جدید ===== */
         * {
             margin: 0;
             padding: 0;
@@ -20,6 +20,7 @@
             min-height: 100vh;
             position: relative;
             padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
             body::before {
@@ -28,11 +29,12 @@
                 width: 320px;
                 height: 320px;
                 border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
-                background: rgba(70, 130, 100, 0.1);
+                background: rgba(70, 130, 100, 0.10);
                 bottom: 20px;
                 left: 20px;
                 filter: blur(60px);
                 z-index: 0;
+                transition: background 0.3s ease;
             }
 
             body::after {
@@ -41,13 +43,99 @@
                 width: 400px;
                 height: 400px;
                 border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
-                background: rgba(40, 100, 70, 0.08);
+                background: rgba(40, 100, 70, 0.06);
                 top: -80px;
                 right: -80px;
                 filter: blur(70px);
                 z-index: 0;
+                transition: background 0.3s ease;
             }
 
+            /* حالت تاریک */
+            body.dark-mode {
+                background: #1a2a22;
+                color: #e0f0e8;
+            }
+
+                body.dark-mode::before,
+                body.dark-mode::after {
+                    background: rgba(200, 230, 210, 0.05);
+                }
+
+                body.dark-mode .smile-header,
+                body.dark-mode .dash-card,
+                body.dark-mode .status-card,
+                body.dark-mode .pref-card,
+                body.dark-mode .save-btn {
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .smile-header {
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .logo-smile,
+                body.dark-mode .user-name,
+                body.dark-mode .section-title,
+                body.dark-mode .status-text h4,
+                body.dark-mode .pref-text h4,
+                body.dark-mode .save-btn {
+                    color: #e0f0e8;
+                }
+
+                body.dark-mode .nav-links a {
+                    color: #b0d0c0;
+                }
+
+                    body.dark-mode .nav-links a.active {
+                        color: #e8a87c;
+                        background: rgba(232, 168, 124, 0.08);
+                    }
+
+                body.dark-mode .user-phone,
+                body.dark-mode .status-text p,
+                body.dark-mode .pref-text p,
+                body.dark-mode .footer-note {
+                    color: #9abbab;
+                }
+
+                body.dark-mode .wave-line {
+                    background: linear-gradient(90deg, #5fbb9b, #e8a87c, #5fbb9b);
+                }
+
+                body.dark-mode .status-badge.active {
+                    background: rgba(44, 90, 68, 0.3);
+                    color: #8fcfb0;
+                }
+
+                body.dark-mode .status-badge.inactive {
+                    background: rgba(200, 70, 70, 0.2);
+                    color: #e87a7a;
+                }
+
+                body.dark-mode .theme-toggle {
+                    color: #e8a87c;
+                    background: rgba(232, 168, 124, 0.15);
+                    box-shadow: inset 2px 2px 6px #0f1f18, inset -2px -2px 6px #395748;
+                }
+
+                body.dark-mode .slider {
+                    background-color: #243b30;
+                    box-shadow: inset 3px 3px 6px #0f1f18, inset -3px -3px 6px #395748;
+                }
+
+                body.dark-mode input:checked + .slider {
+                    background-color: #243b30;
+                    box-shadow: inset 1px 1px 3px #0f1f18, inset -1px -1px 3px #395748;
+                }
+
+                body.dark-mode .pref-icon {
+                    background: rgba(44, 90, 68, 0.2);
+                    color: #b0d0c0;
+                }
+
+        /* هدر */
         .smile-header {
             position: fixed;
             top: 25px;
@@ -61,7 +149,7 @@
             align-items: center;
             box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
             z-index: 100;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .logo-smile {
@@ -72,6 +160,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: color 0.3s ease;
         }
 
             .logo-smile i {
@@ -81,7 +170,8 @@
 
         .nav-links {
             display: flex;
-            gap: 36px;
+            align-items: center;
+            gap: 20px;
         }
 
             .nav-links a {
@@ -109,6 +199,31 @@
                     background: rgba(232, 168, 124, 0.08);
                 }
 
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 40px;
+            transition: all 0.25s;
+            color: #2c5a44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(232, 168, 124, 0.1);
+            box-shadow: inset 2px 2px 6px #b8cfc3, inset -2px -2px 6px #e6fff0;
+        }
+
+            .theme-toggle:hover {
+                transform: scale(1.05);
+            }
+
+            .theme-toggle:active {
+                transform: scale(0.95);
+            }
+
+        /* بقیه استایل‌ها به همان صورت قبل */
         .dashboard-container {
             max-width: 1300px;
             margin: 120px auto 60px;
@@ -124,6 +239,7 @@
             box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
             animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             margin-bottom: 30px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         @keyframes softRise {
@@ -166,6 +282,7 @@
             font-size: 1.8rem;
             font-weight: 800;
             color: #1f4d38;
+            transition: color 0.3s ease;
         }
 
         .user-phone {
@@ -177,6 +294,7 @@
             display: inline-block;
             padding: 4px 20px;
             border-radius: 60px;
+            transition: color 0.3s ease;
         }
 
         .section-title {
@@ -189,6 +307,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
+            transition: color 0.3s ease;
         }
 
             .section-title i {
@@ -202,9 +321,9 @@
             background: linear-gradient(90deg, #2c5a44, #e8a87c, #5fbb9b);
             margin: 0 auto 30px;
             border-radius: 4px;
+            transition: background 0.3s ease;
         }
 
-        /* ===== کارت وضعیت پیامک (جدید) ===== */
         .status-card {
             background: #cfebdd;
             border-radius: 40px;
@@ -216,6 +335,7 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         .status-info {
@@ -243,6 +363,7 @@
             font-weight: 700;
             color: #1f4d38;
             margin-bottom: 4px;
+            transition: color 0.3s ease;
         }
 
         .status-text p {
@@ -250,6 +371,7 @@
             color: #4b6e5b;
             font-weight: 400;
             margin: 0;
+            transition: color 0.3s ease;
         }
 
         .status-badge {
@@ -272,7 +394,6 @@
                 color: #b94a48;
             }
 
-        /* ===== سوئیچ ===== */
         .switch {
             position: relative;
             display: inline-block;
@@ -323,7 +444,6 @@
                 background-color: #2c5a44;
             }
 
-        /* ===== بقیه استایل‌ها ===== */
         .prefs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -367,6 +487,7 @@
             font-size: 1.8rem;
             color: #2c5a44;
             box-shadow: inset 2px 2px 5px #b0c7b9, inset -2px -2px 5px #eefff1;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .pref-text h4 {
@@ -374,12 +495,14 @@
             font-weight: 700;
             color: #1f4d38;
             margin-bottom: 4px;
+            transition: color 0.3s ease;
         }
 
         .pref-text p {
             font-size: 0.8rem;
             color: #4b6e5b;
             font-weight: 400;
+            transition: color 0.3s ease;
         }
 
         .save-btn {
@@ -450,49 +573,57 @@
             }
         }
 
-        .warning-box {
-            text-align: center;
-            background: rgba(232, 168, 124, 0.2);
-            border-radius: 60px;
-            padding: 24px;
-            margin: 30px 0;
-            font-weight: 500;
-        }
-
-            .warning-box a {
-                color: #e8a87c;
-                font-weight: bold;
-                text-decoration: none;
-                border-bottom: 2px solid #e8a87c;
-            }
-
         .footer-note {
             text-align: center;
             font-size: 0.75rem;
             color: #799b89;
             margin-top: 30px;
             font-weight: 400;
+            transition: color 0.3s ease;
         }
 
-        @media (max-width: 768px) {
+        /* ریسپانسیو */
+        @media (max-width: 820px) {
             .smile-header {
                 top: 15px;
                 right: 15px;
                 left: 15px;
-                padding: 10px 20px;
+                padding: 8px 16px;
+                border-radius: 60px;
             }
+
+            .logo-smile {
+                font-size: 1.3rem;
+                gap: 4px;
+            }
+
+                .logo-smile i {
+                    font-size: 1.2rem;
+                }
 
             .nav-links {
-                gap: 15px;
+                gap: 8px;
             }
 
-                .nav-links a span {
-                    display: none;
+                .nav-links a {
+                    font-size: 0.8rem;
+                    padding: 6px 10px;
+                    gap: 4px;
                 }
 
-                .nav-links a i {
-                    font-size: 1.3rem;
-                }
+                    .nav-links a span {
+                        display: none;
+                    }
+
+                    .nav-links a i {
+                        font-size: 1.2rem;
+                    }
+
+            .theme-toggle {
+                font-size: 1.1rem;
+                padding: 4px 8px;
+                margin-right: 4px;
+            }
 
             .dash-card {
                 padding: 32px 20px;
@@ -521,6 +652,52 @@
                 align-self: center;
             }
         }
+
+        @media (max-width: 500px) {
+            .smile-header {
+                padding: 6px 12px;
+                border-radius: 40px;
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .logo-smile {
+                font-size: 1rem;
+            }
+
+                .logo-smile i {
+                    font-size: 1rem;
+                }
+
+            .nav-links a {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+                .nav-links a i {
+                    font-size: 1rem;
+                }
+
+            .theme-toggle {
+                font-size: 0.9rem;
+                padding: 3px 6px;
+            }
+
+            .dash-card {
+                padding: 24px 16px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .nav-links {
+                gap: 4px;
+            }
+
+                .nav-links a {
+                    padding: 4px 6px;
+                }
+        }
     </style>
 </head>
 <body>
@@ -534,9 +711,12 @@
             <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
-            <a href="Mood.html" id="navMood" class="active"><i class="fas fa-heart"></i> <span>حال تو</span></a>
+            <a href="Mood.html" id="navMood"><i class="fas fa-heart"></i> <span>حال تو</span></a>
             <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
             <a href="ContactUs.html" id="navContact"><i class="fas fa-inbox"></i> <span>ارتباط با ما</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </div>
 
@@ -550,7 +730,6 @@
                 <div class="user-phone" id="greetingPhone"></div>
             </div>
 
-            <!-- ===== کارت جدید: وضعیت دریافت پیامک ===== -->
             <div class="status-card" id="statusCard">
                 <div class="status-info">
                     <div class="status-icon">
@@ -573,7 +752,7 @@
                 <span>نوع پیامک‌هایی که دوست داری دریافت کنی رو انتخاب کن</span>
             </div>
             <div class="wave-line"></div>
-            <p style="text-align: center; color: #2c5a44; margin-bottom: 20px; font-weight: 500;">
+            <p style="text-align: center; color: #2c5a44; margin-bottom: 20px; font-weight: 500; transition: color 0.3s ease;">
                 🌸 هر روز صبح، متناسب با علایق‌ات یک پیام پرانرژی و آرامش‌بخش برات می‌فرستیم.<br>
                 گزینه‌های زیر رو فعال کن تا تجربه‌ی شخصی‌سازی‌شده داشته باشی.
             </p>
@@ -584,7 +763,7 @@
                 <button class="save-btn" id="savePreferencesBtn">
                     <i class="fas fa-save"></i> ذخیره تنظیمات SMS
                 </button>
-                <p style="font-size: 0.75rem; color: #799b89; margin-top: 20px; font-weight: 400;">
+                <p style="font-size: 0.75rem; color: #799b89; margin-top: 20px; font-weight: 400; transition: color 0.3s ease;">
                     <i class="fas fa-shield-alt"></i> تنظیمات شما در دستگاه ذخیره می‌شه و هر روز بر اساس سلیقه‌ات پیامک دریافت می‌کنی.
                 </p>
             </div>
@@ -597,8 +776,27 @@
     <script>
         // ===== تنظیمات =====
         const API_BASE_URL = "";
-
         let PREFERENCES_LIST = [];
+
+        // ===== تغییر تم =====
+        const themeToggle = document.getElementById('themeToggle');
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ?
+                '<i class="fas fa-sun"></i>' :
+                '<i class="fas fa-moon"></i>';
+            localStorage.setItem('smile-theme', isDark ? 'dark' : 'light');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('smile-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
 
         // ===== توابع کمکی =====
         function showToast(message, isError = false) {
@@ -641,11 +839,9 @@
                 const data = await res.json();
                 const isActive = data.isActive;
 
-                // به‌روزرسانی سوئیچ
                 const switchInput = document.getElementById("toggleSmsSwitch");
                 switchInput.checked = isActive;
 
-                // به‌روزرسانی برچسب وضعیت
                 const badge = document.getElementById("statusBadge");
                 if (isActive) {
                     badge.textContent = "✅ فعال";
@@ -660,12 +856,11 @@
             }
         }
 
-        // ===== ۳. تغییر وضعیت فعال‌سازی (Toggle) =====
+        // ===== ۳. تغییر وضعیت فعال‌سازی =====
         async function toggleActiveStatus() {
             const switchInput = document.getElementById("toggleSmsSwitch");
             const badge = document.getElementById("statusBadge");
 
-            // غیرفعال کردن سوئیچ تا زمانی که درخواست کامل بشه
             switchInput.disabled = true;
 
             try {
@@ -681,10 +876,8 @@
                 const data = await res.json();
                 const isActive = data.isActive;
 
-                // به‌روزرسانی سوئیچ (با توجه به پاسخ سرور)
                 switchInput.checked = isActive;
 
-                // به‌روزرسانی برچسب
                 if (isActive) {
                     badge.textContent = "✅ فعال";
                     badge.className = "status-badge active";
@@ -696,10 +889,8 @@
                 }
 
             } catch (error) {
-                // در صورت خطا، سوئیچ رو به حالت قبلی برگردون
-                // (وضعیت فعلی رو دوباره از سرور می‌گیریم)
                 showToast("خطا در تغییر وضعیت", true);
-                await loadActiveStatus(); // بازیابی وضعیت واقعی
+                await loadActiveStatus();
             } finally {
                 switchInput.disabled = false;
             }
@@ -727,25 +918,25 @@
             PREFERENCES_LIST.forEach(category => {
                 const name = category.categoryName ?? category;
                 grid.innerHTML += `
-                        <div class="pref-card">
-                            <div class="pref-info">
-                                <div class="pref-icon">
-                                    <i class="fas fa-tag"></i>
+                                <div class="pref-card">
+                                    <div class="pref-info">
+                                        <div class="pref-icon">
+                                            <i class="fas fa-tag"></i>
+                                        </div>
+                                        <div class="pref-text">
+                                            <h4>${name}</h4>
+                                        </div>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" class="pref-switch" data-pref-id="${name}" checked>
+                                        <span class="slider"></span>
+                                    </label>
                                 </div>
-                                <div class="pref-text">
-                                    <h4>${name}</h4>
-                                </div>
-                            </div>
-                            <label class="switch">
-                                <input type="checkbox" class="pref-switch" data-pref-id="${name}" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    `;
+                            `;
             });
         }
 
-        // ===== ۶. ذخیره تنظیمات دسته‌بندی‌ها =====
+        // ===== ۶. ذخیره تنظیمات =====
         async function savePreferences() {
             const switches = document.querySelectorAll(".pref-switch");
             const categories = [];
@@ -776,39 +967,32 @@
 
         // ===== ۷. تنظیم منوی فعال =====
         function setActiveNavItem() {
-            document.querySelectorAll(".nav-links a")
-                .forEach(x => x.classList.remove("active"));
-
+            document.querySelectorAll(".nav-links a").forEach(x => x.classList.remove("active"));
             const el = document.getElementById("navDashboard");
             if (el) el.classList.add("active");
         }
 
         // ===== ۸. راه‌اندازی اولیه =====
         document.addEventListener("DOMContentLoaded", async () => {
+            loadTheme();
             setActiveNavItem();
 
-            // بارگذاری اطلاعات کاربر
             await loadUserInfo();
-
-            // بارگذاری وضعیت فعال‌سازی پیامک
             await loadActiveStatus();
-
-            // بارگذاری دسته‌بندی‌ها
             await loadCategories();
 
-            // رویداد تغییر سوئیچ وضعیت پیامک
             document.getElementById("toggleSmsSwitch").addEventListener("change", function (e) {
-                // جلوگیری از اجرای چندباره
                 if (this.disabled) return;
                 toggleActiveStatus();
             });
 
-            // رویداد ذخیره تنظیمات
             document.getElementById("savePreferencesBtn")
                 .addEventListener("click", function (e) {
                     e.preventDefault();
                     savePreferences();
                 });
+
+            themeToggle.addEventListener('click', toggleTheme);
         });
     </script>
 </body>

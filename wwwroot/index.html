@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>لبخند</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>لبخند | سکوی آرامش |</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -14,7 +14,7 @@
         }
 
         body {
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
             background: #cfebdd;
             overflow-x: hidden;
@@ -23,8 +23,78 @@
             align-items: center;
             justify-content: center;
             cursor: default;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
+            /* ===== حالت تاریک ===== */
+            body.dark-mode {
+                background: #1a2a22;
+                color: #e0f0e8;
+            }
+
+                body.dark-mode .neumorph-card,
+                body.dark-mode .btn-aura,
+                body.dark-mode .icon-item,
+                body.dark-mode .theme-toggle {
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .neumorph-card {
+                    box-shadow: 20px 20px 35px #0f1f18, -20px -20px 35px #395748;
+                }
+
+                body.dark-mode .floating-title {
+                    background: linear-gradient(135deg, #8fcfb0, #e8a87c, #d4a373);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                }
+
+                body.dark-mode .inspire-text {
+                    color: #e0f0e8;
+                    border-left-color: #e8a87c;
+                    border-right-color: #e8a87c;
+                    box-shadow: inset 3px 3px 8px #0f1f18, inset -3px -3px 8px #395748;
+                    background: #243b30;
+                }
+
+                body.dark-mode .btn-aura {
+                    color: #e0f0e8;
+                }
+
+                    body.dark-mode .btn-aura:hover {
+                        color: #e8a87c;
+                    }
+
+                body.dark-mode .wave-line {
+                    background: linear-gradient(90deg, #5fbb9b, #e8a87c, #5fbb9b);
+                }
+
+                body.dark-mode .sig {
+                    color: #9abbab;
+                    background: rgba(26, 42, 34, 0.7);
+                }
+
+                body.dark-mode .theme-toggle {
+                    color: #e8a87c;
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .icon-item {
+                    color: #b0d0c0;
+                }
+
+                    body.dark-mode .icon-item:hover {
+                        color: #e8a87c;
+                    }
+
+                body.dark-mode .bubble {
+                    background: radial-gradient(circle at 30% 30%, rgba(200, 230, 210, 0.12), rgba(46, 90, 67, 0.03));
+                }
+
+        /* ===== حباب‌ها ===== */
         .bubble {
             position: absolute;
             background: radial-gradient(circle at 30% 30%, rgba(70, 130, 100, 0.25), rgba(46, 90, 67, 0.05));
@@ -40,9 +110,11 @@
                 transform: translateY(100vh) scale(0.3);
                 opacity: 0;
             }
+
             20% {
                 opacity: 0.4;
             }
+
             100% {
                 transform: translateY(-20vh) scale(1.2);
                 opacity: 0;
@@ -64,28 +136,28 @@
             border-radius: 80px;
             padding: 3rem 2rem;
             box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
-            transition: transform 0.2s ease-out, box-shadow 0.3s;
+            transition: transform 0.2s ease-out, box-shadow 0.3s, background 0.3s ease;
             transform-style: preserve-3d;
             border: none;
         }
 
         .floating-title {
             font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
+            font-weight: 800;
             background: linear-gradient(135deg, #2c5a44, #1f784c, #e8a87c);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             margin-bottom: 1rem;
             animation: textFloat 4s ease-in-out infinite;
         }
 
         @keyframes textFloat {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -98,6 +170,7 @@
             margin: 0 auto 1.5rem;
             border-radius: 4px;
             animation: waveWidth 3s ease-in-out infinite alternate;
+            transition: background 0.3s ease;
         }
 
         @keyframes waveWidth {
@@ -105,6 +178,7 @@
                 width: 120px;
                 opacity: 0.6;
             }
+
             100% {
                 width: 220px;
                 opacity: 1;
@@ -123,8 +197,10 @@
             border-left: 2px solid #e8a87c;
             border-right: 2px solid #e8a87c;
             direction: ltr;
-            font-family: 'Vazirmatn', 'Inter', monospace;
+            font-family: monospace;
             box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
+            transition: all 0.3s ease;
+            min-height: 3.2rem;
         }
 
         .typed-cursor {
@@ -134,19 +210,20 @@
         }
 
         @keyframes blink {
-            from,
-            to {
+            from, to {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0;
             }
         }
 
+        /* ===== دایره‌های ناوبری ===== */
         .icon-grid {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.8rem;
             margin: 2.5rem 0 1rem;
             flex-wrap: wrap;
         }
@@ -169,56 +246,54 @@
             text-decoration: none;
         }
 
-        .icon-item,
-        .btn-aura {
-            cursor: pointer;
-        }
+            .icon-item:hover {
+                transform: scale(1.08) translateY(-8px);
+                color: #e8a87c;
+                box-shadow: 12px 12px 20px #b0c7b9, -12px -12px 20px #eefff1;
+            }
 
-        .icon-item {
-            pointer-events: auto;
-        }
+            .icon-item:active {
+                transform: scale(0.96);
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                color: #c97e5a;
+            }
 
-        .icon-item:hover {
-            transform: scale(1.08) translateY(-8px);
-            color: #e8a87c;
-            box-shadow: 12px 12px 20px #b0c7b9, -12px -12px 20px #eefff1;
-        }
+            .icon-item[data-label]:hover::after {
+                content: attr(data-label);
+                position: absolute;
+                bottom: -45px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #cfebdd;
+                box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
+                color: #2c5a44;
+                font-size: 0.8rem;
+                font-weight: 600;
+                padding: 5px 14px;
+                border-radius: 40px;
+                white-space: nowrap;
+                z-index: 20;
+                pointer-events: none;
+                backdrop-filter: blur(4px);
+            }
 
-        .icon-item:active {
-            transform: scale(0.96);
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            color: #c97e5a;
-        }
-
-        .icon-item[data-label]:hover::after {
-            content: attr(data-label);
-            position: absolute;
-            bottom: -45px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #cfebdd;
-            box-shadow: 6px 6px 12px #b0c7b9, -6px -6px 12px #eefff1;
-            color: #2c5a44;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 5px 14px;
-            border-radius: 40px;
-            white-space: nowrap;
-            z-index: 20;
-            pointer-events: none;
-            backdrop-filter: blur(4px);
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+        body.dark-mode .icon-item[data-label]:hover::after {
+            background: #243b30;
+            color: #e0f0e8;
+            box-shadow: 6px 6px 12px #0f1f18, -6px -6px 12px #395748;
         }
 
         @keyframes floatIcon {
             0% {
                 transform: translateY(0px);
             }
+
             100% {
                 transform: translateY(-6px);
             }
         }
 
+        /* ===== دکمه جادویی ===== */
         .btn-aura {
             background: #cfebdd;
             border: none;
@@ -234,23 +309,55 @@
             align-items: center;
             gap: 12px;
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-decoration: none;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
-        .btn-aura:hover {
-            transform: translateY(-3px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-            gap: 16px;
+            .btn-aura:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+                gap: 16px;
+            }
+
+            .btn-aura:active {
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                transform: scale(0.97);
+            }
+
+        /* ===== دکمه تغییر تم (جداگانه در بالا) ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            background: #cfebdd;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 50px;
+            transition: all 0.25s;
+            color: #2c5a44;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
+            z-index: 100;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
         }
 
-        .btn-aura:active {
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            transform: scale(0.97);
-        }
+            .theme-toggle:hover {
+                transform: scale(1.05);
+            }
 
+            .theme-toggle:active {
+                transform: scale(0.95);
+            }
+
+        /* ===== Toast ===== */
         .toast-message {
             position: fixed;
             bottom: 100px;
@@ -268,7 +375,6 @@
             backdrop-filter: blur(4px);
             animation: fadeInUp 0.3s ease-out;
             direction: rtl;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
         @keyframes fadeInUp {
@@ -276,6 +382,7 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
@@ -299,30 +406,106 @@
             margin: 0 auto;
             padding: 4px 16px;
             border-radius: 60px;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ===== ریسپانسیو ===== */
+        @media (max-width: 820px) {
+            .icon-grid {
+                gap: 1.2rem;
+            }
+
+            .icon-item {
+                width: 70px;
+                height: 70px;
+                font-size: 1.6rem;
+            }
+
+            .theme-toggle {
+                top: 18px;
+                left: 18px;
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+                .theme-toggle i {
+                    font-size: 1.2rem;
+                }
         }
 
         @media (max-width: 640px) {
             .neumorph-card {
                 padding: 2rem 1.2rem;
+                border-radius: 48px;
             }
+
             .icon-item {
-                width: 65px;
-                height: 65px;
-                font-size: 1.8rem;
+                width: 60px;
+                height: 60px;
+                font-size: 1.4rem;
             }
+
+            .icon-grid {
+                gap: 0.8rem;
+            }
+
             .inspire-text {
                 font-size: 0.9rem;
                 padding: 0.4rem 1.2rem;
             }
+
             .btn-aura {
                 padding: 10px 24px;
                 font-size: 0.9rem;
             }
+
             .icon-item[data-label]:hover::after {
                 font-size: 0.7rem;
                 bottom: -38px;
             }
+
+            .theme-toggle {
+                top: 14px;
+                left: 14px;
+                padding: 6px 10px;
+                font-size: 0.7rem;
+            }
+
+                .theme-toggle i {
+                    font-size: 1rem;
+                }
+        }
+
+        @media (max-width: 480px) {
+            .icon-item {
+                width: 52px;
+                height: 52px;
+                font-size: 1.2rem;
+            }
+
+            .icon-grid {
+                gap: 0.6rem;
+            }
+
+            .neumorph-card {
+                padding: 1.5rem 1rem;
+                border-radius: 40px;
+            }
+
+            .floating-title {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                top: 12px;
+                left: 12px;
+                padding: 5px 8px;
+                font-size: 0.65rem;
+            }
+
+                .theme-toggle i {
+                    font-size: 0.9rem;
+                }
         }
 
         .neumorph-card {
@@ -330,8 +513,7 @@
             will-change: transform;
         }
 
-        .icon-grid,
-        .btn-aura {
+        .icon-grid, .btn-aura {
             position: relative;
             z-index: 2;
         }
@@ -341,17 +523,25 @@
 
     <div id="bubbleContainer"></div>
 
+    <!-- دکمه تغییر تم (جدا از هر هدر) -->
+    <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="hero">
         <div class="neumorph-card" id="neumorphCard">
             <h1 class="floating-title">لبخند</h1>
             <div class="wave-line"></div>
             <div class="inspire-text" id="dynamicMessage"></div>
+
+            <!-- دایره‌های ناوبری کامل -->
             <div class="icon-grid">
-                <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
-                <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
-                <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
-                <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
-                <a href="ContactUs.html" id="navContact" class="active"><i class="fas fa-inbox"></i> <span>ارتباط با ما</span></a>
+                <a href="index.html" class="icon-item" data-label="خانه"><i class="fas fa-house-chimney"></i></a>
+                <a href="Login.html" class="icon-item" data-label="ثبت نام"><i class="fas fa-user-plus"></i></a>
+                <a href="Dashboard.html" class="icon-item" data-label="داشبورد"><i class="fas fa-chalkboard-user"></i></a>
+                <a href="Mood.html" class="icon-item" data-label="حال تو"><i class="fas fa-heart"></i></a>
+                <a href="AboutUs.html" class="icon-item" data-label="درباره ما"><i class="fas fa-info-circle"></i></a>
+                <a href="ContactUs.html" class="icon-item" data-label="ارتباط با ما"><i class="fas fa-envelope"></i></a>
             </div>
 
             <a href="javascript:void(0)" class="btn-aura" id="magicBtn">
@@ -359,11 +549,15 @@
             </a>
         </div>
     </div>
+
     <div class="sig">
-        ✦ Created by Tara &amp; Mohammad ✦
+        ✦ Created by Tara & Mohammad ✦
     </div>
 
     <script>
+        // ============================================================
+        //  حباب‌های پویا
+        // ============================================================
         const bubbleContainer = document.getElementById('bubbleContainer');
 
         function createBubble() {
@@ -380,6 +574,9 @@
         }
         setInterval(createBubble, 700);
 
+        // ============================================================
+        //  تایپ‌رایتر
+        // ============================================================
         const messages = [
             "لازم نیست همه چیز رو امروز حل کنی",
             "کافیه فقط یه قدم کوچیک برداری",
@@ -419,6 +616,9 @@
         }
         typeEffect();
 
+        // ============================================================
+        //  جلوه سه‌بعدی کارت
+        // ============================================================
         const card = document.getElementById('neumorphCard');
         let ticking = false;
 
@@ -438,17 +638,9 @@
             card.style.transform = 'rotateY(0deg) rotateX(0deg)';
         });
 
-        const sampleLinks = ['btnContact', 'btnDashboard'];
-        sampleLinks.forEach(linkId => {
-            const link = document.getElementById(linkId);
-            if (link && link.href.includes('example.com')) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showToast('🔗 این لینک نمایشی است. در نسخه نهایی مسیر واقعی قرار خواهد گرفت.');
-                });
-            }
-        });
-
+        // ============================================================
+        //  دکمه جادویی
+        // ============================================================
         function showToast(message) {
             const existingToast = document.querySelector('.toast-message');
             if (existingToast) existingToast.remove();
@@ -461,7 +653,7 @@
             setTimeout(() => {
                 toast.style.animation = 'fadeInUp 0.3s ease-out reverse';
                 setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            }, 3500);
         }
 
         const magicBtn = document.getElementById('magicBtn');
@@ -487,59 +679,72 @@
             });
         }
 
-        const realLinks = ['btnRegister', 'btnAbout'];
-        realLinks.forEach(linkId => {
-            const link = document.getElementById(linkId);
-            if (link && !link.href.includes('example.com')) {
-                link.addEventListener('click', (e) => {
-                    console.log(`Navigating to: ${link.href}`);
-                });
+        // ============================================================
+        //  تغییر تم (روشن/تاریک)
+        // ============================================================
+        const themeToggle = document.getElementById('themeToggle');
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ?
+                '<i class="fas fa-sun"></i>' :
+                '<i class="fas fa-moon"></i>';
+            localStorage.setItem('smile-theme', isDark ? 'dark' : 'light');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('smile-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
-        });
-        document.addEventListener("DOMContentLoaded", async () => {
+        }
+
+        // ============================================================
+        //  API Board (اختیاری)
+        // ============================================================
+        async function loadBoard() {
             try {
                 const res = await fetch("/api/Board");
                 if (!res.ok) return;
-
                 const data = await res.text();
-
                 if (!data || data.trim() === "") return;
 
-                showBanner(data);
+                const old = document.getElementById("boardBanner");
+                if (old) old.remove();
 
+                const banner = document.createElement("div");
+                banner.id = "boardBanner";
+                banner.textContent = data;
+                banner.style.position = "fixed";
+                banner.style.top = "90px";
+                banner.style.left = "50%";
+                banner.style.transform = "translateX(-50%)";
+                banner.style.background = "#2c5a44";
+                banner.style.color = "#fff";
+                banner.style.padding = "10px 24px";
+                banner.style.borderRadius = "40px";
+                banner.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+                banner.style.zIndex = "9999";
+                banner.style.fontWeight = "600";
+                banner.style.fontFamily = "'Inter', sans-serif";
+                document.body.appendChild(banner);
+
+                setTimeout(() => banner.remove(), 5000);
             } catch (err) {
                 console.log("Board API error:", err);
             }
-        });
-        function showBanner(message) {
-            // اگر قبلاً بنر وجود داشت حذفش کن
-            const old = document.getElementById("boardBanner");
-            if (old) old.remove();
-
-            const banner = document.createElement("div");
-            banner.id = "boardBanner";
-            banner.textContent = message;
-
-            banner.style.position = "fixed";
-            banner.style.top = "20px";
-            banner.style.left = "50%";
-            banner.style.transform = "translateX(-50%)";
-            banner.style.background = "#2c5a44";
-            banner.style.color = "#fff";
-            banner.style.padding = "12px 24px";
-            banner.style.borderRadius = "40px";
-            banner.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
-            banner.style.zIndex = "9999";
-            banner.style.fontWeight = "600";
-
-            document.body.appendChild(banner);
-
-            // اتومات حذف بعد چند ثانیه
-            setTimeout(() => {
-                banner.remove();
-            }, 5000);
         }
 
+        // ============================================================
+        //  راه‌اندازی
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            themeToggle.addEventListener('click', toggleTheme);
+            loadBoard();
+        });
     </script>
 </body>
 </html>

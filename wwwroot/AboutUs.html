@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>درباره ما</title>
+    <title>درباره ما | Smile</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-       
         * {
             margin: 0;
             padding: 0;
@@ -20,34 +19,98 @@
             min-height: 100vh;
             position: relative;
             padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
-            background: rgba(70, 130, 100, 0.1);
-            bottom: 20px;
-            left: 20px;
-            filter: blur(60px);
-            z-index: 0;
-        }
+            body::before {
+                content: '';
+                position: absolute;
+                width: 320px;
+                height: 320px;
+                border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+                background: rgba(70, 130, 100, 0.10);
+                bottom: 20px;
+                left: 20px;
+                filter: blur(60px);
+                z-index: 0;
+                transition: background 0.3s ease;
+            }
 
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
-            background: rgba(40, 100, 70, 0.08);
-            top: -80px;
-            right: -80px;
-            filter: blur(70px);
-            z-index: 0;
-        }
+            body::after {
+                content: '';
+                position: absolute;
+                width: 400px;
+                height: 400px;
+                border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
+                background: rgba(40, 100, 70, 0.06);
+                top: -80px;
+                right: -80px;
+                filter: blur(70px);
+                z-index: 0;
+                transition: background 0.3s ease;
+            }
 
+            /* حالت تاریک */
+            body.dark-mode {
+                background: #1a2a22;
+                color: #e0f0e8;
+            }
+
+                body.dark-mode::before,
+                body.dark-mode::after {
+                    background: rgba(200, 230, 210, 0.05);
+                }
+
+                body.dark-mode .smile-header,
+                body.dark-mode .about-card,
+                body.dark-mode .team-member,
+                body.dark-mode .value-item,
+                body.dark-mode .back-btn {
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .smile-header {
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .logo-smile,
+                body.dark-mode .title,
+                body.dark-mode .member-name,
+                body.dark-mode .team-title,
+                body.dark-mode .value-item h4,
+                body.dark-mode .about-text,
+                body.dark-mode .member-bio,
+                body.dark-mode .back-btn {
+                    color: #e0f0e8;
+                }
+
+                body.dark-mode .nav-links a {
+                    color: #b0d0c0;
+                }
+
+                    body.dark-mode .nav-links a.active {
+                        color: #e8a87c;
+                        background: rgba(232, 168, 124, 0.08);
+                    }
+
+                body.dark-mode .subtitle,
+                body.dark-mode .value-item p,
+                body.dark-mode .footer-note {
+                    color: #9abbab;
+                }
+
+                body.dark-mode .wave-line {
+                    background: linear-gradient(90deg, #5fbb9b, #e8a87c, #5fbb9b);
+                }
+
+                body.dark-mode .theme-toggle {
+                    color: #e8a87c;
+                    background: rgba(232, 168, 124, 0.15);
+                    box-shadow: inset 2px 2px 6px #0f1f18, inset -2px -2px 6px #395748;
+                }
+
+        /* هدر */
         .smile-header {
             position: fixed;
             top: 25px;
@@ -61,7 +124,7 @@
             align-items: center;
             box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
             z-index: 100;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .logo-smile {
@@ -72,43 +135,70 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: color 0.3s ease;
         }
 
-        .logo-smile i {
-            color: #e8a87c;
-            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
-        }
+            .logo-smile i {
+                color: #e8a87c;
+                text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
+            }
 
         .nav-links {
             display: flex;
-            gap: 36px;
+            align-items: center;
+            gap: 20px;
         }
 
-        .nav-links a {
-            text-decoration: none;
+            .nav-links a {
+                text-decoration: none;
+                color: #2c5a44;
+                font-weight: 600;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 14px;
+                border-radius: 50px;
+                transition: all 0.25s;
+                background: transparent;
+            }
+
+                .nav-links a:hover {
+                    box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+                    color: #1d3e2f;
+                }
+
+                .nav-links a.active {
+                    box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+                    color: #1d3e2f;
+                    background: rgba(232, 168, 124, 0.08);
+                }
+
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 40px;
+            transition: all 0.25s;
             color: #2c5a44;
-            font-weight: 600;
-            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: transparent;
+            justify-content: center;
+            background: rgba(232, 168, 124, 0.1);
+            box-shadow: inset 2px 2px 6px #b8cfc3, inset -2px -2px 6px #e6fff0;
         }
 
-        .nav-links a:hover {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-        }
+            .theme-toggle:hover {
+                transform: scale(1.05);
+            }
 
-        .nav-links a.active {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-            background: rgba(232, 168, 124, 0.08);
-        }
+            .theme-toggle:active {
+                transform: scale(0.95);
+            }
 
+        /* محتوای اصلی */
         .container {
             max-width: 1200px;
             margin: 120px auto 60px;
@@ -124,6 +214,19 @@
             box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
             margin-bottom: 40px;
             animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @keyframes softRise {
+            0% {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .title-icon {
@@ -131,18 +234,18 @@
             margin-bottom: 20px;
         }
 
-        .title-icon i {
-            font-size: 3rem;
-            color: #e8a87c;
-            filter: drop-shadow(2px 2px 4px #b8cfc3);
-            animation: bounce 2s ease-in-out infinite;
-        }
+            .title-icon i {
+                font-size: 3rem;
+                color: #e8a87c;
+                filter: drop-shadow(2px 2px 4px #b8cfc3);
+                animation: bounce 2s ease-in-out infinite;
+            }
 
         @keyframes bounce {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -155,6 +258,7 @@
             color: #1f4d38;
             margin-bottom: 16px;
             letter-spacing: -0.5px;
+            transition: color 0.3s ease;
         }
 
         .subtitle {
@@ -163,6 +267,7 @@
             font-size: 1rem;
             margin-bottom: 40px;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .wave-line {
@@ -172,6 +277,7 @@
             margin: 0 auto 40px;
             border-radius: 4px;
             animation: waveWidth 3s ease-in-out infinite alternate;
+            transition: background 0.3s ease;
         }
 
         @keyframes waveWidth {
@@ -179,6 +285,7 @@
                 width: 100px;
                 opacity: 0.6;
             }
+
             100% {
                 width: 160px;
                 opacity: 1;
@@ -193,6 +300,7 @@
             line-height: 2;
             font-size: 1.05rem;
             font-weight: 400;
+            transition: color 0.3s ease;
         }
 
         .team-title {
@@ -201,6 +309,7 @@
             font-weight: 700;
             color: #1f4d38;
             margin-bottom: 40px;
+            transition: color 0.3s ease;
         }
 
         .team-grid {
@@ -220,10 +329,10 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-        }
+            .team-member:hover {
+                transform: translateY(-10px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+            }
 
         .avatar {
             width: 150px;
@@ -237,11 +346,11 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .avatar i {
-            font-size: 5rem;
-            color: #cfebdd;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-        }
+            .avatar i {
+                font-size: 5rem;
+                color: #cfebdd;
+                filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+            }
 
         .avatar-img {
             width: 150px;
@@ -256,6 +365,7 @@
             font-weight: 700;
             color: #1f4d38;
             margin-bottom: 8px;
+            transition: color 0.3s ease;
         }
 
         .member-role {
@@ -270,6 +380,7 @@
             font-size: 0.9rem;
             line-height: 1.7;
             margin-top: 16px;
+            transition: color 0.3s ease;
         }
 
         .social-links {
@@ -279,16 +390,16 @@
             margin-top: 20px;
         }
 
-        .social-links a {
-            color: #2c5a44;
-            font-size: 1.2rem;
-            transition: all 0.2s;
-        }
+            .social-links a {
+                color: #2c5a44;
+                font-size: 1.2rem;
+                transition: all 0.2s;
+            }
 
-        .social-links a:hover {
-            color: #e8a87c;
-            transform: translateY(-3px);
-        }
+                .social-links a:hover {
+                    color: #e8a87c;
+                    transform: translateY(-3px);
+                }
 
         .values-section {
             margin-top: 50px;
@@ -310,26 +421,29 @@
             background: #cfebdd;
             border-radius: 40px;
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .value-item i {
-            font-size: 2.5rem;
-            color: #e8a87c;
-            margin-bottom: 15px;
-        }
+            .value-item i {
+                font-size: 2.5rem;
+                color: #e8a87c;
+                margin-bottom: 15px;
+            }
 
-        .value-item h4 {
-            color: #1f4d38;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
+            .value-item h4 {
+                color: #1f4d38;
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                font-weight: 700;
+                transition: color 0.3s ease;
+            }
 
-        .value-item p {
-            color: #4b6e5b;
-            font-size: 0.85rem;
-            font-weight: 400;
-        }
+            .value-item p {
+                color: #4b6e5b;
+                font-size: 0.85rem;
+                font-weight: 400;
+                transition: color 0.3s ease;
+            }
 
         .back-home {
             text-align: center;
@@ -354,16 +468,16 @@
             font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-        }
+            .back-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+            }
 
-        .back-btn:active {
-            transform: scale(0.97);
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-        }
+            .back-btn:active {
+                transform: scale(0.97);
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+            }
 
         .footer-note {
             text-align: center;
@@ -371,43 +485,156 @@
             font-size: 0.75rem;
             color: #799b89;
             font-weight: 400;
+            transition: color 0.3s ease;
         }
 
-        @keyframes softRise {
-            0% {
-                opacity: 0;
-                transform: translateY(35px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
+        /* ریسپانسیو */
+        @media (max-width: 820px) {
             .smile-header {
                 top: 15px;
                 right: 15px;
                 left: 15px;
-                padding: 10px 20px;
+                padding: 8px 16px;
+                border-radius: 60px;
             }
-            .nav-links {
-                gap: 15px;
-            }
-            .nav-links a span {
-                display: none;
-            }
-            .nav-links a i {
+
+            .logo-smile {
                 font-size: 1.3rem;
+                gap: 4px;
             }
+
+                .logo-smile i {
+                    font-size: 1.2rem;
+                }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+                .nav-links a {
+                    font-size: 0.8rem;
+                    padding: 6px 10px;
+                    gap: 4px;
+                }
+
+                    .nav-links a span {
+                        display: none;
+                    }
+
+                    .nav-links a i {
+                        font-size: 1.2rem;
+                    }
+
+            .theme-toggle {
+                font-size: 1.1rem;
+                padding: 4px 8px;
+                margin-right: 4px;
+            }
+
             .about-card {
-                padding: 32px 24px;
+                padding: 32px 20px;
             }
+
             .title {
                 font-size: 1.8rem;
             }
+
             .team-member {
                 width: 260px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .smile-header {
+                padding: 6px 12px;
+                border-radius: 40px;
+                top: 10px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .logo-smile {
+                font-size: 1rem;
+            }
+
+                .logo-smile i {
+                    font-size: 1rem;
+                }
+
+            .nav-links a {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+                .nav-links a i {
+                    font-size: 1rem;
+                }
+
+            .theme-toggle {
+                font-size: 0.9rem;
+                padding: 3px 6px;
+            }
+
+            .about-card {
+                padding: 24px 16px;
+                border-radius: 40px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .title-icon i {
+                font-size: 2.2rem;
+            }
+
+            .team-member {
+                width: 100%;
+                max-width: 300px;
+                padding: 20px 16px;
+            }
+
+            .avatar {
+                width: 110px;
+                height: 110px;
+            }
+
+            .avatar-img {
+                width: 110px;
+                height: 110px;
+            }
+
+            .avatar i {
+                font-size: 3.5rem;
+            }
+
+            .values-grid {
+                gap: 20px;
+            }
+
+            .value-item {
+                width: 160px;
+                padding: 20px;
+            }
+
+            .back-btn {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .nav-links {
+                gap: 4px;
+            }
+
+                .nav-links a {
+                    padding: 4px 6px;
+                }
+
+            .value-item {
+                width: 140px;
+                padding: 16px;
             }
         }
     </style>
@@ -423,16 +650,20 @@
             <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
-            <a href="Mood.html" id="navMood" class="active"><i class="fas fa-heart"></i> <span>حال تو</span></a>
+            <a href="Mood.html" id="navMood"><i class="fas fa-heart"></i> <span>حال تو</span></a>
             <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
             <a href="ContactUs.html" id="navContact"><i class="fas fa-inbox"></i> <span>ارتباط با ما</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </div>
 
     <div class="container">
         <div class="about-card">
             <div class="title-icon">
-                <i class="fas fa-address-card"></i>            </div>
+                <i class="fas fa-address-card"></i>
+            </div>
             <div class="title">
                 داستان لبخند
             </div>
@@ -455,11 +686,11 @@
                     </div>
                     <div class="member-name">تارا شفیعیان</div>
                     <div class="member-bio">
-                        بیشتر تو کارای فرانت و ایده دادن و کارای مختلفم امیدوارم که همه چی بهتر بشه :)
+                        بیشتر تو کارای فرانت و ایده دادن و کارهای مختلفم امیدوارم که همه چی بهتر بشه :)
                     </div>
                     <div class="social-links">
                         <a href="https://github.com/tarashafieyan"><i class="fab fa-github"></i></a>
-                        <a href="mailto:tarashafieyan33@gmail.com">    <i class="fas fa-envelope"></i></a>
+                        <a href="mailto:tarashafieyan33@gmail.com"><i class="fas fa-envelope"></i></a>
                         <a href="https://t.me/taaraa_sh"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
@@ -469,13 +700,13 @@
                         <img src="images/mohammad.jpg" alt="محمد امین ابراهیمی" class="avatar-img">
                     </div>
                     <div class="member-name">محمد امین ابراهیمی</div>
-                    <div class="member-role"> برنامه نویس</div>
+                    <div class="member-role">برنامه نویس</div>
                     <div class="member-bio">
                         بیشتر روی بخش‌های فنی و زیرساخت لبخند کار می‌کنم. امیدوارم این پروژه بتواند هر روز حال چند نفر را بهتر کند.
                     </div>
                     <div class="social-links">
                         <a href="https://github.com/mohammad-ebrahimi-dev"><i class="fab fa-github"></i></a>
-                        <a href="mailto:me7445950@gmail.com">    <i class="fas fa-envelope"></i></a>
+                        <a href="mailto:me7445950@gmail.com"><i class="fas fa-envelope"></i></a>
                         <a href="https://t.me/me7445950"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
@@ -522,36 +753,45 @@
     </div>
 
     <script>
-        const cards = document.querySelectorAll('.team-member');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transition = 'all 0.3s ease';
-            });
-        });
-
+        // ===== فعال‌سازی آیتم منو =====
         function setActiveNavItem() {
-            const currentPath = window.location.pathname;
-            const navHome = document.getElementById('navHome');
+            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
             const navAbout = document.getElementById('navAbout');
-            const navLogin = document.getElementById('navLogin');
-            const navDashboard = document.getElementById('navDashboard');
+            if (navAbout) navAbout.classList.add('active');
+        }
 
-            [navHome, navAbout, navLogin, navDashboard].forEach(item => {
-                if (item) item.classList.remove('active');
-            });
+        // ===== تغییر تم =====
+        const themeToggle = document.getElementById('themeToggle');
 
-            if (currentPath.includes('AboutUs')) {
-                if (navAbout) navAbout.classList.add('active');
-            } else if (currentPath.includes('Login')) {
-                if (navLogin) navLogin.classList.add('active');
-            } else if (currentPath.includes('Dashboard')) {
-                if (navDashboard) navDashboard.classList.add('active');
-            } else {
-                if (navHome) navHome.classList.add('active');
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ?
+                '<i class="fas fa-sun"></i>' :
+                '<i class="fas fa-moon"></i>';
+            localStorage.setItem('smile-theme', isDark ? 'dark' : 'light');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('smile-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
         }
 
-        setActiveNavItem();
+        // ===== اجرا در بارگذاری =====
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            setActiveNavItem();
+            themeToggle.addEventListener('click', toggleTheme);
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+                setActiveNavItem();
+            }
+        });
     </script>
 </body>
 </html>

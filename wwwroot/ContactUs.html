@@ -19,34 +19,122 @@
             min-height: 100vh;
             position: relative;
             padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        body::before {
-            content: '';
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
-            background: rgba(70, 130, 100, 0.1);
-            bottom: 20px;
-            left: 20px;
-            filter: blur(60px);
-            z-index: 0;
-        }
+            body::before {
+                content: '';
+                position: absolute;
+                width: 320px;
+                height: 320px;
+                border-radius: 62% 38% 70% 30% / 42% 45% 55% 58%;
+                background: rgba(70, 130, 100, 0.10);
+                bottom: 20px;
+                left: 20px;
+                filter: blur(60px);
+                z-index: 0;
+                transition: background 0.3s ease;
+            }
 
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
-            background: rgba(40, 100, 70, 0.08);
-            top: -80px;
-            right: -80px;
-            filter: blur(70px);
-            z-index: 0;
-        }
+            body::after {
+                content: '';
+                position: absolute;
+                width: 400px;
+                height: 400px;
+                border-radius: 53% 47% 63% 37% / 48% 55% 45% 52%;
+                background: rgba(40, 100, 70, 0.06);
+                top: -80px;
+                right: -80px;
+                filter: blur(70px);
+                z-index: 0;
+                transition: background 0.3s ease;
+            }
 
+            /* حالت تاریک */
+            body.dark-mode {
+                background: #1a2a22;
+                color: #e0f0e8;
+            }
+
+                body.dark-mode::before,
+                body.dark-mode::after {
+                    background: rgba(200, 230, 210, 0.05);
+                }
+
+                body.dark-mode .smile-header,
+                body.dark-mode .contact-card,
+                body.dark-mode .info-item,
+                body.dark-mode .social-section,
+                body.dark-mode .submit-btn,
+                body.dark-mode .smile-input,
+                body.dark-mode .smile-textarea {
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .smile-header {
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                }
+
+                body.dark-mode .logo-smile,
+                body.dark-mode .title,
+                body.dark-mode .info-text h4,
+                body.dark-mode .social-section h4,
+                body.dark-mode .submit-btn {
+                    color: #e0f0e8;
+                }
+
+                body.dark-mode .nav-links a {
+                    color: #b0d0c0;
+                }
+
+                    body.dark-mode .nav-links a.active {
+                        color: #e8a87c;
+                        background: rgba(232, 168, 124, 0.08);
+                    }
+
+                body.dark-mode .subtitle,
+                body.dark-mode .info-text .email-link,
+                body.dark-mode .footer-note {
+                    color: #9abbab;
+                }
+
+                    body.dark-mode .info-text .email-link:hover {
+                        color: #e8a87c;
+                    }
+
+                body.dark-mode .wave-line {
+                    background: linear-gradient(90deg, #5fbb9b, #e8a87c, #5fbb9b);
+                }
+
+                body.dark-mode .smile-input,
+                body.dark-mode .smile-textarea {
+                    color: #e0f0e8;
+                    box-shadow: inset 5px 5px 12px #0f1f18, inset -5px -5px 12px #395748;
+                }
+
+                    body.dark-mode .smile-input::placeholder,
+                    body.dark-mode .smile-textarea::placeholder {
+                        color: #6a8f7e;
+                    }
+
+                body.dark-mode .social-item a {
+                    background: #243b30;
+                    box-shadow: 9px 9px 16px #0f1f18, -9px -9px 16px #395748;
+                    color: #b0d0c0;
+                }
+
+                    body.dark-mode .social-item a:hover {
+                        color: #e8a87c;
+                    }
+
+                body.dark-mode .theme-toggle {
+                    color: #e8a87c;
+                    background: rgba(232, 168, 124, 0.15);
+                    box-shadow: inset 2px 2px 6px #0f1f18, inset -2px -2px 6px #395748;
+                }
+
+        /* هدر */
         .smile-header {
             position: fixed;
             top: 25px;
@@ -60,7 +148,7 @@
             align-items: center;
             box-shadow: 9px 9px 16px #b8cfc3, -9px -9px 16px #e6fff0;
             z-index: 100;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         .logo-smile {
@@ -71,43 +159,70 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: color 0.3s ease;
         }
 
-        .logo-smile i {
-            color: #e8a87c;
-            text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
-        }
+            .logo-smile i {
+                color: #e8a87c;
+                text-shadow: 2px 2px 4px #b8cfc3, -1px -1px 2px white;
+            }
 
         .nav-links {
             display: flex;
-            gap: 36px;
+            align-items: center;
+            gap: 20px;
         }
 
-        .nav-links a {
-            text-decoration: none;
+            .nav-links a {
+                text-decoration: none;
+                color: #2c5a44;
+                font-weight: 600;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 14px;
+                border-radius: 50px;
+                transition: all 0.25s;
+                background: transparent;
+            }
+
+                .nav-links a:hover {
+                    box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+                    color: #1d3e2f;
+                }
+
+                .nav-links a.active {
+                    box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
+                    color: #1d3e2f;
+                    background: rgba(232, 168, 124, 0.08);
+                }
+
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 40px;
+            transition: all 0.25s;
             color: #2c5a44;
-            font-weight: 600;
-            font-size: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 50px;
-            transition: all 0.25s;
-            background: transparent;
+            justify-content: center;
+            background: rgba(232, 168, 124, 0.1);
+            box-shadow: inset 2px 2px 6px #b8cfc3, inset -2px -2px 6px #e6fff0;
         }
 
-        .nav-links a:hover {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-        }
+            .theme-toggle:hover {
+                transform: scale(1.05);
+            }
 
-        .nav-links a.active {
-            box-shadow: inset 4px 4px 8px #b8cfc3, inset -4px -4px 8px #e6fff0;
-            color: #1d3e2f;
-            background: rgba(232, 168, 124, 0.08);
-        }
+            .theme-toggle:active {
+                transform: scale(0.95);
+            }
 
+        /* محتوای اصلی */
         .container {
             max-width: 900px;
             margin: 130px auto 60px;
@@ -122,6 +237,7 @@
             padding: 48px 38px;
             box-shadow: 20px 20px 35px #b0c7b9, -20px -20px 35px #eefff1;
             animation: softRise 0.55s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         @keyframes softRise {
@@ -129,6 +245,7 @@
                 opacity: 0;
                 transform: translateY(35px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -140,18 +257,18 @@
             margin-bottom: 10px;
         }
 
-        .title-icon i {
-            font-size: 3rem;
-            color: #e8a87c;
-            filter: drop-shadow(2px 2px 4px #b8cfc3);
-            animation: bounce 2s ease-in-out infinite;
-        }
+            .title-icon i {
+                font-size: 3rem;
+                color: #e8a87c;
+                filter: drop-shadow(2px 2px 4px #b8cfc3);
+                animation: bounce 2s ease-in-out infinite;
+            }
 
         @keyframes bounce {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-8px);
             }
@@ -164,6 +281,7 @@
             color: #1f4d38;
             margin-bottom: 8px;
             letter-spacing: -0.3px;
+            transition: color 0.3s ease;
         }
 
         .subtitle {
@@ -172,6 +290,7 @@
             font-size: 0.95rem;
             margin-bottom: 30px;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .wave-line {
@@ -181,6 +300,7 @@
             margin: 0 auto 35px;
             border-radius: 4px;
             animation: waveWidth 3s ease-in-out infinite alternate;
+            transition: background 0.3s ease;
         }
 
         @keyframes waveWidth {
@@ -188,6 +308,7 @@
                 width: 100px;
                 opacity: 0.6;
             }
+
             100% {
                 width: 160px;
                 opacity: 1;
@@ -205,13 +326,18 @@
             margin-bottom: 22px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c5a44;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding-right: 10px;
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                color: #2c5a44;
+                font-weight: 600;
+                font-size: 0.9rem;
+                padding-right: 10px;
+                transition: color 0.3s ease;
+            }
+
+        body.dark-mode .form-group label {
+            color: #b0d0c0;
         }
 
         .input-icon-wrapper {
@@ -220,14 +346,14 @@
             align-items: center;
         }
 
-        .input-icon-wrapper i {
-            position: absolute;
-            right: 20px;
-            color: #e8a87c;
-            font-size: 1.1rem;
-            pointer-events: none;
-            z-index: 2;
-        }
+            .input-icon-wrapper i {
+                position: absolute;
+                right: 20px;
+                color: #e8a87c;
+                font-size: 1.1rem;
+                pointer-events: none;
+                z-index: 2;
+            }
 
         .smile-input,
         .smile-textarea {
@@ -244,18 +370,18 @@
             font-family: 'Vazirmatn', 'Inter', sans-serif;
         }
 
-        .smile-input:focus,
-        .smile-textarea:focus {
-            outline: none;
-            box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
-            color: #0e2c1f;
-        }
+            .smile-input:focus,
+            .smile-textarea:focus {
+                outline: none;
+                box-shadow: inset 3px 3px 8px #b0c7b9, inset -3px -3px 8px #eefff1;
+                color: #0e2c1f;
+            }
 
-        .smile-input::placeholder,
-        .smile-textarea::placeholder {
-            color: #799b89;
-            font-weight: 400;
-        }
+            .smile-input::placeholder,
+            .smile-textarea::placeholder {
+                color: #799b89;
+                font-weight: 400;
+            }
 
         .smile-textarea {
             border-radius: 32px;
@@ -283,24 +409,24 @@
             box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-        }
+            .submit-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                color: #e8a87c;
+            }
 
-        .submit-btn:active {
-            box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
-            transform: scale(0.98);
-        }
+            .submit-btn:active {
+                box-shadow: inset 6px 6px 12px #b0c7b9, inset -6px -6px 12px #eefff1;
+                transform: scale(0.98);
+            }
 
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
+            .submit-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none !important;
+            }
 
-        /* بخش اطلاعات تماس - فقط ایمیل و شبکه‌ها */
+        /* اطلاعات تماس */
         .contact-info {
             display: flex;
             flex-direction: column;
@@ -319,10 +445,10 @@
             transition: all 0.25s;
         }
 
-        .info-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-        }
+            .info-item:hover {
+                transform: translateY(-4px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+            }
 
         .info-icon {
             width: 52px;
@@ -343,6 +469,7 @@
             font-weight: 700;
             color: #1f4d38;
             margin-bottom: 4px;
+            transition: color 0.3s ease;
         }
 
         .info-text .email-link {
@@ -357,17 +484,16 @@
             direction: ltr;
         }
 
-        .info-text .email-link:hover {
-            color: #e8a87c;
-            text-decoration: underline;
-        }
+            .info-text .email-link:hover {
+                color: #e8a87c;
+                text-decoration: underline;
+            }
 
-        .info-text .email-link i {
-            font-size: 0.8rem;
-            color: #e8a87c;
-        }
+            .info-text .email-link i {
+                font-size: 0.8rem;
+                color: #e8a87c;
+            }
 
-        /* شبکه‌های اجتماعی */
         .social-section {
             background: #cfebdd;
             border-radius: 40px;
@@ -380,16 +506,17 @@
             transition: all 0.25s;
         }
 
-        .social-section:hover {
-            transform: translateY(-4px);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-        }
+            .social-section:hover {
+                transform: translateY(-4px);
+                box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+            }
 
-        .social-section h4 {
-            color: #1f4d38;
-            font-size: 1rem;
-            font-weight: 700;
-        }
+            .social-section h4 {
+                color: #1f4d38;
+                font-size: 1rem;
+                font-weight: 700;
+                transition: color 0.3s ease;
+            }
 
         .social-row {
             display: flex;
@@ -403,52 +530,51 @@
             display: inline-block;
         }
 
-        .social-item a {
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: #cfebdd;
-            box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #2c5a44;
-            transition: all 0.25s;
-            text-decoration: none;
-        }
+            .social-item a {
+                width: 54px;
+                height: 54px;
+                border-radius: 50%;
+                background: #cfebdd;
+                box-shadow: 9px 9px 16px #b0c7b9, -9px -9px 16px #eefff1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                color: #2c5a44;
+                transition: all 0.25s;
+                text-decoration: none;
+            }
 
-        .social-item a:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
-            color: #e8a87c;
-        }
+                .social-item a:hover {
+                    transform: translateY(-5px) scale(1.05);
+                    box-shadow: 14px 14px 22px #b0c7b9, -14px -14px 22px #eefff1;
+                    color: #e8a87c;
+                }
 
-        /* Tooltip برای همه آیتم‌ها */
-        .social-item .tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: -38px;
-            left: 50%;
-            transform: translateX(-50%) scale(0.8);
-            background: #1f4d38;
-            color: #cfebdd;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-            pointer-events: none;
-            font-family: 'Vazirmatn', 'Inter', sans-serif;
-        }
+            .social-item .tooltip {
+                visibility: hidden;
+                opacity: 0;
+                position: absolute;
+                bottom: -38px;
+                left: 50%;
+                transform: translateX(-50%) scale(0.8);
+                background: #1f4d38;
+                color: #cfebdd;
+                padding: 4px 14px;
+                border-radius: 30px;
+                font-size: 0.7rem;
+                font-weight: 600;
+                white-space: nowrap;
+                transition: all 0.2s ease;
+                pointer-events: none;
+                font-family: 'Vazirmatn', 'Inter', sans-serif;
+            }
 
-        .social-item:hover .tooltip {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-        }
+            .social-item:hover .tooltip {
+                visibility: visible;
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
 
         .footer-note {
             text-align: center;
@@ -456,6 +582,7 @@
             font-size: 0.75rem;
             color: #799b89;
             font-weight: 400;
+            transition: color 0.3s ease;
         }
 
         .toast-message {
@@ -481,13 +608,14 @@
                 opacity: 0;
                 transform: translateX(-50%) translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
         }
 
-        /* ===== ریسپانسیو ===== */
+        /* ریسپانسیو */
         @media (max-width: 900px) {
             .contact-grid {
                 grid-template-columns: 1fr;
@@ -495,131 +623,159 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
             .smile-header {
                 top: 15px;
                 right: 15px;
                 left: 15px;
-                padding: 10px 20px;
+                padding: 8px 16px;
                 border-radius: 60px;
             }
+
+            .logo-smile {
+                font-size: 1.3rem;
+                gap: 4px;
+            }
+
+                .logo-smile i {
+                    font-size: 1.2rem;
+                }
+
             .nav-links {
-                gap: 12px;
+                gap: 8px;
             }
-            .nav-links a span {
-                display: none;
+
+                .nav-links a {
+                    font-size: 0.8rem;
+                    padding: 6px 10px;
+                    gap: 4px;
+                }
+
+                    .nav-links a span {
+                        display: none;
+                    }
+
+                    .nav-links a i {
+                        font-size: 1.2rem;
+                    }
+
+            .theme-toggle {
+                font-size: 1.1rem;
+                padding: 4px 8px;
+                margin-right: 4px;
             }
-            .nav-links a i {
-                font-size: 1.4rem;
-            }
-            .nav-links a {
-                padding: 6px 12px;
-            }
+
             .contact-card {
-                padding: 28px 18px;
+                padding: 32px 20px;
                 border-radius: 48px;
             }
+
             .title {
                 font-size: 1.8rem;
             }
+
             .title-icon i {
                 font-size: 2.5rem;
             }
+
             .subtitle {
                 font-size: 0.85rem;
             }
-            .smile-input,
-            .smile-textarea {
-                font-size: 1rem;
-                padding: 16px 48px 16px 18px;
-                border-radius: 50px;
-            }
-            .submit-btn {
-                padding: 18px;
-                font-size: 1.05rem;
-                border-radius: 50px;
-            }
-            .info-item {
-                padding: 18px 18px;
-                border-radius: 32px;
-            }
-            .social-section {
-                padding: 18px 18px;
-                border-radius: 32px;
-            }
-            .social-item a {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-            .social-row {
-                gap: 18px;
-            }
-            .social-item .tooltip {
-                font-size: 0.65rem;
-                bottom: -34px;
-                padding: 3px 12px;
-            }
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 12px;
+        @media (max-width: 500px) {
+            .smile-header {
+                padding: 6px 12px;
+                border-radius: 40px;
+                top: 10px;
+                right: 10px;
+                left: 10px;
             }
-            .container {
-                margin: 120px auto 40px;
-                padding: 0 8px;
+
+            .logo-smile {
+                font-size: 1rem;
             }
+
+                .logo-smile i {
+                    font-size: 1rem;
+                }
+
+            .nav-links a {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+
+                .nav-links a i {
+                    font-size: 1rem;
+                }
+
+            .theme-toggle {
+                font-size: 0.9rem;
+                padding: 3px 6px;
+            }
+
             .contact-card {
                 padding: 22px 14px;
                 border-radius: 40px;
             }
+
             .title {
                 font-size: 1.5rem;
             }
+
             .form-group {
                 margin-bottom: 18px;
             }
+
             .smile-input,
             .smile-textarea {
                 font-size: 0.95rem;
                 padding: 14px 42px 14px 14px;
             }
+
             .input-icon-wrapper i {
                 right: 16px;
                 font-size: 1rem;
             }
+
             .submit-btn {
                 padding: 16px;
                 font-size: 1rem;
             }
+
             .info-item {
                 padding: 14px 16px;
                 flex-direction: row;
                 gap: 14px;
             }
+
             .info-icon {
                 width: 44px;
                 height: 44px;
                 min-width: 44px;
                 font-size: 1.3rem;
             }
+
             .social-section {
                 padding: 16px 14px;
             }
+
             .social-item a {
                 width: 46px;
                 height: 46px;
                 font-size: 1.2rem;
             }
+
             .social-row {
                 gap: 14px;
             }
+
             .social-item .tooltip {
                 font-size: 0.6rem;
                 bottom: -30px;
                 padding: 2px 10px;
             }
+
             .footer-note {
                 font-size: 0.65rem;
                 margin-top: 30px;
@@ -627,17 +783,28 @@
         }
 
         @media (max-width: 380px) {
+            .nav-links {
+                gap: 4px;
+            }
+
+                .nav-links a {
+                    padding: 4px 6px;
+                }
+
             .social-item a {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
             }
+
             .social-row {
                 gap: 10px;
             }
+
             .info-text h4 {
                 font-size: 0.85rem;
             }
+
             .info-text .email-link {
                 font-size: 0.8rem;
             }
@@ -646,7 +813,6 @@
 </head>
 <body>
 
-    <!-- هدر -->
     <div class="smile-header">
         <div class="logo-smile">
             <i class="fas fa-smile-beam"></i>
@@ -656,20 +822,22 @@
             <a href="index.html" id="navHome"><i class="fas fa-house-chimney"></i> <span>خانه</span></a>
             <a href="Login.html" id="navLogin"><i class="fas fa-user-plus"></i> <span>ثبت نام</span></a>
             <a href="Dashboard.html" id="navDashboard"><i class="fas fa-square-poll-vertical"></i> <span>داشبورد</span></a>
-            <a href="Mood.html" id="navMood" class="active"><i class="fas fa-heart"></i> <span>حال تو</span></a>
+            <a href="Mood.html" id="navMood"><i class="fas fa-heart"></i> <span>حال تو</span></a>
             <a href="AboutUs.html" id="navAbout"><i class="fas fa-handshake"></i> <span>درباره ما</span></a>
             <a href="ContactUs.html" id="navContact"><i class="fas fa-inbox"></i> <span>ارتباط با ما</span></a>
+            <button class="theme-toggle" id="themeToggle" aria-label="تغییر تم">
+                <i class="fas fa-moon"></i>
+            </button>
         </div>
     </div>
 
-    <!-- محتوای اصلی -->
     <div class="container">
         <div class="contact-card">
             <div class="title-icon">
                 <i class="fas fa-paper-plane"></i>
             </div>
             <div class="title">
-                تماس با ما
+                ارتباط با ما
             </div>
             <div class="wave-line"></div>
             <div class="subtitle">
@@ -677,7 +845,6 @@
             </div>
 
             <div class="contact-grid">
-                <!-- فرم -->
                 <div>
                     <form id="contactForm">
                         <div class="form-group">
@@ -718,9 +885,7 @@
                     </form>
                 </div>
 
-                <!-- اطلاعات تماس (ایمیل + شبکه‌های اجتماعی) -->
                 <div class="contact-info">
-                    <!-- ایمیل (کلیک‌پذیر) -->
                     <div class="info-item">
                         <div class="info-icon"><i class="fas fa-envelope"></i></div>
                         <div class="info-text">
@@ -732,21 +897,17 @@
                         </div>
                     </div>
 
-                    <!-- شبکه‌های اجتماعی -->
                     <div class="social-section">
                         <h4>ما را در شبکه‌های اجتماعی دنبال کن</h4>
                         <div class="social-row">
-                            <!-- اینستاگرام -->
                             <div class="social-item">
                                 <a href="https://www.instagram.com/ju_smile_st?igsh=aXo4YnExcGYzcm44" aria-label="اینستاگرام"><i class="fab fa-instagram"></i></a>
                                 <span class="tooltip">اینستاگرام</span>
                             </div>
-                            <!-- بله -->
                             <div class="social-item">
                                 <a href="#" aria-label="بله"><i class="fas fa-comment-dots"></i></a>
                                 <span class="tooltip">پیام رسان بله</span>
                             </div>
-                            <!-- تلگرام -->
                             <div class="social-item">
                                 <a href="#" aria-label="تلگرام"><i class="fab fa-telegram"></i></a>
                                 <span class="tooltip">تلگرام</span>
@@ -765,30 +926,32 @@
     <script>
         // ===== فعال‌سازی آیتم منو =====
         function setActiveNavItem() {
-            const currentPath = window.location.pathname;
-            const navHome = document.getElementById('navHome');
-            const navAbout = document.getElementById('navAbout');
-            const navLogin = document.getElementById('navLogin');
-            const navDashboard = document.getElementById('navDashboard');
+            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
             const navContact = document.getElementById('navContact');
+            if (navContact) navContact.classList.add('active');
+        }
 
-            const allNav = [navHome, navAbout, navLogin, navDashboard, navContact];
-            allNav.forEach(item => item && item.classList.remove('active'));
+        // ===== تغییر تم =====
+        const themeToggle = document.getElementById('themeToggle');
 
-            if (currentPath.includes('ContactUs')) {
-                if (navContact) navContact.classList.add('active');
-            } else if (currentPath.includes('AboutUs')) {
-                if (navAbout) navAbout.classList.add('active');
-            } else if (currentPath.includes('Login')) {
-                if (navLogin) navLogin.classList.add('active');
-            } else if (currentPath.includes('Dashboard')) {
-                if (navDashboard) navDashboard.classList.add('active');
-            } else {
-                if (navHome) navHome.classList.add('active');
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ?
+                '<i class="fas fa-sun"></i>' :
+                '<i class="fas fa-moon"></i>';
+            localStorage.setItem('smile-theme', isDark ? 'dark' : 'light');
+        }
+
+        function loadTheme() {
+            const saved = localStorage.getItem('smile-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
         }
 
-        // ===== نمایش Toast =====
+        // ===== Toast =====
         function showToast(message, isError = false) {
             const existing = document.querySelector('.toast-message');
             if (existing) existing.remove();
@@ -805,8 +968,8 @@
             }, 3500);
         }
 
-        // ===== مدیریت ارسال فرم =====
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // ===== مدیریت فرم =====
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const fullname = document.getElementById('fullname').value.trim();
@@ -837,12 +1000,13 @@
             }, 1800);
         });
 
-        // ===== اجرا در بارگذاری صفحه =====
+        // ===== اجرا =====
         document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
             setActiveNavItem();
+            themeToggle.addEventListener('click', toggleTheme);
         });
 
-        // ===== در صورت بازگشت با Back/Forward =====
         window.addEventListener('pageshow', (event) => {
             if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
                 setActiveNavItem();
