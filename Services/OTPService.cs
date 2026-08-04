@@ -40,16 +40,15 @@ namespace SmileProject.Services
             SmsIr smsIr = new SmsIr("NXqgkyS7aW23D98kgjqukfbbGw9rSjGQVSK6mVOLXF8eP28d");
             try
             {
-                // بخش ارسال SMS (کامنت شده)
-                //var bulkSendResult = await smsIr.BulkSendAsync(
-                //    30008828888384,
-                //    $@"به لبخند خوش آمدید
-                //کد تأیید شما: {code}
-                //این کد را در اختیار دیگران قرار ندهید.",
-                //    new string[] { mobileNumber });
-                //if (bulkSendResult.Status == 1)
-                //{
-                var newOtp = new Otp
+                var bulkSendResult = await smsIr.BulkSendAsync(
+                    30008828888384,
+                    $@"به لبخند خوش آمدید
+                کد تأیید شما: {code}
+                این کد را در اختیار دیگران قرار ندهید.",
+                    new string[] { mobileNumber });
+                if (bulkSendResult.Status == 1)
+                {
+                    var newOtp = new Otp
                 {
                     Code = code.ToString(),
                     CreateDate = DateTime.Now,
@@ -60,11 +59,11 @@ namespace SmileProject.Services
                 await _dbContext.Otps.AddAsync(newOtp);
                 await _dbContext.SaveChangesAsync();
                 return _resultService.Success("SMS sent successfully");
-                //}
-                //else
-                //{
-                //    return _resultService.Failed("SMS has an error");
-                //}
+                }
+                else
+                {
+                    return _resultService.Failed("SMS has an error");
+                }
             }
             catch (Exception ex)
             {
